@@ -9,16 +9,17 @@
 body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f9f9f7; color: #1a1a18; padding: 16px; }
 .hub { max-width: 600px; margin: 0 auto; padding: 1rem 0 2rem; }
 .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 10px; }
-.card { background: #fff; border: 0.5px solid #e0e0d8; border-radius: 12px; padding: 16px 18px; margin-bottom: 12px; }
-.snap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 22px; }
+.snap { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 22px; }
 .snap-card { background: #f1efe8; border-radius: 8px; padding: 12px 14px; }
 .snap-label { font-size: 11px; color: #888; margin-bottom: 3px; }
-.snap-value { font-size: 18px; font-weight: 600; }
+.snap-value { font-size: 18px; font-weight: 700; }
 .snap-sub { font-size: 10px; margin-top: 2px; color: #888; }
-.tool-card { background: #fff; border: 0.5px solid #e0e0d8; border-radius: 12px; padding: 13px 16px; margin-bottom: 9px; display: flex; align-items: center; gap: 14px; }
+.tool-card { background: #fff; border: 0.5px solid #e0e0d8; border-radius: 12px; padding: 13px 16px; margin-bottom: 9px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; transition: border-color 0.15s; }
+.tool-card:hover { border-color: #aaa; }
+.tool-card.coming { opacity: 0.55; pointer-events: none; }
 .tool-icon { width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
-.tool-body { flex: 1; }
-.tool-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.tool-body { flex: 1; min-width: 0; }
+.tool-title { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
 .tool-desc { font-size: 12px; color: #666; }
 .tool-meta { margin-top: 5px; display: flex; gap: 5px; flex-wrap: wrap; }
 .badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 600; }
@@ -44,13 +45,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .cal-item:last-child { border-bottom: none; }
 .roadmap-row { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
 .roadmap-row:last-child { border-bottom: none; }
-.step-num { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+.step-num { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
 .done { background: #EAF3DE; color: #3B6D11; }
 .active-s { background: #1a1a18; color: #fff; }
 .next-s { background: #f1efe8; color: #888; }
 .highlight { background: #EAF3DE; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 13px; color: #3B6D11; line-height: 1.7; }
-.tl { display: flex; overflow-x: auto; padding-bottom: 4px; margin-top: 4px; }
-.tl-item { flex: 1; min-width: 68px; text-align: center; position: relative; padding: 0 2px; }
+.tl { display: flex; overflow-x: auto; padding-bottom: 4px; }
+.tl-item { flex: 1; min-width: 64px; text-align: center; position: relative; padding: 0 2px; }
 .tl-line { position: absolute; top: 4px; left: 50%; right: -50%; height: 2px; background: #e0e0d8; z-index: 0; }
 .tl-item:last-child .tl-line { display: none; }
 .tl-dot { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 4px; position: relative; z-index: 1; }
@@ -79,7 +80,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 </div>
 
 <div class="section-label">Family timeline</div>
-<div class="card" style="margin-bottom:16px;">
+<div style="background:#fff;border:0.5px solid #e0e0d8;border-radius:12px;padding:14px 16px;margin-bottom:16px;">
   <div class="tl">
     <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#378ADD;"></div><div class="tl-year">2026</div><div class="tl-label">Today<br>Nick 43</div></div>
     <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2030</div><div class="tl-label">Sammie<br>college</div></div>
@@ -91,37 +92,75 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   </div>
 </div>
 
-<div class="section-label">Your tools — built ✓</div>
+<div class="section-label">Your tools — all linked ✓</div>
 
-<div class="tool-card"><div class="tool-icon" style="background:#E6F1FB;">📊</div><div class="tool-body"><div class="tool-title">Financial command center</div><div class="tool-desc">Overview · All accounts · Sinking funds · Income & tax · Actions</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Update monthly</span></div></div><div class="arrow">›</div></div>
+<a href="command_center_final.html" class="tool-card">
+  <div class="tool-icon" style="background:#E6F1FB;">📊</div>
+  <div class="tool-body"><div class="tool-title">Financial command center</div><div class="tool-desc">Overview · All accounts · Sinking funds · Income & tax · Actions</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Update monthly</span></div></div>
+  <div class="arrow">›</div>
+</a>
 
-<div class="tool-card"><div class="tool-icon" style="background:#EAF3DE;">📄</div><div class="tool-body"><div class="tool-title">Emily's monthly 1-pager</div><div class="tool-desc">Simple monthly summary — NW, income, savings, family timeline</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Share monthly</span></div></div><div class="arrow">›</div></div>
+<a href="emily_1pager_final.html" class="tool-card">
+  <div class="tool-icon" style="background:#EAF3DE;">📄</div>
+  <div class="tool-body"><div class="tool-title">Emily's monthly 1-pager</div><div class="tool-desc">Simple monthly summary — NW, income, savings, family timeline</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Share monthly</span></div></div>
+  <div class="arrow">›</div>
+</a>
 
-<div class="tool-card"><div class="tool-icon" style="background:#FAEEDA;">⚖️</div><div class="tool-body"><div class="tool-title">Allocation optimizer</div><div class="tool-desc">Market conditions · Retirement vs brokerage · Buys/sells</div><div class="tool-meta"><span class="badge bg-amber">Update quarterly</span><span class="badge bg-green">Built ✓</span></div></div><div class="arrow">›</div></div>
+<a href="allocation_optimizer_final.html" class="tool-card">
+  <div class="tool-icon" style="background:#FAEEDA;">⚖️</div>
+  <div class="tool-body"><div class="tool-title">Allocation optimizer</div><div class="tool-desc">Market conditions · Retirement vs brokerage · Buys/sells</div><div class="tool-meta"><span class="badge bg-amber">Update quarterly</span><span class="badge bg-green">Built ✓</span></div></div>
+  <div class="arrow">›</div>
+</a>
 
-<div class="tool-card"><div class="tool-icon" style="background:#EAF3DE;">📈</div><div class="tool-body"><div class="tool-title">Net worth projector</div><div class="tool-desc">History + best/base/worst · ~$6.1M at 55 · Family timeline</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Update quarterly</span></div></div><div class="arrow">›</div></div>
+<a href="net_worth_projector_final.html" class="tool-card">
+  <div class="tool-icon" style="background:#EAF3DE;">📈</div>
+  <div class="tool-body"><div class="tool-title">Net worth projector</div><div class="tool-desc">History + best/base/worst · ~$6.1M at 55 · Family timeline</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Update quarterly</span></div></div>
+  <div class="arrow">›</div>
+</a>
 
-<div class="tool-card"><div class="tool-icon" style="background:#FAECE7;">💳</div><div class="tool-body"><div class="tool-title">Credit card optimizer</div><div class="tool-desc">Which card for which spend · Points value · Q2 rotation active</div><div class="tool-meta"><span class="badge bg-green">Built ✓</span><span class="badge bg-purple">Q2 — groceries + fitness 5x</span></div></div><div class="arrow">›</div></div>
+<a href="cc_optimizer_final.html" class="tool-card">
+  <div class="tool-icon" style="background:#FAECE7;">💳</div>
+  <div class="tool-body"><div class="tool-title">Credit card optimizer</div><div class="tool-desc">Which card for which spend · Points value · Q2 rotation active</div><div class="tool-meta"><span class="badge bg-green">Built ✓</span><span class="badge bg-purple">Q2 — groceries + fitness 5x</span></div></div>
+  <div class="arrow">›</div>
+</a>
 
-<div class="tool-card"><div class="tool-icon" style="background:#FCEBEB;">📋</div><div class="tool-body"><div class="tool-title">In case of death — Emily's guide</div><div class="tool-desc">Accounts · Contacts · Step-by-step · Documents</div><div class="tool-meta"><span class="badge bg-green">Built ✓</span><span class="badge bg-red">Add attorney + HR contacts</span></div></div><div class="arrow">›</div></div>
+<a href="death_guide_final.html" class="tool-card">
+  <div class="tool-icon" style="background:#FCEBEB;">📋</div>
+  <div class="tool-body"><div class="tool-title">In case of death — Emily's guide</div><div class="tool-desc">Accounts · Contacts · Step-by-step · Documents</div><div class="tool-meta"><span class="badge bg-green">Built ✓</span><span class="badge bg-red">Add attorney + HR contacts</span></div></div>
+  <div class="arrow">›</div>
+</a>
 
 <div class="divider"></div>
 <div class="section-label">Coming next</div>
 
-<div class="tool-card" style="opacity:0.55;"><div class="tool-icon" style="background:#EEEDFE;">🔄</div><div class="tool-body"><div class="tool-title">Roth conversion modeler</div><div class="tool-desc">Ladder strategy · Tax cost by year · Optimal window to 55</div><div class="tool-meta"><span class="badge bg-purple">CPA-level analysis</span><span class="badge bg-gray">Coming</span></div></div><div class="arrow">›</div></div>
+<div class="tool-card coming">
+  <div class="tool-icon" style="background:#EEEDFE;">🔄</div>
+  <div class="tool-body"><div class="tool-title">Roth conversion modeler</div><div class="tool-desc">Ladder strategy · Tax cost by year · Optimal window to 55</div><div class="tool-meta"><span class="badge bg-purple">CPA-level analysis</span><span class="badge bg-gray">Coming</span></div></div>
+  <div class="arrow">›</div>
+</div>
 
-<div class="tool-card" style="opacity:0.55;"><div class="tool-icon" style="background:#EAF3DE;">🗂️</div><div class="tool-body"><div class="tool-title">Tax location optimizer</div><div class="tool-desc">Exact holdings by account · What to move where</div><div class="tool-meta"><span class="badge bg-purple">After 401k split confirmed</span><span class="badge bg-gray">Coming</span></div></div><div class="arrow">›</div></div>
+<div class="tool-card coming">
+  <div class="tool-icon" style="background:#EAF3DE;">🗂️</div>
+  <div class="tool-body"><div class="tool-title">Tax location optimizer</div><div class="tool-desc">Exact holdings by account · What to move where</div><div class="tool-meta"><span class="badge bg-purple">After 401k split confirmed</span><span class="badge bg-gray">Coming</span></div></div>
+  <div class="arrow">›</div>
+</div>
 
-<div class="tool-card" style="opacity:0.55;"><div class="tool-icon" style="background:#FAEEDA;">📁</div><div class="tool-body"><div class="tool-title">Estate doc review</div><div class="tool-desc">Beneficiary mapping · Trust vs individual · Gap analysis</div><div class="tool-meta"><span class="badge bg-red">Upload docs when ready</span><span class="badge bg-gray">Coming</span></div></div><div class="arrow">›</div></div>
+<div class="tool-card coming">
+  <div class="tool-icon" style="background:#FAEEDA;">📁</div>
+  <div class="tool-body"><div class="tool-title">Estate doc review</div><div class="tool-desc">Beneficiary mapping · Trust vs individual · Gap analysis</div><div class="tool-meta"><span class="badge bg-red">Upload docs when ready</span><span class="badge bg-gray">Coming</span></div></div>
+  <div class="arrow">›</div>
+</div>
 
-<div class="tool-card" style="opacity:0.55;"><div class="tool-icon" style="background:#E6F1FB;">💭</div><div class="tool-body"><div class="tool-title">Investment philosophy</div><div class="tool-desc">Your principles · Behavioral guardrails · Retirement vision</div><div class="tool-meta"><span class="badge bg-blue">30 min session</span><span class="badge bg-gray">Coming</span></div></div><div class="arrow">›</div></div>
-
-<div class="tool-card" style="opacity:0.55;"><div class="tool-icon" style="background:#EAF3DE;">🌐</div><div class="tool-body"><div class="tool-title">MyMoney — live app</div><div class="tool-desc">GitHub Pages · Private URL · Auto-refresh via Plaid · Works on phone</div><div class="tool-meta"><span class="badge bg-blue">Step 9 — next session</span><span class="badge bg-gray">Coming</span></div></div><div class="arrow">›</div></div>
+<div class="tool-card coming">
+  <div class="tool-icon" style="background:#E6F1FB;">💭</div>
+  <div class="tool-body"><div class="tool-title">Investment philosophy</div><div class="tool-desc">Your principles · Behavioral guardrails · Retirement vision</div><div class="tool-meta"><span class="badge bg-blue">30 min session</span><span class="badge bg-gray">Coming</span></div></div>
+  <div class="arrow">›</div>
+</div>
 
 <div class="divider"></div>
 <div class="section-label">Action items — April 2026</div>
-<div class="card">
-  <div class="alert"><div class="dot dot-red"></div><div><strong>Fix Roth allocations</strong> — $132K in REITs/dividends. Move Emily (···2972) + Nick (···2134) to VBK, VWO, QQQ. Highest impact move on the board.</div><span class="badge bg-red" style="margin-left:auto;flex-shrink:0;">Now</span></div>
+<div style="background:#fff;border:0.5px solid #e0e0d8;border-radius:12px;padding:14px 16px;margin-bottom:12px;">
+  <div class="alert"><div class="dot dot-red"></div><div><strong>Fix Roth allocations</strong> — $132K in REITs/dividends. Move Emily (···2972) + Nick (···2134) to VBK, VWO, QQQ.</div><span class="badge bg-red" style="margin-left:auto;flex-shrink:0;">Now</span></div>
   <div class="alert"><div class="dot dot-red"></div><div><strong>Estate plan + beneficiary review</strong> — 2+ years overdue. Schedule with Emily this month.</div><span class="badge bg-red" style="margin-left:auto;flex-shrink:0;">Overdue</span></div>
   <div class="alert"><div class="dot dot-amber"></div><div><strong>Sammie Bat Mitzvah fund = $2</strong> — reconcile vs plan.</div><span class="badge bg-amber" style="margin-left:auto;flex-shrink:0;">Check</span></div>
   <div class="alert"><div class="dot dot-amber"></div><div><strong>Close E*TRADE accounts ($612)</strong> — transfer to Vanguard.</div><span class="badge bg-amber" style="margin-left:auto;flex-shrink:0;">Easy win</span></div>
@@ -146,11 +185,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <span class="month-chip" onclick="setMonth(this,'nov')">Nov</span>
   <span class="month-chip" onclick="setMonth(this,'dec')">Dec</span>
 </div>
-<div id="cal-content" class="card"></div>
+<div id="cal-content" style="background:#fff;border:0.5px solid #e0e0d8;border-radius:12px;padding:14px 16px;margin-bottom:12px;"></div>
 
 <div class="divider"></div>
 <div class="section-label">Build roadmap</div>
-<div class="card">
+<div style="background:#fff;border:0.5px solid #e0e0d8;border-radius:12px;padding:14px 16px;">
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Financial command center</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Emily 1-pager</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Allocation optimizer</div></div>
@@ -158,21 +197,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Credit card optimizer</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>In case of death guide</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Master hub — MyMoney</div></div>
-  <div class="roadmap-row"><div class="step-num done">✓</div><div>Refreshed with live Empower data · All ages + timelines correct</div></div>
-  <div class="roadmap-row"><div class="step-num active-s">9</div><div>GitHub Pages deployment — MyMoney goes live <span class="badge bg-purple" style="margin-left:6px;">next session</span></div></div>
-  <div class="roadmap-row"><div class="step-num next-s">10</div><div>Google Sheets data layer — 5 min monthly updates</div></div>
+  <div class="roadmap-row"><div class="step-num done">✓</div><div>Deployed to GitHub Pages — nray1122.github.io/mymoney</div></div>
+  <div class="roadmap-row"><div class="step-num done">✓</div><div>All tools linked — fully connected app</div></div>
+  <div class="roadmap-row"><div class="step-num active-s">10</div><div>Google Sheets data layer — 5 min monthly updates <span class="badge bg-purple" style="margin-left:6px;">next</span></div></div>
   <div class="roadmap-row"><div class="step-num next-s">11</div><div>Estate doc review + beneficiary mapping</div></div>
   <div class="roadmap-row"><div class="step-num next-s">12</div><div>Investment philosophy tab</div></div>
   <div class="roadmap-row"><div class="step-num next-s">13</div><div>401k Roth/pretax splits → tax location optimizer</div></div>
-  <div class="roadmap-row"><div class="step-num next-s">14</div><div>Roth conversion modeler — CPA-level ladder strategy</div></div>
+  <div class="roadmap-row"><div class="step-num next-s">14</div><div>Roth conversion modeler — CPA-level ladder</div></div>
   <div class="roadmap-row"><div class="step-num next-s">15</div><div>Plaid integration — true auto-refresh</div></div>
 </div>
 
-<div style="text-align:center;margin-top:20px;font-size:11px;color:#aaa;">MyMoney · Ray family · Built April 2026</div>
-
+<div style="text-align:center;margin-top:20px;font-size:11px;color:#aaa;">MyMoney · Ray family · Built April 2026 · nray1122.github.io/mymoney</div>
 </div>
+
 <script>
-var calData={jan:[{dot:'dot-blue',t:'Tie out first pay stub to estimates'},{dot:'dot-blue',t:'Update Copilot budget for new year'},{dot:'dot-green',t:'Submit FSA reimbursements'},{dot:'dot-green',t:'Submit vacation reimbursement from prior year'}],feb:[{dot:'dot-blue',t:'Tax docs arrive — Fidelity, Vanguard, Etrade'},{dot:'dot-amber',t:'Plan 529 and savings timing for year'},{dot:'dot-green',t:'Submit Fidelity Charitable IRS Form 8283'}],mar:[{dot:'dot-blue',t:"Emily's bonus paid — plan deployment"},{dot:'dot-green',t:'Confirm charitable donation list from Copilot'},{dot:'dot-amber',t:'File taxes or extend'}],apr:[{dot:'dot-red',t:'Fix Roth allocations — move to VBK, VWO, QQQ'},{dot:'dot-red',t:'Estate plan + beneficiary review — schedule with Emily'},{dot:'dot-amber',t:'Reconcile Sammie Bat Mitzvah fund ($2)'},{dot:'dot-amber',t:'Close E*TRADE accounts — transfer to Vanguard'},{dot:'dot-amber',t:'Confirm 401k Roth vs pretax split'},{dot:'dot-green',t:'Monthly update + Emily 1-pager ✓ done'}],may:[{dot:'dot-green',t:'Emily turns 43 🎂'},{dot:'dot-green',t:'Monthly update — portfolio values from Empower'},{dot:'dot-blue',t:'Check MSFT ESPP vest schedule'},{dot:'dot-green',t:'Check sinking fund balances vs targets'}],jun:[{dot:'dot-blue',t:'Prep for July rebalance — pull Empower snapshot'},{dot:'dot-green',t:'Mid-year tax check — withholding on track?'},{dot:'dot-green',t:'Monthly update'}],jul:[{dot:'dot-amber',t:'Rebalance — update allocation per market conditions'},{dot:'dot-amber',t:'Sammie 529 — reduce stock allocation 10%'},{dot:'dot-blue',t:'Update allocation optimizer'},{dot:'dot-green',t:'Monthly update + Emily 1-pager'}],aug:[{dot:'dot-blue',t:'Nick RSU vest (quarterly) — sell and transfer to Vanguard'},{dot:'dot-green',t:'Monthly update'},{dot:'dot-green',t:'Check sinking funds — shortfalls before year-end?'}],sep:[{dot:'dot-blue',t:"Nick's bonus paid (25%) — deploy to plan"},{dot:'dot-blue',t:'Emily MEP cash award — redeploy per plan'},{dot:'dot-amber',t:'Fund sinking fund shortfalls with bonus/RSU'},{dot:'dot-green',t:'Monthly update'}],oct:[{dot:'dot-red',t:'Calc next year tax liability — update Tax Estimator'},{dot:'dot-red',t:'Plan new year 401k contribution percentages'},{dot:'dot-amber',t:'Review beneficiaries if not done in April'},{dot:'dot-green',t:'Monthly update'}],nov:[{dot:'dot-green',t:'Nick turns 44 🎂'},{dot:'dot-blue',t:'Finalize W4 additional withholding for next year'},{dot:'dot-blue',t:'Review brokerage for tax-loss harvesting'},{dot:'dot-green',t:'Monthly update + Emily 1-pager'}],dec:[{dot:'dot-red',t:'Update W4 withholding for Jan 1'},{dot:'dot-red',t:'Update 401k Roth + mega backdoor percentages'},{dot:'dot-amber',t:'Update stock/bond allocations (Dec rebalance)'},{dot:'dot-purple',t:'Roth conversion modeling — optimal ladder'},{dot:'dot-green',t:'Annual Emily walkthrough — full financial review'},{dot:'dot-green',t:'Record Dec 31 net worth for historical tracker'}]};
+var calData={jan:[{dot:'dot-blue',t:'Tie out first pay stub to estimates'},{dot:'dot-blue',t:'Update Copilot budget for new year'},{dot:'dot-green',t:'Submit FSA reimbursements'},{dot:'dot-green',t:'Submit vacation reimbursement'}],feb:[{dot:'dot-blue',t:'Tax docs arrive — Fidelity, Vanguard, Etrade'},{dot:'dot-amber',t:'Plan 529 and savings timing for year'},{dot:'dot-green',t:'Submit Fidelity Charitable IRS Form 8283'}],mar:[{dot:'dot-blue',t:"Emily's bonus paid — plan deployment"},{dot:'dot-green',t:'Confirm charitable donation list from Copilot'},{dot:'dot-amber',t:'File taxes or extend'}],apr:[{dot:'dot-red',t:'Fix Roth allocations — move to VBK, VWO, QQQ'},{dot:'dot-red',t:'Estate plan + beneficiary review — schedule with Emily'},{dot:'dot-amber',t:'Reconcile Sammie Bat Mitzvah fund ($2)'},{dot:'dot-amber',t:'Close E*TRADE accounts — transfer to Vanguard'},{dot:'dot-amber',t:'Confirm 401k Roth vs pretax split'},{dot:'dot-green',t:'Monthly update + Emily 1-pager ✓ done'}],may:[{dot:'dot-green',t:'Emily turns 43 🎂'},{dot:'dot-green',t:'Monthly update — portfolio values from Empower'},{dot:'dot-blue',t:'Check MSFT ESPP vest schedule'},{dot:'dot-green',t:'Check sinking fund balances'}],jun:[{dot:'dot-blue',t:'Prep for July rebalance — pull Empower snapshot'},{dot:'dot-green',t:'Mid-year tax check — withholding on track?'},{dot:'dot-green',t:'Monthly update'}],jul:[{dot:'dot-amber',t:'Rebalance — update allocation per market conditions'},{dot:'dot-amber',t:'Sammie 529 — reduce stock allocation 10%'},{dot:'dot-blue',t:'Update allocation optimizer'},{dot:'dot-green',t:'Monthly update + Emily 1-pager'}],aug:[{dot:'dot-blue',t:'Nick RSU vest (quarterly) — sell and transfer to Vanguard'},{dot:'dot-green',t:'Monthly update'},{dot:'dot-green',t:'Check sinking funds — shortfalls before year-end?'}],sep:[{dot:'dot-blue',t:"Nick's bonus paid (25%) — deploy to plan"},{dot:'dot-blue',t:'Emily MEP cash award — redeploy per plan'},{dot:'dot-amber',t:'Fund sinking fund shortfalls with bonus/RSU'},{dot:'dot-green',t:'Monthly update'}],oct:[{dot:'dot-red',t:'Calc next year tax liability — update Tax Estimator'},{dot:'dot-red',t:'Plan new year 401k contribution percentages'},{dot:'dot-amber',t:'Review beneficiaries if not done in April'},{dot:'dot-green',t:'Monthly update'}],nov:[{dot:'dot-green',t:'Nick turns 44 🎂'},{dot:'dot-blue',t:'Finalize W4 additional withholding for next year'},{dot:'dot-blue',t:'Review brokerage for tax-loss harvesting'},{dot:'dot-green',t:'Monthly update + Emily 1-pager'}],dec:[{dot:'dot-red',t:'Update W4 withholding for Jan 1'},{dot:'dot-red',t:'Update 401k Roth + mega backdoor percentages'},{dot:'dot-amber',t:'Update stock/bond allocations (Dec rebalance)'},{dot:'dot-purple',t:'Roth conversion modeling — optimal ladder'},{dot:'dot-green',t:'Annual Emily walkthrough — full financial review'},{dot:'dot-green',t:'Record Dec 31 net worth for historical tracker'}]};
 var monthNames={jan:'January',feb:'February',mar:'March',apr:'April',may:'May',jun:'June',jul:'July',aug:'August',sep:'September',oct:'October',nov:'November',dec:'December'};
 function setMonth(el,key){document.querySelectorAll('.month-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderCal(key);}
 function renderCal(key){var items=calData[key]||[];var html='<div style="font-size:12px;font-weight:600;color:#666;margin-bottom:10px;">'+monthNames[key]+' checklist</div>';items.forEach(function(item){html+='<div class="cal-item"><div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;" class="'+item.dot+'"></div><div>'+item.t+'</div></div>';});document.getElementById('cal-content').innerHTML=html;}

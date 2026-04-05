@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyMoney — Net Worth Projector</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f9f9f7; color: #1a1a18; padding: 16px; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 1rem 0 2rem; }
+.section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 10px; }
+.card { background: #fff; border: 0.5px solid #e0e0d8; border-radius: 12px; padding: 16px 18px; margin-bottom: 12px; }
+.metric { background: #f1efe8; border-radius: 8px; padding: 12px 14px; }
+.metric-label { font-size: 11px; color: #888; margin-bottom: 3px; }
+.metric-value { font-size: 19px; font-weight: 700; }
+.metric-sub { font-size: 11px; margin-top: 2px; color: #888; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
+.slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.slider-row label { font-size: 12px; color: #666; width: 200px; flex-shrink: 0; }
+.slider-row input[type=range] { flex: 1; }
+.slider-val { font-size: 12px; font-weight: 700; min-width: 60px; text-align: right; }
+.legend { display: flex; gap: 14px; margin-bottom: 10px; font-size: 12px; color: #666; flex-wrap: wrap; }
+.row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
+.row:last-child { border-bottom: none; }
+.badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 600; }
+.bg-green { background: #EAF3DE; color: #3B6D11; }
+.highlight { background: #EAF3DE; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 13px; color: #3B6D11; line-height: 1.7; }
+.back-btn { display: inline-block; font-size: 12px; color: #666; text-decoration: none; margin-bottom: 16px; padding: 4px 0; }
+.tl { display: flex; overflow-x: auto; padding-bottom: 4px; }
+.tl-item { flex: 1; min-width: 68px; text-align: center; position: relative; padding: 0 2px; }
+.tl-line { position: absolute; top: 4px; left: 50%; right: -50%; height: 2px; background: #e0e0d8; z-index: 0; }
+.tl-item:last-child .tl-line { display: none; }
+.tl-dot { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 4px; position: relative; z-index: 1; }
+.tl-year { font-size: 10px; font-weight: 600; color: #666; }
+.tl-label { font-size: 10px; color: #888; margin-top: 2px; line-height: 1.3; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back-btn">← Back to MyMoney</a>
+<div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px;">
+  <div><div style="font-size:20px;font-weight:700;">Net worth projector</div><div style="font-size:13px;color:#666;margin-top:2px;">Nick 43 (Nov '82) · Emily 42 (May '83) · Goal: Nick 55</div></div>
+  <span class="badge bg-green">3 actual data points</span>
+</div>
+
+<div class="highlight">Base case (7%): ~$6.1M at Nick 55 (Nov 2037). Both kids done with college that year. SS + future RSU vesting not included — both are upside.</div>
+
+<div class="grid-4">
+  <div class="metric"><div class="metric-label">Dec 31, 2024</div><div class="metric-value">$2.611M</div><div class="metric-sub">Actual</div></div>
+  <div class="metric"><div class="metric-label">Dec 31, 2025</div><div class="metric-value">$3.002M</div><div class="metric-sub" style="color:#3B6D11;">↑ $391K · +15%</div></div>
+  <div class="metric"><div class="metric-label">Apr 4, 2026</div><div class="metric-value">$3.148M</div><div class="metric-sub" style="color:#3B6D11;">↑ $146K YTD</div></div>
+  <div class="metric"><div class="metric-label">Years to Nick 55</div><div class="metric-value">12 yrs</div><div class="metric-sub">November 2037</div></div>
+</div>
+
+<div class="card">
+  <div class="section-label">Family timeline</div>
+  <div class="tl">
+    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#378ADD;"></div><div class="tl-year">2026</div><div class="tl-label">Today<br>Nick 43</div></div>
+    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2030</div><div class="tl-label">Sammie<br>college</div></div>
+    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2033</div><div class="tl-label">Evan<br>college</div></div>
+    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2034</div><div class="tl-label">Sammie<br>done</div></div>
+    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#E24B4A;"></div><div class="tl-year">2037</div><div class="tl-label">Nick 55<br>🎯 Goal<br>Evan done</div></div>
+    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#888;"></div><div class="tl-year">2042</div><div class="tl-label">Nick 59.5<br>401k<br>access</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:#888;"></div><div class="tl-year">2044</div><div class="tl-label">Nick 62<br>Social<br>Security</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="section-label">Adjust assumptions</div>
+  <div class="slider-row"><label>Annual return — best case</label><input type="range" min="6" max="14" value="10" step="0.5" id="s-best" oninput="updateAll()"><span class="slider-val" id="v-best">10.0%</span></div>
+  <div class="slider-row"><label>Annual return — base case</label><input type="range" min="4" max="10" value="7" step="0.5" id="s-base" oninput="updateAll()"><span class="slider-val" id="v-base">7.0%</span></div>
+  <div class="slider-row"><label>Annual return — worst case</label><input type="range" min="1" max="6" value="4" step="0.5" id="s-worst" oninput="updateAll()"><span class="slider-val" id="v-worst">4.0%</span></div>
+  <div class="slider-row"><label>Annual savings contribution</label><input type="range" min="100000" max="350000" value="159000" step="5000" id="s-contrib" oninput="updateAll()"><span class="slider-val" id="v-contrib">$159K</span></div>
+  <div class="slider-row"><label>Annual spend in retirement</label><input type="range" min="150000" max="400000" value="225000" step="5000" id="s-expenses" oninput="updateAll()"><span class="slider-val" id="v-expenses">$225K</span></div>
+</div>
+
+<div class="grid-3" id="scenario-metrics"></div>
+
+<div class="card">
+  <div class="legend">
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#2C2C2A;margin-right:4px;vertical-align:middle;"></span>Actual</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#639922;margin-right:4px;vertical-align:middle;"></span>Best</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px;vertical-align:middle;"></span>Base</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#E24B4A;margin-right:4px;vertical-align:middle;"></span>Worst</span>
+    <span><span style="display:inline-block;width:20px;height:3px;background:#EF9F27;margin-right:4px;vertical-align:middle;"></span>25x target</span>
+  </div>
+  <div style="position:relative;width:100%;height:320px;"><canvas id="projChart"></canvas></div>
+</div>
+
+<div class="card" id="milestone-card"></div>
+
+<div class="card">
+  <div class="section-label">Actual growth track record</div>
+  <div class="row"><span style="color:#666;">2025 full year</span><span style="font-weight:700;color:#3B6D11;">+$391K · +15.0%</span></div>
+  <div class="row"><span style="color:#666;">2026 YTD (3 months)</span><span style="font-weight:700;color:#3B6D11;">+$146K · +4.9%</span></div>
+  <div class="row"><span style="color:#666;">15-month annualized</span><span style="font-weight:700;color:#3B6D11;">~16% — above base case</span></div>
+  <div class="row"><span style="color:#666;">Base case (7%)</span><span style="font-weight:700;">Conservative — reality beating it</span></div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+var chart=null,NICK_AGE=43,YEARS_TO_55=12,START=3148000;
+var historicalLabels=['Dec 2024 (Nick 40)','Dec 2025 (Nick 41)','Apr 2026 (Nick 43)'];
+var historicalValues=[2611000,3002000,3148000];
+function fmt(n){if(n>=1000000)return'$'+(n/1000000).toFixed(2)+'M';if(n>=1000)return'$'+Math.round(n/1000)+'K';return'$'+Math.round(n).toLocaleString();}
+function project(rate,contrib,years){var vals=[START],c=contrib;for(var i=1;i<=years;i++){c*=1.02;vals.push(Math.round(vals[i-1]*(1+rate)+c));}return vals;}
+function updateAll(){
+  var best=parseFloat(document.getElementById('s-best').value)/100;
+  var base=parseFloat(document.getElementById('s-base').value)/100;
+  var worst=parseFloat(document.getElementById('s-worst').value)/100;
+  var contrib=parseFloat(document.getElementById('s-contrib').value);
+  var expenses=parseFloat(document.getElementById('s-expenses').value);
+  var target=expenses*25;var maxYears=18;
+  document.getElementById('v-best').textContent=(best*100).toFixed(1)+'%';
+  document.getElementById('v-base').textContent=(base*100).toFixed(1)+'%';
+  document.getElementById('v-worst').textContent=(worst*100).toFixed(1)+'%';
+  document.getElementById('v-contrib').textContent='$'+Math.round(contrib/1000)+'K';
+  document.getElementById('v-expenses').textContent='$'+Math.round(expenses/1000)+'K';
+  var fwdLabels=[];for(var i=1;i<=maxYears;i++)fwdLabels.push('Nick '+(NICK_AGE+i)+' ('+(2026+i)+')');
+  var allLabels=historicalLabels.concat(fwdLabels);
+  var bestData=project(best,contrib,maxYears);
+  var baseData=project(base,contrib,maxYears);
+  var worstData=project(worst,contrib,maxYears);
+  var targetLine=allLabels.map(()=>target);
+  var nullPad=new Array(historicalValues.length-1).fill(null);
+  var actualLine=historicalValues.concat(new Array(maxYears).fill(null));
+  var bestLine=nullPad.concat(bestData);
+  var baseLine=nullPad.concat(baseData);
+  var worstLine=nullPad.concat(worstData);
+  var b55=bestData[YEARS_TO_55],ba55=baseData[YEARS_TO_55],w55=worstData[YEARS_TO_55];
+  var mHTML='';
+  [{label:'Best ('+(best*100).toFixed(1)+'%) at 55',val:b55,color:'#3B6D11'},{label:'Base ('+(base*100).toFixed(1)+'%) at 55',val:ba55,color:'#185FA5'},{label:'Worst ('+(worst*100).toFixed(1)+'%) at 55',val:w55,color:'#A32D2D'}].forEach(function(s){
+    var pct=Math.round((s.val/target)*100);var funded=s.val>=target;
+    var gc=funded?'#3B6D11':'#A32D2D';var gap=funded?'✓ Retire comfortably':fmt(target-s.val)+' short';
+    var draw=Math.round(s.val*0.04/1000);
+    mHTML+='<div class="metric"><div class="metric-label" style="color:'+s.color+';">'+s.label+'</div><div class="metric-value">'+fmt(s.val)+'</div><div class="metric-sub">'+pct+'% · <span style="color:'+gc+';">'+gap+'</span><br>4% draw = $'+draw+'K/yr</div></div>';
+  });
+  document.getElementById('scenario-metrics').innerHTML=mHTML;
+  var milestones=[{label:'$3.5M',val:3500000},{label:'$4M',val:4000000},{label:'Target 25x ('+fmt(target)+')',val:target},{label:'$5M',val:5000000},{label:'$6M',val:6000000}];
+  var msHTML='<div class="section-label">Milestone ages &nbsp;<span style="color:#3B6D11;">Best</span>&nbsp;&nbsp;<span style="color:#378ADD;">Base</span>&nbsp;&nbsp;<span style="color:#E24B4A;">Worst</span></div>';
+  milestones.forEach(function(m){
+    if(m.val<=START){msHTML+='<div class="row"><span style="color:#666;">'+m.label+'</span><span style="color:#3B6D11;">Already passed ✓</span></div>';return;}
+    var bYr=bestData.findIndex(v=>v>=m.val);var baYr=baseData.findIndex(v=>v>=m.val);var wYr=worstData.findIndex(v=>v>=m.val);
+    msHTML+='<div class="row"><span style="color:#666;">'+m.label+'</span><span style="font-size:12px;display:flex;gap:12px;"><span style="color:#3B6D11;">'+(bYr>0?'Age '+(NICK_AGE+bYr):'—')+'</span><span style="color:#378ADD;">'+(baYr>0?'Age '+(NICK_AGE+baYr):'—')+'</span><span style="color:#E24B4A;">'+(wYr>0?'Age '+(NICK_AGE+wYr):'35yr+')+'</span></span></div>';
+  });
+  document.getElementById('milestone-card').innerHTML=msHTML;
+  var retire55Idx=historicalLabels.length+YEARS_TO_55;
+  if(chart)chart.destroy();
+  chart=new Chart(document.getElementById('projChart'),{type:'line',data:{labels:allLabels,datasets:[
+    {label:'Actual',data:actualLine,borderColor:'#2C2C2A',fill:false,pointRadius:actualLine.map(v=>v!==null?5:0),pointBackgroundColor:'#2C2C2A',borderWidth:2.5,tension:0.3,spanGaps:false},
+    {label:'Best',data:bestLine,borderColor:'#639922',fill:false,pointRadius:bestLine.map((v,i)=>i===retire55Idx?7:0),pointBackgroundColor:'#639922',borderWidth:2,tension:0.4,spanGaps:false},
+    {label:'Base',data:baseLine,borderColor:'#378ADD',fill:false,pointRadius:baseLine.map((v,i)=>i===retire55Idx?7:0),pointBackgroundColor:'#378ADD',borderWidth:2,tension:0.4,spanGaps:false},
+    {label:'Worst',data:worstLine,borderColor:'#E24B4A',fill:false,pointRadius:worstLine.map((v,i)=>i===retire55Idx?7:0),pointBackgroundColor:'#E24B4A',borderWidth:2,tension:0.4,spanGaps:false},
+    {label:'Target',data:targetLine,borderColor:'#EF9F27',borderDash:[6,4],fill:false,pointRadius:0,borderWidth:1.5,spanGaps:true}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{maxTicksLimit:9,font:{size:10},color:'#888'},grid:{display:false}},y:{ticks:{font:{size:11},color:'#888',callback:function(v){return v>=1000000?'$'+(v/1000000).toFixed(1)+'M':'$'+Math.round(v/1000)+'K';}},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+}
+updateAll();
+</script>
+</body>
+</html>

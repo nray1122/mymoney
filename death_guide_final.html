@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyMoney — Emily's Emergency Guide</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f9f9f7; color: #1a1a18; padding: 16px; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 1rem 0 2rem; }
+.section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 10px; }
+.card { background: #fff; border: 0.5px solid #e0e0d8; border-radius: 12px; padding: 16px 18px; margin-bottom: 12px; }
+.badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 600; }
+.bg-red { background: #FCEBEB; color: #A32D2D; }
+.bg-amber { background: #FAEEDA; color: #854F0B; }
+.bg-blue { background: #E6F1FB; color: #185FA5; }
+.bg-green { background: #EAF3DE; color: #3B6D11; }
+.step { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 0.5px solid #e0e0d8; }
+.step:last-child { border-bottom: none; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.step-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.step-desc { font-size: 12px; color: #666; line-height: 1.6; }
+.row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
+.row:last-child { border-bottom: none; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.contact-card { border: 0.5px solid #e0e0d8; border-radius: 8px; padding: 10px 12px; }
+.contact-role { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.contact-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.contact-detail { font-size: 12px; color: #666; }
+.check-item { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
+.check-item:last-child { border-bottom: none; }
+.check-box { width: 16px; height: 16px; border: 0.5px solid #ccc; border-radius: 3px; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+.check-box.checked { background: #639922; border-color: #639922; color: white; }
+.back-btn { display: inline-block; font-size: 12px; color: #666; text-decoration: none; margin-bottom: 16px; padding: 4px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back-btn">← Back to MyMoney</a>
+<div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
+<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+  <div><div style="font-size:20px;font-weight:700;">If something happens to Nick</div><div style="font-size:13px;color:#666;margin-top:2px;">Emily's complete guide · Keep this somewhere safe</div></div>
+  <button onclick="window.print()" style="padding:6px 14px;font-size:12px;border:0.5px solid #ccc;border-radius:8px;background:transparent;cursor:pointer;font-family:inherit;">Print / save PDF</button>
+</div>
+<div style="font-size:12px;color:#666;background:#f1efe8;border-radius:8px;padding:10px 14px;margin-bottom:20px;line-height:1.7;">Start at the top and work down. You don't need to do everything at once — the first week is about stability, not perfection. You have more financial security than you realize.</div>
+
+<div class="card">
+  <div class="section-label">First 72 hours — do these first</div>
+  <div class="step"><div class="step-num" style="background:#FCEBEB;color:#A32D2D;">1</div><div><div class="step-title">Call Nick's HR / benefits office</div><div class="step-desc">Report the death to trigger life insurance and employer death benefits. Ask about: life insurance payout, 401k beneficiary process, unpaid bonus or RSU acceleration, health insurance continuation (COBRA).</div></div></div>
+  <div class="step"><div class="step-num" style="background:#FCEBEB;color:#A32D2D;">2</div><div><div class="step-title">Get 10+ certified death certificates</div><div class="step-desc">You'll need these for every account, insurance claim, and legal process. Order more than you think — each institution wants an original. Funeral home handles this.</div></div></div>
+  <div class="step"><div class="step-num" style="background:#FCEBEB;color:#A32D2D;">3</div><div><div class="step-title">Don't make any big financial decisions yet</div><div class="step-desc">You will receive large sums of money. Do not invest, move, or spend anything significant in the first 30-90 days. Park everything in Capital One savings temporarily. Good decisions come after the fog lifts.</div></div></div>
+  <div class="step"><div class="step-num" style="background:#FCEBEB;color:#A32D2D;">4</div><div><div class="step-title">Notify our estate attorney</div><div class="step-desc">They will guide probate (if needed), trust activation, and asset transfer. Contact info in the contacts section below. Bring a death certificate.</div></div></div>
+</div>
+
+<div class="card">
+  <div class="section-label">First 30 days</div>
+  <div class="step"><div class="step-num" style="background:#FAEEDA;color:#854F0B;">5</div><div><div class="step-title">File life insurance claims</div><div class="step-desc">Nick has life insurance through Principal (employer policy). Call Principal with a death certificate. Payout typically takes 2-4 weeks.</div></div></div>
+  <div class="step"><div class="step-num" style="background:#FAEEDA;color:#854F0B;">6</div><div><div class="step-title">Transfer investment accounts</div><div class="step-desc">Fidelity 401k (Nick) — call Fidelity to initiate spousal rollover to your own IRA. Do NOT cash out — huge tax hit. Vanguard brokerage — joint account, already yours. MSFT ESPP — call Fidelity, transfer or sell remaining shares.</div></div></div>
+  <div class="step"><div class="step-num" style="background:#FAEEDA;color:#854F0B;">7</div><div><div class="step-title">Continue sinking funds — they're pre-funded</div><div class="step-desc">All sinking funds (vacation, house, camp, kids' cars, college) are pre-funded at Capital One and Vanguard. Don't touch the principal — just continue existing auto-transfers while you get organized.</div></div></div>
+  <div class="step"><div class="step-num" style="background:#FAEEDA;color:#854F0B;">8</div><div><div class="step-title">File for Social Security survivor benefits</div><div class="step-desc">You and the kids may be eligible for survivor benefits based on Nick's earnings. Call SSA (1-800-772-1213) or visit ssa.gov. Don't skip this — it can be meaningful monthly income.</div></div></div>
+</div>
+
+<div class="card">
+  <div class="section-label">Our accounts — where everything is</div>
+  <div class="row"><span style="color:#666;">Fidelity 401k (Nick)</span><span style="font-weight:700;">$825K <span class="badge bg-green">Emily</span></span></div>
+  <div class="row"><span style="color:#666;">Fidelity 401k (Emily)</span><span style="font-weight:700;">$733K <span class="badge bg-blue">Nick / estate</span></span></div>
+  <div class="row"><span style="color:#666;">Vanguard brokerage (joint)</span><span style="font-weight:700;">$918K <span class="badge bg-green">Joint — Emily</span></span></div>
+  <div class="row"><span style="color:#666;">Vanguard Roth (Nick)</span><span style="font-weight:700;">$60K <span class="badge bg-amber">Confirm</span></span></div>
+  <div class="row"><span style="color:#666;">Vanguard Roth (Emily)</span><span style="font-weight:700;">$73K <span class="badge bg-green">Emily</span></span></div>
+  <div class="row"><span style="color:#666;">Emergency fund (Vanguard MM)</span><span style="font-weight:700;">$98K <span class="badge bg-green">Joint</span></span></div>
+  <div class="row"><span style="color:#666;">Capital One savings</span><span style="font-weight:700;">~$90K <span class="badge bg-amber">Confirm</span></span></div>
+  <div class="row"><span style="color:#666;">Fidelity MSFT ESPP (Nick)</span><span style="font-weight:700;">~$10K <span class="badge bg-amber">Confirm</span></span></div>
+  <div class="row"><span style="color:#666;">529 — Evan</span><span style="font-weight:700;">~$143K <span class="badge bg-blue">Evan</span></span></div>
+  <div class="row"><span style="color:#666;">529 — Sammie</span><span style="font-weight:700;">~$151K <span class="badge bg-blue">Sammie</span></span></div>
+</div>
+
+<div class="card">
+  <div class="section-label">Key contacts</div>
+  <div class="contact-grid">
+    <div class="contact-card"><div class="contact-role">Estate attorney</div><div class="contact-name">[Add name]</div><div class="contact-detail">[Add phone + firm]</div></div>
+    <div class="contact-card"><div class="contact-role">Nick's employer HR</div><div class="contact-name">[Add HR contact]</div><div class="contact-detail">[Add phone + email]</div></div>
+    <div class="contact-card"><div class="contact-role">Fidelity (401k + ESPP)</div><div class="contact-name">Fidelity Investments</div><div class="contact-detail">1-800-343-3548 · fidelity.com</div></div>
+    <div class="contact-card"><div class="contact-role">Vanguard (brokerage + Roth)</div><div class="contact-name">Vanguard</div><div class="contact-detail">1-800-662-7447 · vanguard.com</div></div>
+    <div class="contact-card"><div class="contact-role">Life insurance (Principal)</div><div class="contact-name">Principal Financial</div><div class="contact-detail">1-800-247-9988 · principal.com</div></div>
+    <div class="contact-card"><div class="contact-role">Social Security</div><div class="contact-name">SSA</div><div class="contact-detail">1-800-772-1213 · ssa.gov</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="section-label">Where important documents are</div>
+  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Will + estate plan</strong> — [location: safe / attorney office]</div></div>
+  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Life insurance policies</strong> — [location + policy numbers]</div></div>
+  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Tax returns (last 3 years)</strong> — [location or TurboTax login]</div></div>
+  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Social Security cards</strong> — [location]</div></div>
+  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Passports</strong> — [location]</div></div>
+  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Password manager</strong> — [app name + how Emily accesses it]</div></div>
+  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>This financial model</strong> — nray1122.github.io/mymoney</div></div>
+</div>
+
+<div class="card">
+  <div class="section-label">The big picture — you'll be ok</div>
+  <div style="font-size:13px;color:#666;line-height:1.8;">
+    <div style="margin-bottom:8px;">Between your own income ($383K), the investment portfolio ($2.677M), life insurance, and survivor benefits — you and the kids are financially secure. The 529s are funded. The sinking funds are pre-funded. The mortgage is manageable on one income.</div>
+    <div style="margin-bottom:8px;">You do not need to make investment decisions quickly. The portfolio can sit exactly as-is for 6-12 months while you get your footing.</div>
+    <div>Nick built this system so you'd never have to start from zero. Everything is documented here.</div>
+  </div>
+</div>
+
+</div>
+<script>
+function toggle(el){el.classList.toggle('checked');el.textContent=el.classList.contains('checked')?'✓':'';}
+</script>
+</body>
+</html>
