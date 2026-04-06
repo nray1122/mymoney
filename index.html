@@ -49,7 +49,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .done { background: #EAF3DE; color: #3B6D11; }
 .active-s { background: #1a1a18; color: #fff; }
 .next-s { background: #f1efe8; color: #888; }
-.highlight { background: #EAF3DE; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 13px; color: #3B6D11; line-height: 1.7; }
 .tl { display: flex; overflow-x: auto; padding-bottom: 4px; }
 .tl-item { flex: 1; min-width: 64px; text-align: center; position: relative; padding: 0 2px; }
 .tl-line { position: absolute; top: 4px; left: 50%; right: -50%; height: 2px; background: #e0e0d8; z-index: 0; }
@@ -67,16 +66,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
     <div style="font-size:22px;font-weight:700;">Ray family finances</div>
   </div>
-  <span class="badge bg-green">Updated Apr 4, 2026 ✓</span>
+  <span class="badge bg-green">Updated Apr 2026 ✓</span>
 </div>
-<div style="font-size:13px;color:#666;margin-bottom:14px;">Nick 43 (Nov '82) · Emily 42 (May '83) · Sammie 13 (May) · Evan 11 (Nov)</div>
-
-<div class="highlight">Base case (7%): ~$6.1M at Nick 55 (Nov 2037). Both kids done with college that year. SS + future RSU vesting not included.</div>
+<div style="font-size:13px;color:#666;margin-bottom:22px;">Nick 43 (Nov '82) · Emily 42 (May '83) · Sammie 13 (May '12) · Evan 11 (Nov '14)</div>
 
 <div class="snap">
   <div class="snap-card"><div class="snap-label">Personal net worth</div><div class="snap-value">$3.148M</div><div class="snap-sub" style="color:#3B6D11;">↑ $537K since Dec '24</div></div>
   <div class="snap-card"><div class="snap-label">Total invested</div><div class="snap-value">$2.677M</div><div class="snap-sub">Excl. emergency + sinking</div></div>
-  <div class="snap-card"><div class="snap-label">Years to Nick 55</div><div class="snap-value">12 yrs</div><div class="snap-sub">Nov 2037 · Emily 54</div></div>
+  <div class="snap-card"><div class="snap-label">Years to Nick retirement (55)</div><div class="snap-value">12 yrs</div><div class="snap-sub">Nov 2037 · Emily 54</div></div>
 </div>
 
 <div class="section-label">Family timeline</div>
@@ -86,7 +83,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2030</div><div class="tl-label">Sammie<br>college</div></div>
     <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2033</div><div class="tl-label">Evan<br>college</div></div>
     <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2034</div><div class="tl-label">Sammie<br>done</div></div>
-    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#E24B4A;"></div><div class="tl-year">2037</div><div class="tl-label">Nick 55<br>🎯 Goal<br>Evan done</div></div>
+    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#E24B4A;"></div><div class="tl-year">2037</div><div class="tl-label">Nick 55<br>🎯 Retire<br>Evan done</div></div>
     <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#888;"></div><div class="tl-year">2042</div><div class="tl-label">Nick 59.5<br>401k<br>access</div></div>
     <div class="tl-item"><div class="tl-dot" style="background:#888;"></div><div class="tl-year">2044</div><div class="tl-label">Nick 62<br>Social<br>Security</div></div>
   </div>
@@ -96,13 +93,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 
 <a href="command_center_final.html" class="tool-card">
   <div class="tool-icon" style="background:#E6F1FB;">📊</div>
-  <div class="tool-body"><div class="tool-title">Financial command center</div><div class="tool-desc">Overview · All accounts · Sinking funds · Income & tax · Actions</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Update monthly</span></div></div>
+  <div class="tool-body"><div class="tool-title">Financial command center</div><div class="tool-desc">Overview · All accounts · Sinking funds · Income & tax · Actions</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Update quarterly</span></div></div>
   <div class="arrow">›</div>
 </a>
 
 <a href="emily_1pager_final.html" class="tool-card">
   <div class="tool-icon" style="background:#EAF3DE;">📄</div>
-  <div class="tool-body"><div class="tool-title">Emily's monthly 1-pager</div><div class="tool-desc">Simple monthly summary — NW, income, savings, family timeline</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Share monthly</span></div></div>
+  <div class="tool-body"><div class="tool-title">Emily's quarterly 1-pager</div><div class="tool-desc">Simple quarterly summary — NW, income, savings, family timeline</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Share quarterly</span></div></div>
   <div class="arrow">›</div>
 </a>
 
@@ -114,7 +111,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 
 <a href="net_worth_projector_final.html" class="tool-card">
   <div class="tool-icon" style="background:#EAF3DE;">📈</div>
-  <div class="tool-body"><div class="tool-title">Net worth projector</div><div class="tool-desc">History + best/base/worst · ~$6.1M at 55 · Family timeline</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Update quarterly</span></div></div>
+  <div class="tool-body"><div class="tool-title">Net worth projector</div><div class="tool-desc">History + best/base/worst · ~$6.1M at retirement · Family timeline</div><div class="tool-meta"><span class="badge bg-green">Current ✓</span><span class="badge bg-blue">Update quarterly</span></div></div>
   <div class="arrow">›</div>
 </a>
 
@@ -135,7 +132,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 
 <div class="tool-card coming">
   <div class="tool-icon" style="background:#EEEDFE;">🔄</div>
-  <div class="tool-body"><div class="tool-title">Roth conversion modeler</div><div class="tool-desc">Ladder strategy · Tax cost by year · Optimal window to 55</div><div class="tool-meta"><span class="badge bg-purple">CPA-level analysis</span><span class="badge bg-gray">Coming</span></div></div>
+  <div class="tool-body"><div class="tool-title">Roth conversion modeler</div><div class="tool-desc">Ladder strategy · Tax cost by year · Optimal window to retirement</div><div class="tool-meta"><span class="badge bg-purple">CPA-level analysis</span><span class="badge bg-gray">Coming</span></div></div>
   <div class="arrow">›</div>
 </div>
 
@@ -161,12 +158,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div class="section-label">Action items — April 2026</div>
 <div style="background:#fff;border:0.5px solid #e0e0d8;border-radius:12px;padding:14px 16px;margin-bottom:12px;">
   <div class="alert"><div class="dot dot-red"></div><div><strong>Fix Roth allocations</strong> — $132K in REITs/dividends. Move Emily (···2972) + Nick (···2134) to VBK, VWO, QQQ.</div><span class="badge bg-red" style="margin-left:auto;flex-shrink:0;">Now</span></div>
-  <div class="alert"><div class="dot dot-red"></div><div><strong>Estate plan + beneficiary review</strong> — 2+ years overdue. Schedule with Emily this month.</div><span class="badge bg-red" style="margin-left:auto;flex-shrink:0;">Overdue</span></div>
-  <div class="alert"><div class="dot dot-amber"></div><div><strong>Sammie Bat Mitzvah fund = $2</strong> — reconcile vs plan.</div><span class="badge bg-amber" style="margin-left:auto;flex-shrink:0;">Check</span></div>
-  <div class="alert"><div class="dot dot-amber"></div><div><strong>Close E*TRADE accounts ($612)</strong> — transfer to Vanguard.</div><span class="badge bg-amber" style="margin-left:auto;flex-shrink:0;">Easy win</span></div>
+  <div class="alert"><div class="dot dot-red"></div><div><strong>Estate plan + beneficiary review</strong> — 2+ years overdue.</div><span class="badge bg-red" style="margin-left:auto;flex-shrink:0;">Overdue</span></div>
   <div class="alert"><div class="dot dot-amber"></div><div><strong>Confirm 401k Roth vs pretax split</strong> — needed for tax location optimizer.</div><span class="badge bg-amber" style="margin-left:auto;flex-shrink:0;">Next visit</span></div>
-  <div class="alert"><div class="dot dot-purple"></div><div><strong>Roth conversion strategy</strong> — model ladder given income trajectory, MEP ending 2027, path to 55.</div><span class="badge bg-purple" style="margin-left:auto;flex-shrink:0;">CPA session</span></div>
-  <div class="alert"><div class="dot dot-blue"></div><div><strong>July — rebalance + Sammie 529 glide path</strong> — biannual review + annual 10% stock reduction.</div><span class="badge bg-blue" style="margin-left:auto;flex-shrink:0;">July</span></div>
+  <div class="alert"><div class="dot dot-purple"></div><div><strong>Roth conversion strategy</strong> — model ladder, MEP ending 2027, path to retirement.</div><span class="badge bg-purple" style="margin-left:auto;flex-shrink:0;">CPA session</span></div>
+  <div class="alert"><div class="dot dot-blue"></div><div><strong>July — rebalance + Sammie & Evan 529 glide paths</strong> — biannual review + annual allocation updates.</div><span class="badge bg-blue" style="margin-left:auto;flex-shrink:0;">July</span></div>
 </div>
 
 <div class="divider"></div>
@@ -193,28 +188,96 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Financial command center</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Emily 1-pager</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Allocation optimizer</div></div>
-  <div class="roadmap-row"><div class="step-num done">✓</div><div>Net worth projector — history + age 55 goal</div></div>
+  <div class="roadmap-row"><div class="step-num done">✓</div><div>Net worth projector — history + retirement goal</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Credit card optimizer</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>In case of death guide</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Master hub — MyMoney</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>Deployed to GitHub Pages — nray1122.github.io/mymoney</div></div>
   <div class="roadmap-row"><div class="step-num done">✓</div><div>All tools linked — fully connected app</div></div>
-  <div class="roadmap-row"><div class="step-num active-s">10</div><div>Google Sheets data layer — 5 min monthly updates <span class="badge bg-purple" style="margin-left:6px;">next</span></div></div>
-  <div class="roadmap-row"><div class="step-num next-s">11</div><div>Estate doc review + beneficiary mapping</div></div>
-  <div class="roadmap-row"><div class="step-num next-s">12</div><div>Investment philosophy tab</div></div>
-  <div class="roadmap-row"><div class="step-num next-s">13</div><div>401k Roth/pretax splits → tax location optimizer</div></div>
-  <div class="roadmap-row"><div class="step-num next-s">14</div><div>Roth conversion modeler — CPA-level ladder</div></div>
-  <div class="roadmap-row"><div class="step-num next-s">15</div><div>Plaid integration — true auto-refresh</div></div>
+  <div class="roadmap-row"><div class="step-num done">✓</div><div>V2 — calendar, ages, labels refined</div></div>
+  <div class="roadmap-row"><div class="step-num active-s">11</div><div>V2 updates — remaining HTML files <span class="badge bg-purple" style="margin-left:6px;">next</span></div></div>
+  <div class="roadmap-row"><div class="step-num next-s">12</div><div>Google Sheets data layer — 5 min quarterly updates</div></div>
+  <div class="roadmap-row"><div class="step-num next-s">13</div><div>Estate doc review + beneficiary mapping</div></div>
+  <div class="roadmap-row"><div class="step-num next-s">14</div><div>Investment philosophy tab</div></div>
+  <div class="roadmap-row"><div class="step-num next-s">15</div><div>401k Roth/pretax splits → tax location optimizer</div></div>
+  <div class="roadmap-row"><div class="step-num next-s">16</div><div>Roth conversion modeler — CPA-level ladder</div></div>
+  <div class="roadmap-row"><div class="step-num next-s">17</div><div>Plaid integration — true auto-refresh</div></div>
 </div>
 
-<div style="text-align:center;margin-top:20px;font-size:11px;color:#aaa;">MyMoney · Ray family · Built April 2026 · nray1122.github.io/mymoney</div>
+<div style="text-align:center;margin-top:20px;font-size:11px;color:#aaa;">MyMoney · Ray family · nray1122.github.io/mymoney</div>
 </div>
 
 <script>
-var calData={jan:[{dot:'dot-blue',t:'Tie out first pay stub to estimates'},{dot:'dot-blue',t:'Update Copilot budget for new year'},{dot:'dot-green',t:'Submit FSA reimbursements'},{dot:'dot-green',t:'Submit vacation reimbursement'}],feb:[{dot:'dot-blue',t:'Tax docs arrive — Fidelity, Vanguard, Etrade'},{dot:'dot-amber',t:'Plan 529 and savings timing for year'},{dot:'dot-green',t:'Submit Fidelity Charitable IRS Form 8283'}],mar:[{dot:'dot-blue',t:"Emily's bonus paid — plan deployment"},{dot:'dot-green',t:'Confirm charitable donation list from Copilot'},{dot:'dot-amber',t:'File taxes or extend'}],apr:[{dot:'dot-red',t:'Fix Roth allocations — move to VBK, VWO, QQQ'},{dot:'dot-red',t:'Estate plan + beneficiary review — schedule with Emily'},{dot:'dot-amber',t:'Reconcile Sammie Bat Mitzvah fund ($2)'},{dot:'dot-amber',t:'Close E*TRADE accounts — transfer to Vanguard'},{dot:'dot-amber',t:'Confirm 401k Roth vs pretax split'},{dot:'dot-green',t:'Monthly update + Emily 1-pager ✓ done'}],may:[{dot:'dot-green',t:'Emily turns 43 🎂'},{dot:'dot-green',t:'Monthly update — portfolio values from Empower'},{dot:'dot-blue',t:'Check MSFT ESPP vest schedule'},{dot:'dot-green',t:'Check sinking fund balances'}],jun:[{dot:'dot-blue',t:'Prep for July rebalance — pull Empower snapshot'},{dot:'dot-green',t:'Mid-year tax check — withholding on track?'},{dot:'dot-green',t:'Monthly update'}],jul:[{dot:'dot-amber',t:'Rebalance — update allocation per market conditions'},{dot:'dot-amber',t:'Sammie 529 — reduce stock allocation 10%'},{dot:'dot-blue',t:'Update allocation optimizer'},{dot:'dot-green',t:'Monthly update + Emily 1-pager'}],aug:[{dot:'dot-blue',t:'Nick RSU vest (quarterly) — sell and transfer to Vanguard'},{dot:'dot-green',t:'Monthly update'},{dot:'dot-green',t:'Check sinking funds — shortfalls before year-end?'}],sep:[{dot:'dot-blue',t:"Nick's bonus paid (25%) — deploy to plan"},{dot:'dot-blue',t:'Emily MEP cash award — redeploy per plan'},{dot:'dot-amber',t:'Fund sinking fund shortfalls with bonus/RSU'},{dot:'dot-green',t:'Monthly update'}],oct:[{dot:'dot-red',t:'Calc next year tax liability — update Tax Estimator'},{dot:'dot-red',t:'Plan new year 401k contribution percentages'},{dot:'dot-amber',t:'Review beneficiaries if not done in April'},{dot:'dot-green',t:'Monthly update'}],nov:[{dot:'dot-green',t:'Nick turns 44 🎂'},{dot:'dot-blue',t:'Finalize W4 additional withholding for next year'},{dot:'dot-blue',t:'Review brokerage for tax-loss harvesting'},{dot:'dot-green',t:'Monthly update + Emily 1-pager'}],dec:[{dot:'dot-red',t:'Update W4 withholding for Jan 1'},{dot:'dot-red',t:'Update 401k Roth + mega backdoor percentages'},{dot:'dot-amber',t:'Update stock/bond allocations (Dec rebalance)'},{dot:'dot-purple',t:'Roth conversion modeling — optimal ladder'},{dot:'dot-green',t:'Annual Emily walkthrough — full financial review'},{dot:'dot-green',t:'Record Dec 31 net worth for historical tracker'}]};
+var calData={
+  jan:[
+    {dot:'dot-red',t:'Estate plan + beneficiary review'},
+    {dot:'dot-blue',t:'Rebalance — update allocation per market conditions'},
+    {dot:'dot-blue',t:'Quarterly update — portfolio values, accounts, net worth'},
+    {dot:'dot-green',t:'Emily 1-pager — quarterly share'},
+    {dot:'dot-blue',t:'Tie out first pay stub to estimates (Roth, taxes, gross)'},
+    {dot:'dot-blue',t:'Update Copilot budget for new year'}
+  ],
+  feb:[
+    {dot:'dot-blue',t:'Nick RSU vest — M2 of Q1 (Feb) · sell and transfer to Vanguard'}
+  ],
+  mar:[
+    {dot:'dot-blue',t:"Emily's bonus paid (Mar) — deploy to plan"},
+    {dot:'dot-green',t:'Do taxes'},
+    {dot:'dot-green',t:'Submit FSA reimbursements (health + dependent care)'},
+    {dot:'dot-green',t:'Submit vacation reimbursement from prior year'}
+  ],
+  apr:[
+    {dot:'dot-blue',t:'Quarterly update — portfolio values, accounts, net worth'},
+    {dot:'dot-green',t:'Emily 1-pager — quarterly share'},
+    {dot:'dot-blue',t:'Nick RSU vest — M2 of Q2 (May) · sell and transfer to Vanguard'}
+  ],
+  may:[
+    {dot:'dot-green',t:'Emily turns 43 🎂'},
+    {dot:'dot-blue',t:'Nick RSU vest — M2 of Q2 (May) · sell and transfer to Vanguard'}
+  ],
+  jun:[
+    {dot:'dot-green',t:'No scheduled items — enjoy the month'}
+  ],
+  jul:[
+    {dot:'dot-blue',t:'Rebalance — update allocation per market conditions'},
+    {dot:'dot-blue',t:'Quarterly update — portfolio values, accounts, net worth'},
+    {dot:'dot-green',t:'Emily 1-pager — quarterly share'},
+    {dot:'dot-amber',t:'Sammie 529 — annual allocation update per glide path'},
+    {dot:'dot-amber',t:'Evan 529 — annual allocation update per glide path'}
+  ],
+  aug:[
+    {dot:'dot-blue',t:'Nick RSU vest — M2 of Q3 (Aug) · sell and transfer to Vanguard'}
+  ],
+  sep:[
+    {dot:'dot-blue',t:"Nick's bonus paid (Sep) — deploy to plan"},
+    {dot:'dot-blue',t:'Emily MEP cash award (Sep, ends 2027) — deploy to plan'},
+    {dot:'dot-blue',t:'Nick RSU vest — M2 of Q3 (Aug) · sell and transfer to Vanguard'}
+  ],
+  oct:[
+    {dot:'dot-blue',t:'Quarterly update — portfolio values, accounts, net worth'},
+    {dot:'dot-green',t:'Emily 1-pager — quarterly share'}
+  ],
+  nov:[
+    {dot:'dot-green',t:'Nick turns 44 🎂'},
+    {dot:'dot-blue',t:'Nick RSU vest — M2 of Q4 (Nov) · sell and transfer to Vanguard'}
+  ],
+  dec:[
+    {dot:'dot-red',t:'Calc next year tax liability — update Tax Estimator'},
+    {dot:'dot-red',t:'Plan new year 401k contribution percentages'},
+    {dot:'dot-red',t:'Update W4 withholding for Jan 1'},
+    {dot:'dot-amber',t:'Update stock/bond allocations (Dec rebalance window)'},
+    {dot:'dot-green',t:'Annual Emily walkthrough — full financial review'},
+    {dot:'dot-green',t:'Record Dec 31 net worth for historical tracker'}
+  ]
+};
 var monthNames={jan:'January',feb:'February',mar:'March',apr:'April',may:'May',jun:'June',jul:'July',aug:'August',sep:'September',oct:'October',nov:'November',dec:'December'};
 function setMonth(el,key){document.querySelectorAll('.month-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderCal(key);}
-function renderCal(key){var items=calData[key]||[];var html='<div style="font-size:12px;font-weight:600;color:#666;margin-bottom:10px;">'+monthNames[key]+' checklist</div>';items.forEach(function(item){html+='<div class="cal-item"><div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;" class="'+item.dot+'"></div><div>'+item.t+'</div></div>';});document.getElementById('cal-content').innerHTML=html;}
+function renderCal(key){
+  var items=calData[key]||[];
+  var html='<div style="font-size:12px;font-weight:600;color:#666;margin-bottom:10px;">'+monthNames[key]+' checklist</div>';
+  items.forEach(function(item){html+='<div class="cal-item"><div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;" class="'+item.dot+'"></div><div>'+item.t+'</div></div>';});
+  document.getElementById('cal-content').innerHTML=html;
+}
 renderCal('apr');
 </script>
 </body>
