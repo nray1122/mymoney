@@ -19,7 +19,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .bg-green { background: #EAF3DE; color: #3B6D11; }
 .bg-amber { background: #FAEEDA; color: #854F0B; }
 .bg-blue { background: #E6F1FB; color: #185FA5; }
-.bg-purple { background: #EEEDFE; color: #534AB7; }
 .bg-red { background: #FCEBEB; color: #A32D2D; }
 .bg-gray { background: #f1efe8; color: #888; }
 .metric { background: #f1efe8; border-radius: 8px; padding: 12px 14px; }
@@ -27,260 +26,431 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .metric-value { font-size: 19px; font-weight: 700; }
 .metric-sub { font-size: 11px; margin-top: 2px; color: #888; }
 .grid-4 { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
 .row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
 .row:last-child { border-bottom: none; }
-.bar-wrap { height: 7px; background: #f1efe8; border-radius: 4px; overflow: hidden; }
-.bar { height: 100%; border-radius: 4px; }
-.alloc-row { display: grid; grid-template-columns: 130px 1fr 52px 52px 80px; gap: 8px; align-items: center; padding: 7px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 12px; }
-.alloc-row:last-child { border-bottom: none; }
-.alloc-header { display: grid; grid-template-columns: 130px 1fr 52px 52px 80px; gap: 8px; padding: 0 0 6px; border-bottom: 0.5px solid #e0e0d8; font-size: 10px; color: #888; letter-spacing: 0.06em; text-transform: uppercase; }
-.market-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-bottom: 16px; }
+.bar-wrap { height: 6px; background: #f1efe8; border-radius: 3px; overflow: hidden; }
+.bar { height: 100%; border-radius: 3px; }
+.market-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin-bottom: 14px; }
 .market-card { border: 0.5px solid #e0e0d8; border-radius: 8px; padding: 10px 12px; cursor: pointer; }
-.market-card.selected { border: 2px solid #378ADD; }
-.market-card-title { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+.market-card.selected { border: 2px solid #378ADD; background: #f0f7ff; }
+.market-card-title { font-size: 12px; font-weight: 700; margin-bottom: 3px; }
 .market-card-sub { font-size: 11px; color: #666; }
-.fund-row { display: grid; grid-template-columns: 1fr 80px 90px 90px; gap: 8px; align-items: center; padding: 7px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 12px; }
+.fund-row { display: grid; grid-template-columns: 1fr 70px 90px 80px; gap: 8px; align-items: center; padding: 7px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 12px; }
 .fund-row:last-child { border-bottom: none; }
-.fund-header { display: grid; grid-template-columns: 1fr 80px 90px 90px; gap: 8px; padding: 0 0 6px; border-bottom: 0.5px solid #e0e0d8; font-size: 10px; color: #888; letter-spacing: 0.06em; text-transform: uppercase; }
+.fund-header { display: grid; grid-template-columns: 1fr 70px 90px 80px; gap: 8px; padding: 0 0 6px; border-bottom: 0.5px solid #e0e0d8; font-size: 10px; color: #888; letter-spacing: 0.06em; text-transform: uppercase; }
 .action-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
 .action-row:last-child { border-bottom: none; }
 .divider { border: none; border-top: 0.5px solid #e0e0d8; margin: 12px 0; }
-.account-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.back-btn { display: inline-block; font-size: 12px; color: #666; text-decoration: none; margin-bottom: 16px; padding: 4px 0; }
 </style>
 </head>
 <body>
 <div class="wrap">
-
+<a href="index.html" class="back-btn">← Back to MyMoney</a>
 <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
 <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px;">
-  <div>
-    <div style="font-size:20px;font-weight:700;">Allocation optimizer</div>
-    <div style="font-size:13px;color:#666;margin-top:2px;">Quarterly review · All accounts · Ray family</div>
-  </div>
+  <div><div style="font-size:20px;font-weight:700;">Allocation optimizer</div><div style="font-size:13px;color:#666;margin-top:2px;">Quarterly review · Investment accounts only · Mar 2026</div></div>
   <span class="badge bg-amber">Q2 2026</span>
 </div>
 
 <div class="tab-bar">
   <button class="tab-btn active" onclick="showTab('overview')">Portfolio overview</button>
   <button class="tab-btn" onclick="showTab('market')">Market conditions</button>
-  <button class="tab-btn" onclick="showTab('retvsbrok')">Retirement vs brokerage</button>
+  <button class="tab-btn" onclick="showTab('retvsbrok')">Tax location</button>
   <button class="tab-btn" onclick="showTab('actions')">Recommended actions</button>
 </div>
 
-<!-- TAB 1: OVERVIEW -->
+<!-- TAB 1: PORTFOLIO OVERVIEW -->
 <div id="tab-overview" class="panel active">
   <div class="grid-4">
-    <div class="metric"><div class="metric-label">Total portfolio</div><div class="metric-value">$2.677M</div><div class="metric-sub">Apr 2026</div></div>
-    <div class="metric"><div class="metric-label">Retirement accounts</div><div class="metric-value">$1.558M</div><div class="metric-sub">401k + Roth (58%)</div></div>
-    <div class="metric"><div class="metric-label">Brokerage / taxable</div><div class="metric-value">$928K</div><div class="metric-sub">Vanguard + ESPP (35%)</div></div>
-    <div class="metric"><div class="metric-label">Emergency fund</div><div class="metric-value">$98K</div><div class="metric-sub">MM + IBonds · do not invest</div></div>
+    <div class="metric"><div class="metric-label">Total invested</div><div class="metric-value">$2.7M</div><div class="metric-sub">Per Empower Mar 2026</div></div>
+    <div class="metric"><div class="metric-label">Retirement (401k+Roth)</div><div class="metric-value">$1.6M</div><div class="metric-sub">58% of portfolio</div></div>
+    <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value">$928K</div><div class="metric-sub">35% of portfolio</div></div>
+    <div class="metric"><div class="metric-label">Drift threshold</div><div class="metric-value">±3%</div><div class="metric-sub">~$81K at current size</div></div>
   </div>
+
   <div class="card">
-    <div class="section-label">Current allocation vs target — all accounts</div>
-    <div class="alloc-header"><span>Asset class</span><span>Current</span><span style="text-align:right;">Current%</span><span style="text-align:right;">Target%</span><span style="text-align:right;">Diff ($)</span></div>
-    <div class="alloc-row"><span>Large cap</span><div><div class="bar-wrap"><div class="bar" style="width:56%;background:#378ADD;"></div></div></div><span style="text-align:right;">37.3%</span><span style="text-align:right;">40.0%</span><span style="text-align:right;color:#3B6D11;">+$72K</span></div>
-    <div class="alloc-row"><span>Int'l stocks</span><div><div class="bar-wrap"><div class="bar" style="width:27%;background:#1D9E75;"></div></div></div><span style="text-align:right;">18.5%</span><span style="text-align:right;">17.0%</span><span style="text-align:right;color:#A32D2D;">-$41K</span></div>
-    <div class="alloc-row"><span>Bonds</span><div><div class="bar-wrap"><div class="bar" style="width:22%;background:#BA7517;"></div></div></div><span style="text-align:right;">14.8%</span><span style="text-align:right;">14.0%</span><span style="text-align:right;color:#A32D2D;">-$22K</span></div>
-    <div class="alloc-row"><span>Mid cap</span><div><div class="bar-wrap"><div class="bar" style="width:17%;background:#EF9F27;"></div></div></div><span style="text-align:right;">11.6%</span><span style="text-align:right;">10.0%</span><span style="text-align:right;color:#A32D2D;">-$44K</span></div>
-    <div class="alloc-row"><span>Small cap</span><div><div class="bar-wrap"><div class="bar" style="width:13%;background:#7F77DD;"></div></div></div><span style="text-align:right;">9.0%</span><span style="text-align:right;">8.0%</span><span style="text-align:right;color:#A32D2D;">-$26K</span></div>
-    <div class="alloc-row"><span>Real estate</span><div><div class="bar-wrap"><div class="bar" style="width:10%;background:#D85A30;"></div></div></div><span style="text-align:right;">6.5%</span><span style="text-align:right;">6.0%</span><span style="text-align:right;color:#A32D2D;">-$15K</span></div>
-    <div class="alloc-row"><span>Cash/MM</span><div><div class="bar-wrap"><div class="bar" style="width:2%;background:#888;"></div></div></div><span style="text-align:right;">1.7%</span><span style="text-align:right;">2.0%</span><span style="text-align:right;color:#3B6D11;">+$9K</span></div>
-    <div class="alloc-row"><span>Crypto</span><div><div class="bar-wrap"><div class="bar" style="width:1%;background:#534AB7;"></div></div></div><span style="text-align:right;">0.5%</span><span style="text-align:right;">1.0%</span><span style="text-align:right;color:#3B6D11;">+$13K</span></div>
-    <div class="alloc-row"><span>Gold/metals</span><div><div class="bar-wrap"><div class="bar" style="width:0%;background:#888;"></div></div></div><span style="text-align:right;">0.0%</span><span style="text-align:right;">2.0%</span><span style="text-align:right;color:#3B6D11;">+$54K</span></div>
+    <div class="section-label">Current vs goal allocation — targets from your Empower goal + market conditions</div>
+    <div style="font-size:11px;color:#888;margin-bottom:12px;">Goal allocation is your target. Market conditions tab applies tactical tilts. Flags at ±3% drift (~$81K). <span style="color:#A32D2D;font-weight:600;">▼ Over</span> &nbsp;<span style="color:#185FA5;font-weight:600;">▲ Under</span></div>
+    <div id="overview-table"></div>
+    <div id="overview-flags" style="font-size:11px;margin-top:12px;padding-top:10px;border-top:0.5px solid #e0e0d8;"></div>
   </div>
 </div>
 
 <!-- TAB 2: MARKET CONDITIONS -->
 <div id="tab-market" class="panel">
   <div class="card" style="margin-bottom:14px;">
-    <div class="section-label">Set current market environment</div>
-    <div style="font-size:12px;color:#666;margin-bottom:14px;">Select conditions that best describe today. These shift the recommended target allocations.</div>
+    <div class="section-label">Current market environment — update quarterly</div>
+    <div style="font-size:12px;color:#666;margin-bottom:14px;">Selections apply tactical tilts to your goal allocation. Defaults reflect Q2 2026 view.</div>
+
     <div style="margin-bottom:16px;">
       <div class="section-label" style="margin-bottom:8px;">Interest rate environment</div>
       <div class="market-grid">
-        <div class="market-card" id="rate-high" onclick="setMarket('rate','high')"><div class="market-card-title">High &amp; rising</div><div class="market-card-sub">Favors bonds, value, cash</div></div>
-        <div class="market-card selected" id="rate-high-falling" onclick="setMarket('rate','high-falling')"><div class="market-card-title">High &amp; falling</div><div class="market-card-sub">Favors bonds, mid/small, REIT</div></div>
-        <div class="market-card" id="rate-low" onclick="setMarket('rate','low')"><div class="market-card-title">Low &amp; stable</div><div class="market-card-sub">Favors growth, large cap, REIT</div></div>
+        <div class="market-card" id="rate-high" onclick="setMarket('rate','high',this)"><div class="market-card-title">High & rising</div><div class="market-card-sub">Favors bonds, value, cash</div></div>
+        <div class="market-card selected" id="rate-high-falling" onclick="setMarket('rate','high-falling',this)"><div class="market-card-title">High & falling</div><div class="market-card-sub">Favors bonds, mid/small, REIT</div></div>
+        <div class="market-card" id="rate-low" onclick="setMarket('rate','low',this)"><div class="market-card-title">Low & stable</div><div class="market-card-sub">Favors growth, large cap</div></div>
       </div>
     </div>
+
     <div style="margin-bottom:16px;">
       <div class="section-label" style="margin-bottom:8px;">Growth outlook</div>
       <div class="market-grid">
-        <div class="market-card selected" id="growth-moderate" onclick="setMarket('growth','moderate')"><div class="market-card-title">Moderate growth</div><div class="market-card-sub">Balanced approach</div></div>
-        <div class="market-card" id="growth-strong" onclick="setMarket('growth','strong')"><div class="market-card-title">Strong growth</div><div class="market-card-sub">Favor equities, reduce bonds</div></div>
-        <div class="market-card" id="growth-recession" onclick="setMarket('growth','recession')"><div class="market-card-title">Recession risk</div><div class="market-card-sub">Increase bonds, cash, defensives</div></div>
+        <div class="market-card" id="growth-strong" onclick="setMarket('growth','strong',this)"><div class="market-card-title">Strong growth</div><div class="market-card-sub">Favor equities, reduce bonds</div></div>
+        <div class="market-card selected" id="growth-moderate" onclick="setMarket('growth','moderate',this)"><div class="market-card-title">Moderate growth</div><div class="market-card-sub">Balanced approach</div></div>
+        <div class="market-card" id="growth-recession" onclick="setMarket('growth','recession',this)"><div class="market-card-title">Recession risk</div><div class="market-card-sub">Increase bonds, cash, defensives</div></div>
       </div>
     </div>
+
     <div>
       <div class="section-label" style="margin-bottom:8px;">USD / international outlook</div>
       <div class="market-grid">
-        <div class="market-card" id="fx-strong-usd" onclick="setMarket('fx','strong-usd')"><div class="market-card-title">Strong USD</div><div class="market-card-sub">Reduce int'l allocation</div></div>
-        <div class="market-card selected" id="fx-neutral" onclick="setMarket('fx','neutral')"><div class="market-card-title">Neutral</div><div class="market-card-sub">Hold int'l at target</div></div>
-        <div class="market-card" id="fx-weak-usd" onclick="setMarket('fx','weak-usd')"><div class="market-card-title">Weak USD / int'l opportunity</div><div class="market-card-sub">Increase int'l</div></div>
+        <div class="market-card" id="fx-strong-usd" onclick="setMarket('fx','strong-usd',this)"><div class="market-card-title">Strong USD</div><div class="market-card-sub">Reduce int'l allocation</div></div>
+        <div class="market-card selected" id="fx-neutral" onclick="setMarket('fx','neutral',this)"><div class="market-card-title">Neutral</div><div class="market-card-sub">Hold int'l at target</div></div>
+        <div class="market-card" id="fx-weak-usd" onclick="setMarket('fx','weak-usd',this)"><div class="market-card-title">Weak USD</div><div class="market-card-sub">Increase int'l, favor gold</div></div>
       </div>
     </div>
   </div>
-  <div class="card" id="market-reco">
-    <div class="section-label">Market-adjusted targets — Q2 2026</div>
-    <div id="market-reco-content"></div>
+
+  <div class="card">
+    <div class="section-label">Adjusted target allocations — sum to 100%</div>
+    <div style="font-size:11px;color:#666;margin-bottom:10px;">Goal allocation + market tilts. These are your active targets and flow into Portfolio Overview.</div>
+    <div id="market-table"></div>
+    <div id="market-total" style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;"></div>
   </div>
 </div>
 
-<!-- TAB 3: RETIREMENT VS BROKERAGE -->
+<!-- TAB 3: TAX LOCATION -->
 <div id="tab-retvsbrok" class="panel">
-  <div class="grid-2" style="margin-bottom:14px;">
-    <div class="metric"><div class="metric-label">Retirement accounts</div><div class="metric-value">$1.558M</div><div class="metric-sub">401k (Nick + Emily) + Roths</div></div>
-    <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value">$928K</div><div class="metric-sub">Vanguard joint + ESPP</div></div>
+  <div class="grid-3" style="margin-bottom:14px;">
+    <div class="metric"><div class="metric-label">401k (Nick + Emily)</div><div class="metric-value">$1.6M</div><div class="metric-sub">Pretax + Roth (split TBC)</div></div>
+    <div class="metric"><div class="metric-label">Roth IRAs</div><div class="metric-value">$132.5K</div><div class="metric-sub">Nick + Emily · needs realloc</div></div>
+    <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value">$928K</div><div class="metric-sub">Vanguard joint accounts</div></div>
   </div>
+
   <div class="card" style="margin-bottom:12px;">
-    <div class="section-label">Tax location — the core principle</div>
-    <div style="font-size:13px;color:#666;line-height:1.7;margin-bottom:12px;">Put the right asset in the right account. Saves thousands annually with zero change to overall allocation.</div>
-    <div class="grid-3">
+    <div class="section-label">Tax location — three bucket strategy</div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;">
       <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
-        <div style="font-size:11px;font-weight:600;color:#185FA5;margin-bottom:6px;">PRETAX 401K</div>
-        <div style="font-size:12px;line-height:1.8;color:#666;">Bonds (FXNAX, VGIT)<br>REITs (high dividends)<br>High-yield assets</div>
-        <div style="font-size:11px;color:#888;margin-top:6px;">Ordinary income on withdrawal — hide high-yield here</div>
+        <div style="font-size:11px;font-weight:700;color:#185FA5;margin-bottom:6px;">PRETAX 401K</div>
+        <div style="font-size:12px;line-height:1.9;color:#666;">Bonds<br>REITs<br>High-yield / dividends<br>Stable value</div>
+        <div style="font-size:11px;color:#888;margin-top:8px;padding-top:8px;border-top:0.5px solid #e0e0d8;">Ordinary income on withdrawal — hide high-yield here</div>
+      </div>
+      <div style="border:2px solid #E24B4A;border-radius:8px;padding:10px 12px;">
+        <div style="font-size:11px;font-weight:700;color:#A32D2D;margin-bottom:6px;">ROTH — FIX NOW</div>
+        <div style="font-size:12px;line-height:1.9;color:#666;">Small cap growth (VBK)<br>Emerging markets (VWO)<br>Tech ETF (QQQ/FTEC)<br>Crypto</div>
+        <div style="font-size:11px;color:#888;margin-top:8px;padding-top:8px;border-top:0.5px solid #e0e0d8;">Tax-free forever — put highest upside assets here</div>
       </div>
       <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
-        <div style="font-size:11px;font-weight:600;color:#0F6E56;margin-bottom:6px;">ROTH (Nick + Emily)</div>
-        <div style="font-size:12px;line-height:1.8;color:#666;">Small cap growth (VBK)<br>Emerging markets (VWO)<br>Tech ETF (QQQ/FTEC)<br>Crypto</div>
-        <div style="font-size:11px;color:#888;margin-top:6px;">Tax-free forever — highest upside assets here</div>
-      </div>
-      <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
-        <div style="font-size:11px;font-weight:600;color:#3B6D11;margin-bottom:6px;">TAXABLE BROKERAGE</div>
-        <div style="font-size:12px;line-height:1.8;color:#666;">Total market (VTSAX)<br>Int'l index (VXUS/VEA)<br>Large cap (SP500)<br>BRK.B</div>
-        <div style="font-size:11px;color:#888;margin-top:6px;">Long-term cap gains — low-turnover index funds only</div>
+        <div style="font-size:11px;font-weight:700;color:#3B6D11;margin-bottom:6px;">TAXABLE BROKERAGE</div>
+        <div style="font-size:12px;line-height:1.9;color:#666;">Total market (VTSAX)<br>Int'l index (VXUS/VEA)<br>Large cap (S&P 500)<br>Individual stocks</div>
+        <div style="font-size:11px;color:#888;margin-top:8px;padding-top:8px;border-top:0.5px solid #e0e0d8;">Long-term cap gains — tax-efficient index funds only</div>
       </div>
     </div>
   </div>
+
   <div class="card" style="margin-bottom:12px;">
-    <div class="section-label">Retirement accounts — current vs recommended</div>
+    <div class="section-label">401k accounts — general breakdown</div>
+    <div style="font-size:12px;color:#888;margin-bottom:10px;">Pretax + Roth split TBC — next update reflects actual fund breakdown once confirmed at Fidelity.</div>
     <div style="margin-bottom:12px;">
-      <div class="account-title">Nick 401k <span class="badge bg-blue">$825K pretax</span></div>
-      <div class="fund-header"><span>Fund</span><span style="text-align:right;">Current</span><span style="text-align:right;">Recommended</span><span style="text-align:right;">Action</span></div>
-      <div class="fund-row"><span>S&amp;P 500 index</span><span style="text-align:right;">~35%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-amber">Trim</span></span></div>
-      <div class="fund-row"><span>Int'l index (FSPSX)</span><span style="text-align:right;">~15%</span><span style="text-align:right;">15%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
-      <div class="fund-row"><span>Bonds (FXNAX)</span><span style="text-align:right;">~20%</span><span style="text-align:right;">25%</span><span style="text-align:right;"><span class="badge bg-blue">Add</span></span></div>
-      <div class="fund-row"><span>Small/mid cap</span><span style="text-align:right;">~15%</span><span style="text-align:right;">15%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
-      <div class="fund-row"><span>REIT ETF</span><span style="text-align:right;">~10%</span><span style="text-align:right;">10%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
-      <div class="fund-row"><span>Bitcoin / crypto</span><span style="text-align:right;">~5%</span><span style="text-align:right;">5%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
-    </div>
-    <div class="divider"></div>
-    <div style="margin-bottom:12px;">
-      <div class="account-title">Emily 401k <span class="badge bg-blue">$733K pretax</span></div>
-      <div class="fund-header"><span>Fund</span><span style="text-align:right;">Current</span><span style="text-align:right;">Recommended</span><span style="text-align:right;">Action</span></div>
-      <div class="fund-row"><span>S&amp;P 500 (FXAIX)</span><span style="text-align:right;">~40%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-amber">Trim</span></span></div>
-      <div class="fund-row"><span>Mid cap</span><span style="text-align:right;">~20%</span><span style="text-align:right;">15%</span><span style="text-align:right;"><span class="badge bg-amber">Trim</span></span></div>
-      <div class="fund-row"><span>Bonds (FUAMX)</span><span style="text-align:right;">~15%</span><span style="text-align:right;">25%</span><span style="text-align:right;"><span class="badge bg-blue">Add</span></span></div>
-      <div class="fund-row"><span>Small cap</span><span style="text-align:right;">~15%</span><span style="text-align:right;">15%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
-      <div class="fund-row"><span>Large cap value</span><span style="text-align:right;">~10%</span><span style="text-align:right;">15%</span><span style="text-align:right;"><span class="badge bg-blue">Add</span></span></div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Nick 401k + BrokerageLink <span class="badge bg-blue" style="margin-left:6px;">$825.2K</span></div>
+      <div class="fund-header"><span>Asset type</span><span style="text-align:right;">Est. %</span><span style="text-align:right;">Recommended</span><span style="text-align:right;">Action</span></div>
+      <div class="fund-row"><span>S&P 500 / large cap</span><span style="text-align:right;">~35%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-amber">Trim</span></span></div>
+      <div class="fund-row"><span>Int'l index</span><span style="text-align:right;">~15%</span><span style="text-align:right;">15%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
+      <div class="fund-row"><span>Bonds</span><span style="text-align:right;">~20%</span><span style="text-align:right;">25%</span><span style="text-align:right;"><span class="badge bg-blue">Add</span></span></div>
+      <div class="fund-row"><span>Small / mid cap</span><span style="text-align:right;">~15%</span><span style="text-align:right;">15%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
+      <div class="fund-row"><span>REIT</span><span style="text-align:right;">~10%</span><span style="text-align:right;">10%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
+      <div class="fund-row"><span>Crypto (Bitcoin)</span><span style="text-align:right;">~5%</span><span style="text-align:right;">5%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
     </div>
     <div class="divider"></div>
     <div>
-      <div class="account-title">Roth accounts — Nick + Emily <span class="badge bg-purple">$132K · fix now</span></div>
-      <div class="fund-header"><span>Fund</span><span style="text-align:right;">Current</span><span style="text-align:right;">Recommended</span><span style="text-align:right;">Action</span></div>
-      <div class="fund-row"><span>REIT (VGSLX) — Emily</span><span style="text-align:right;">~55%</span><span style="text-align:right;">0%</span><span style="text-align:right;"><span class="badge bg-red">Move out</span></span></div>
-      <div class="fund-row"><span>VDADX dividends — Nick</span><span style="text-align:right;">~45%</span><span style="text-align:right;">0%</span><span style="text-align:right;"><span class="badge bg-red">Move out</span></span></div>
-      <div class="fund-row"><span>Small cap growth (VBK)</span><span style="text-align:right;">0%</span><span style="text-align:right;">40%</span><span style="text-align:right;"><span class="badge bg-blue">Add</span></span></div>
-      <div class="fund-row"><span>Emerging markets (VWO)</span><span style="text-align:right;">0%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-blue">Add</span></span></div>
-      <div class="fund-row"><span>Tech ETF (QQQ or FTEC)</span><span style="text-align:right;">0%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-blue">Add</span></span></div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Emily 401k <span class="badge bg-blue" style="margin-left:6px;">$733.4K</span></div>
+      <div class="fund-header"><span>Asset type</span><span style="text-align:right;">Est. %</span><span style="text-align:right;">Recommended</span><span style="text-align:right;">Action</span></div>
+      <div class="fund-row"><span>S&P 500 / large cap</span><span style="text-align:right;">~40%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-amber">Trim</span></span></div>
+      <div class="fund-row"><span>Mid cap</span><span style="text-align:right;">~20%</span><span style="text-align:right;">15%</span><span style="text-align:right;"><span class="badge bg-amber">Trim</span></span></div>
+      <div class="fund-row"><span>Bonds</span><span style="text-align:right;">~15%</span><span style="text-align:right;">25%</span><span style="text-align:right;"><span class="badge bg-blue">Add</span></span></div>
+      <div class="fund-row"><span>Small cap</span><span style="text-align:right;">~15%</span><span style="text-align:right;">15%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
+      <div class="fund-row"><span>Large cap value</span><span style="text-align:right;">~10%</span><span style="text-align:right;">15%</span><span style="text-align:right;"><span class="badge bg-blue">Add</span></span></div>
     </div>
   </div>
+
+  <div class="card" style="margin-bottom:12px;">
+    <div class="section-label">Roth IRAs — fix now</div>
+    <div style="background:#FCEBEB;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#A32D2D;">Both Roths hold wrong asset types. REITs and dividends belong in pretax 401k. Move immediately — no tax consequence inside Roth.</div>
+    <div class="fund-header"><span>Account / asset</span><span style="text-align:right;">Current</span><span style="text-align:right;">Target</span><span style="text-align:right;">Action</span></div>
+    <div class="fund-row"><span>Emily Roth — REIT (VGSLX)</span><span style="text-align:right;">~100%</span><span style="text-align:right;">0%</span><span style="text-align:right;"><span class="badge bg-red">Sell</span></span></div>
+    <div class="fund-row"><span>Nick Roth — Dividends (VDADX)</span><span style="text-align:right;">~100%</span><span style="text-align:right;">0%</span><span style="text-align:right;"><span class="badge bg-red">Sell</span></span></div>
+    <div class="fund-row"><span>Small cap growth (VBK)</span><span style="text-align:right;">0%</span><span style="text-align:right;">40%</span><span style="text-align:right;"><span class="badge bg-blue">Buy</span></span></div>
+    <div class="fund-row"><span>Emerging markets (VWO)</span><span style="text-align:right;">0%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-blue">Buy</span></span></div>
+    <div class="fund-row"><span>Tech ETF (QQQ or FTEC)</span><span style="text-align:right;">0%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-blue">Buy</span></span></div>
+  </div>
+
   <div class="card">
-    <div class="section-label">Taxable brokerage — current vs recommended</div>
-    <div class="account-title">Vanguard joint brokerage <span class="badge bg-green">$928K · tax-efficient only</span></div>
-    <div class="fund-header"><span>Fund</span><span style="text-align:right;">Current</span><span style="text-align:right;">Recommended</span><span style="text-align:right;">Action</span></div>
+    <div class="section-label">Taxable brokerage — Vanguard joint</div>
+    <div class="fund-header"><span>Holding</span><span style="text-align:right;">Current</span><span style="text-align:right;">Target</span><span style="text-align:right;">Action</span></div>
     <div class="fund-row"><span>Total market (VTSAX)</span><span style="text-align:right;">~65%</span><span style="text-align:right;">55%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
     <div class="fund-row"><span>Int'l index (VXUS/VEA)</span><span style="text-align:right;">~25%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-blue">Add</span></span></div>
-    <div class="fund-row"><span>Individual stocks (BRK.B)</span><span style="text-align:right;">~10%</span><span style="text-align:right;">10%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
+    <div class="fund-row"><span>BRK.B</span><span style="text-align:right;">~10%</span><span style="text-align:right;">10%</span><span style="text-align:right;"><span class="badge bg-green">Hold</span></span></div>
+    <div class="fund-row"><span>MSFT ESPP (individual stock)</span><span style="text-align:right;">$9.6K</span><span style="text-align:right;">Sell on vest</span><span style="text-align:right;"><span class="badge bg-amber">Redeploy</span></span></div>
     <div class="fund-row"><span>Bonds — move to 401k</span><span style="text-align:right;">any</span><span style="text-align:right;">0%</span><span style="text-align:right;"><span class="badge bg-red">Move out</span></span></div>
-    <div class="fund-row"><span>REITs — move to 401k</span><span style="text-align:right;">any</span><span style="text-align:right;">0%</span><span style="text-align:right;"><span class="badge bg-red">Move out</span></span></div>
-    <div style="font-size:12px;color:#666;line-height:1.8;padding-top:10px;border-top:0.5px solid #e0e0d8;margin-top:8px;"><strong style="color:#1a1a18;">MSFT ESPP ($9.6K):</strong> Sell on vest, transfer to Vanguard as VTSAX. Already doing this — continue.</div>
+    <div style="font-size:12px;color:#666;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;"><strong>MSFT ESPP:</strong> Sell all shares on each vest date. Transfer proceeds to Vanguard as VTSAX.</div>
   </div>
 </div>
 
 <!-- TAB 4: RECOMMENDED ACTIONS -->
 <div id="tab-actions" class="panel">
   <div class="grid-4" style="margin-bottom:14px;">
-    <div class="metric"><div class="metric-label">Do now</div><div class="metric-value" style="color:#A32D2D;">3</div><div class="metric-sub">High impact</div></div>
-    <div class="metric"><div class="metric-label">Next rebalance</div><div class="metric-value">July 2026</div><div class="metric-sub">Biannual</div></div>
+    <div class="metric"><div class="metric-label">Do now</div><div class="metric-value" style="color:#A32D2D;">2</div><div class="metric-sub">High impact</div></div>
+    <div class="metric"><div class="metric-label">At July rebalance</div><div class="metric-value" style="color:#854F0B;">3</div><div class="metric-sub">Scheduled</div></div>
     <div class="metric"><div class="metric-label">Est. tax drag saved</div><div class="metric-value" style="color:#3B6D11;">$3-6K/yr</div><div class="metric-sub">Tax location fix</div></div>
-    <div class="metric"><div class="metric-label">Portfolio drift</div><div class="metric-value" style="color:#854F0B;">Minor</div><div class="metric-sub">Within tolerance</div></div>
+    <div class="metric"><div class="metric-label">Material flags</div><div class="metric-value" id="action-flag-count" style="color:#185FA5;">—</div><div class="metric-sub" id="action-flag-desc">Calculating...</div></div>
   </div>
+
   <div class="card" style="margin-bottom:12px;">
     <div class="section-label">Do now — high impact</div>
     <div class="action-row">
-      <div style="flex:1;"><div style="font-weight:600;font-size:13px;margin-bottom:3px;">Fix Roth allocations — both accounts</div><div style="font-size:12px;color:#666;line-height:1.6;">Emily's Roth (···2972) is in VGSLX (REIT) and Nick's (···2134) is in VDADX (dividends). Both generate high ordinary income — worst possible use of tax-free Roth space. Move to VBK (small cap growth), VWO (emerging markets), QQQ/FTEC (tech). Estimated value: $50-150K in additional tax-free compounding by 55.</div></div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:13px;margin-bottom:3px;">Fix Roth allocations — both accounts</div>
+        <div style="font-size:12px;color:#666;line-height:1.6;">Emily (···2972): sell VGSLX (REIT), buy VBK 40% / VWO 30% / QQQ 30%. Nick (···2134): sell VDADX (dividends), same allocation. Zero cost — no tax consequence inside Roth. Estimated value: $50-150K additional tax-free compounding by retirement.</div>
+      </div>
       <span class="badge bg-red" style="margin-left:12px;flex-shrink:0;">Do now</span>
     </div>
     <div class="action-row">
-      <div style="flex:1;"><div style="font-weight:600;font-size:13px;margin-bottom:3px;">Increase bonds in pretax 401k — both</div><div style="font-size:12px;color:#666;line-height:1.6;">Bonds should be 100% in pretax 401k (Nick: FXNAX, Emily: FUAMX). Any bonds in brokerage should move to 401k. Saves $1-2K/yr in tax drag on interest income.</div></div>
-      <span class="badge bg-red" style="margin-left:12px;flex-shrink:0;">Do now</span>
-    </div>
-    <div class="action-row">
-      <div style="flex:1;"><div style="font-weight:600;font-size:13px;margin-bottom:3px;">Add gold/metals allocation ($54K gap)</div><div style="font-size:12px;color:#666;line-height:1.6;">Currently 0% vs 2% target. With rates falling and USD uncertainty, gold is a portfolio hedge. IAU or GLD in taxable brokerage. Fund from excess cash or incoming RSU vest.</div></div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:13px;margin-bottom:3px;">Add gold / metals position — 0% vs 2% target</div>
+        <div style="font-size:12px;color:#666;line-height:1.6;">Currently missing entirely. With rates falling and macro uncertainty, gold is a portfolio hedge. Buy IAU or GLD in Vanguard taxable brokerage. Fund from next RSU vest proceeds (~$20K to start).</div>
+      </div>
       <span class="badge bg-red" style="margin-left:12px;flex-shrink:0;">Do now</span>
     </div>
   </div>
+
   <div class="card" style="margin-bottom:12px;">
-    <div class="section-label">July rebalance window</div>
+    <div class="section-label">July rebalance — scheduled</div>
     <div class="action-row">
-      <div style="flex:1;"><div style="font-weight:600;font-size:13px;margin-bottom:3px;">Trim int'l slightly — add to large cap</div><div style="font-size:12px;color:#666;line-height:1.6;">Int'l running 18.5% vs 17% target. Sell ~$41K of VEA/VXUS in brokerage, add to VTSAX. Check cost basis for tax-loss opportunities first.</div></div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:13px;margin-bottom:3px;">Trim int'l, add to large cap</div>
+        <div style="font-size:12px;color:#666;line-height:1.6;">Int'l at 18.5% vs 17% target (+1.5%). Large cap at 37.3% vs 40% target (-2.7%). At rebalance trim VEA/VXUS in Vanguard brokerage, add to VTSAX. Check cost basis for tax-loss opportunities first.</div>
+      </div>
       <span class="badge bg-amber" style="margin-left:12px;flex-shrink:0;">July</span>
     </div>
     <div class="action-row">
-      <div style="flex:1;"><div style="font-weight:600;font-size:13px;margin-bottom:3px;">Sammie 529 glide path</div><div style="font-size:12px;color:#666;line-height:1.6;">Annual 10% stock reduction. College starts Fall 2030 — 4 years away. Evan doesn't start reduction until 2028.</div></div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:13px;margin-bottom:3px;">Add bonds in pretax 401k</div>
+        <div style="font-size:12px;color:#666;line-height:1.6;">Bonds at 14.8% vs 14% target — within tolerance but watch. If market-adjusted target moves higher (recession scenario), increase FXNAX in Nick's BrokerageLink and FUAMX in Emily's 401k.</div>
+      </div>
+      <span class="badge bg-amber" style="margin-left:12px;flex-shrink:0;">July</span>
+    </div>
+    <div class="action-row">
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:13px;margin-bottom:3px;">529 glide paths — Sammie + Evan</div>
+        <div style="font-size:12px;color:#666;line-height:1.6;">Sammie: annual 10% stock reduction — starts college Fall 2030, 4 years away. Evan: begin monitoring — starts Fall 2033.</div>
+      </div>
       <span class="badge bg-amber" style="margin-left:12px;flex-shrink:0;">July</span>
     </div>
   </div>
+
   <div class="card">
-    <div class="section-label">Watch list — quarterly</div>
-    <div class="row"><span style="color:#666;">Crypto (Bitcoin in Nick 401k)</span><span><span class="badge bg-green">Hold</span> — at 0.5%, below 1% target. Add on dips.</span></div>
-    <div class="row"><span style="color:#666;">MSFT ESPP concentration</span><span><span class="badge bg-green">On track</span> — sell on vest, transfer to Vanguard.</span></div>
-    <div class="row"><span style="color:#666;">Emily MEP cash awards</span><span><span class="badge bg-blue">2027 end</span> — plan $23K Sept 2027 reallocation.</span></div>
-    <div class="row" style="border-bottom:none;"><span style="color:#666;">Roth conversion opportunity</span><span><span class="badge bg-purple">Future</span> — model in Dec when tax picture is clear.</span></div>
+    <div class="section-label">Watch list</div>
+    <div class="row"><span style="color:#666;">MSFT ESPP ($9.6K)</span><span style="font-size:12px;">Sell on next vest → redeploy to VTSAX</span></div>
+    <div class="row"><span style="color:#666;">Crypto (0.5% vs 1% target)</span><span style="font-size:12px;">Add on dips — $13K gap</span></div>
+    <div class="row"><span style="color:#666;">Emily MEP (Sep 2026)</span><span style="font-size:12px;">$38.2K — deploy per plan on receipt</span></div>
+    <div class="row"><span style="color:#666;">Nick bonus (Sep 2026)</span><span style="font-size:12px;">Deploy to address remaining gaps</span></div>
+    <div class="row"><span style="color:#666;">401k Roth vs pretax split</span><span style="font-size:12px;">Confirm at Fidelity — needed for next update</span></div>
   </div>
 </div>
 
 </div>
+
 <script>
+// YOUR ACTUAL GOAL ALLOCATIONS from Empower — sum to 100%
+var goalAlloc = {
+  'Large cap':    40.0,
+  "Int'l stocks": 17.0,
+  'Bonds':        14.0,
+  'Mid cap':      10.0,
+  'Small cap':     8.0,
+  'Real estate':   6.0,
+  'Gold/metals':   2.0,
+  'Crypto':        1.0,
+  'Cash/MM':       2.0
+};
+// Total: 100% ✓
+
+// YOUR ACTUAL CURRENT ALLOCATIONS from Empower Mar 2026
+var current = {
+  'Large cap':    37.3,
+  "Int'l stocks": 18.5,
+  'Bonds':        14.8,
+  'Mid cap':      11.6,
+  'Small cap':     9.0,
+  'Real estate':   6.5,
+  'Gold/metals':   0.0,
+  'Crypto':        0.5,
+  'Cash/MM':       1.7
+};
+// Based on: $1,003K large cap / $498K int'l / $398K bonds / $313K mid / $241K small / $176K real estate / $14K crypto / $45K cash = $2,688K
+
+var PORTFOLIO = 2688000;
+var THRESHOLD = 3.0;
+
+var colors = {
+  'Large cap':'#378ADD',"Int'l stocks":'#1D9E75','Bonds':'#BA7517',
+  'Mid cap':'#EF9F27','Small cap':'#7F77DD','Real estate':'#D85A30',
+  'Gold/metals':'#B8860B','Crypto':'#534AB7','Cash/MM':'#888'
+};
+
 var marketState = {rate:'high-falling', growth:'moderate', fx:'neutral'};
-function showTab(name){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+name).classList.add('active');event.target.classList.add('active');if(name==='market')renderMarketReco();}
-function setMarket(type,val){var prefix=type+'-';document.querySelectorAll('[id^="'+prefix+'"]').forEach(el=>el.classList.remove('selected'));document.getElementById(type+'-'+val).classList.add('selected');marketState[type]=val;renderMarketReco();}
-function renderMarketReco(){
-  var r=marketState.rate,g=marketState.growth,fx=marketState.fx;
-  var recs=[{asset:'Large cap US',base:40,adj:0},{asset:"Int'l stocks",base:17,adj:0},{asset:'Bonds',base:14,adj:0},{asset:'Mid cap',base:10,adj:0},{asset:'Small cap',base:8,adj:0},{asset:'Real estate',base:6,adj:0},{asset:'Cash/MM',base:2,adj:0},{asset:'Gold/metals',base:2,adj:0},{asset:'Crypto',base:1,adj:0}];
-  var notes=[];
-  if(r==='high-falling'){recs[2].adj+=3;recs[3].adj+=2;recs[4].adj+=2;recs[5].adj+=1;recs[0].adj-=4;recs[6].adj-=2;recs[7].adj-=2;notes.push('Rates falling: overweight bonds, mid/small cap, REIT');}
-  else if(r==='high'){recs[2].adj+=4;recs[6].adj+=3;recs[0].adj+=2;recs[4].adj-=3;recs[3].adj-=3;recs[8].adj-=1;recs[7].adj-=2;notes.push('High & rising: shift to bonds, cash, large cap value');}
-  else{recs[0].adj+=4;recs[5].adj+=2;recs[8].adj+=1;recs[2].adj-=4;recs[6].adj-=3;notes.push('Low rates: favor growth, large cap, REIT');}
-  if(g==='recession'){recs[2].adj+=4;recs[6].adj+=3;recs[7].adj+=2;recs[3].adj-=3;recs[4].adj-=3;recs[8].adj-=2;recs[0].adj-=1;notes.push('Recession risk: increase defensive positioning');}
-  else if(g==='strong'){recs[0].adj+=3;recs[3].adj+=2;recs[4].adj+=2;recs[2].adj-=4;recs[6].adj-=2;recs[7].adj-=1;notes.push('Strong growth: increase equity exposure');}
-  else{notes.push('Moderate growth: balanced allocation, no major tilt');}
-  if(fx==='weak-usd'){recs[1].adj+=4;recs[0].adj-=3;recs[7].adj+=1;notes.push("Weak USD: int'l stocks and gold benefit — increasing international");}
-  else if(fx==='strong-usd'){recs[1].adj-=4;recs[0].adj+=3;notes.push("Strong USD: reduce int'l, favor domestic large cap");}
-  else{notes.push("Neutral FX: hold int'l at baseline");}
-  var html='<div style="font-size:12px;color:#666;margin-bottom:12px;">';
-  notes.forEach(n=>{html+='<div style="margin-bottom:3px;">· '+n+'</div>';});
-  html+='</div>';
-  html+='<div style="display:grid;grid-template-columns:130px 1fr 60px 60px;gap:8px;align-items:center;padding:0 0 6px;border-bottom:0.5px solid #e0e0d8;font-size:10px;color:#888;letter-spacing:0.06em;text-transform:uppercase;"><span>Asset</span><span></span><span style="text-align:right;">Base</span><span style="text-align:right;">Adjusted</span></div>';
-  recs.forEach(function(rec){
-    var target=Math.max(0,rec.base+rec.adj);
-    var diff=rec.adj;
-    var diffStr=diff>0?'<span style="color:#3B6D11;">+'+diff+'%</span>':diff<0?'<span style="color:#A32D2D;">'+diff+'%</span>':'<span style="color:#888;">—</span>';
-    var barPct=Math.round(target/0.5);
-    html+='<div style="display:grid;grid-template-columns:130px 1fr 60px 60px;gap:8px;align-items:center;padding:7px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;">';
-    html+='<span>'+rec.asset+'</span>';
-    html+='<div><div style="height:6px;background:#f1efe8;border-radius:3px;overflow:hidden;"><div style="height:100%;border-radius:3px;background:#378ADD;width:'+Math.min(100,barPct)+'%;"></div></div></div>';
-    html+='<span style="text-align:right;color:#888;">'+rec.base+'%</span>';
-    html+='<span style="text-align:right;font-weight:600;">'+target+'% '+diffStr+'</span>';
-    html+='</div>';
-  });
-  document.getElementById('market-reco-content').innerHTML=html;
+
+function computeTargets() {
+  // Start from your goal allocation
+  var adj = {};
+  Object.keys(goalAlloc).forEach(k => adj[k] = goalAlloc[k]);
+
+  var r = marketState.rate, g = marketState.growth, fx = marketState.fx;
+
+  // Apply market tilts (max ±2% per asset to stay close to your goals)
+  if (r === 'high-falling') {
+    adj['Bonds'] += 2; adj['Mid cap'] += 1; adj['Small cap'] += 1;
+    adj['Large cap'] -= 2; adj['Cash/MM'] -= 1; adj['Real estate'] -= 1;
+  } else if (r === 'high') {
+    adj['Bonds'] += 2; adj['Cash/MM'] += 2;
+    adj['Small cap'] -= 2; adj['Mid cap'] -= 1; adj['Real estate'] -= 1;
+  } else {
+    adj['Large cap'] += 2; adj['Real estate'] += 1;
+    adj['Bonds'] -= 2; adj['Cash/MM'] -= 1;
+  }
+
+  if (g === 'recession') {
+    adj['Bonds'] += 2; adj['Cash/MM'] += 1; adj['Gold/metals'] += 1;
+    adj['Mid cap'] -= 2; adj['Small cap'] -= 1; adj['Large cap'] -= 1;
+  } else if (g === 'strong') {
+    adj['Large cap'] += 2; adj['Mid cap'] += 1;
+    adj['Bonds'] -= 2; adj['Cash/MM'] -= 1;
+  }
+
+  if (fx === 'weak-usd') {
+    adj["Int'l stocks"] += 2; adj['Large cap'] -= 1; adj['Gold/metals'] += 1;
+  } else if (fx === 'strong-usd') {
+    adj["Int'l stocks"] -= 2; adj['Large cap'] += 2;
+  }
+
+  // Clamp to 0 minimum
+  Object.keys(adj).forEach(k => { if (adj[k] < 0) adj[k] = 0; });
+
+  // Normalize to exactly 100%
+  var total = Object.values(adj).reduce((a, b) => a + b, 0);
+  var normalized = {};
+  var keys = Object.keys(adj);
+  keys.forEach(k => { normalized[k] = parseFloat((adj[k] / total * 100).toFixed(1)); });
+
+  // Fix rounding error
+  var sum = Object.values(normalized).reduce((a, b) => a + b, 0);
+  var diff = parseFloat((100 - sum).toFixed(1));
+  if (diff !== 0) {
+    var largest = keys.reduce((a, b) => normalized[a] > normalized[b] ? a : b);
+    normalized[largest] = parseFloat((normalized[largest] + diff).toFixed(1));
+  }
+
+  return normalized;
 }
-renderMarketReco();
+
+function renderOverview() {
+  var targets = computeTargets();
+  var assets = Object.keys(current);
+  var flags = [];
+
+  var html = '<div style="display:grid;grid-template-columns:110px 1fr 52px 52px 95px;gap:8px;align-items:center;padding:0 0 6px;border-bottom:0.5px solid #e0e0d8;font-size:10px;color:#888;letter-spacing:0.06em;text-transform:uppercase;">';
+  html += '<span>Asset</span><span></span><span style="text-align:right;">Current</span><span style="text-align:right;">Target</span><span style="text-align:right;">$ Gap</span></div>';
+
+  assets.forEach(function(asset) {
+    var cur = current[asset];
+    var tgt = targets[asset];
+    var drift = cur - tgt;
+    var gapDollars = Math.round((drift / 100) * PORTFOLIO);
+    var isMaterial = Math.abs(drift) >= THRESHOLD;
+    var color = isMaterial ? (drift > 0 ? '#A32D2D' : '#185FA5') : '#888';
+    var sign = gapDollars >= 0 ? '+' : '';
+    var flagLabel = isMaterial
+      ? (drift > 0
+        ? ' <span style="background:#FCEBEB;color:#A32D2D;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;">▼ Over</span>'
+        : ' <span style="background:#E6F1FB;color:#185FA5;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;">▲ Under</span>')
+      : '';
+
+    if (isMaterial) flags.push({asset: asset, drift: drift, gap: gapDollars});
+
+    var barPct = Math.round(cur / 0.5);
+    html += '<div style="display:grid;grid-template-columns:110px 1fr 52px 52px 95px;gap:8px;align-items:center;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;">';
+    html += '<span>' + asset + '</span>';
+    html += '<div><div style="height:6px;background:#f1efe8;border-radius:3px;overflow:hidden;"><div style="height:100%;border-radius:3px;background:' + (colors[asset] || '#888') + ';width:' + Math.min(100, barPct) + '%;"></div></div></div>';
+    html += '<span style="text-align:right;">' + cur.toFixed(1) + '%</span>';
+    html += '<span style="text-align:right;">' + tgt.toFixed(1) + '%</span>';
+    html += '<span style="text-align:right;color:' + color + ';">' + sign + '$' + Math.abs(Math.round(gapDollars / 1000)) + 'K' + flagLabel + '</span>';
+    html += '</div>';
+  });
+
+  document.getElementById('overview-table').innerHTML = html;
+
+  var flagHTML = '';
+  if (flags.length === 0) {
+    flagHTML = '<span style="color:#3B6D11;">✓ All allocations within ±3% of target. No rebalancing needed.</span>';
+  } else {
+    flagHTML = '⚑ ' + flags.length + ' material flag' + (flags.length > 1 ? 's' : '') + ': ';
+    flagHTML += flags.map(f => {
+      var dir = f.drift > 0 ? 'over' : 'under';
+      return f.asset + ' ' + dir + ' by ' + Math.abs(f.drift).toFixed(1) + '% ($' + Math.abs(Math.round(f.gap / 1000)) + 'K)';
+    }).join(' · ');
+    flagHTML += '. Address at next rebalance.';
+  }
+  document.getElementById('overview-flags').innerHTML = '<span style="color:' + (flags.length > 0 ? '#854F0B' : '#3B6D11') + ';">' + flagHTML + '</span>';
+
+  if (document.getElementById('action-flag-count')) {
+    document.getElementById('action-flag-count').textContent = flags.length;
+    document.getElementById('action-flag-desc').textContent = flags.length > 0 ? flags.map(f => f.asset).join(' · ') : 'All within target';
+  }
+}
+
+function renderMarket() {
+  var targets = computeTargets();
+  var html = '<div style="display:grid;grid-template-columns:1fr 55px 55px 55px;gap:8px;padding:0 0 6px;border-bottom:0.5px solid #e0e0d8;font-size:10px;color:#888;letter-spacing:0.06em;text-transform:uppercase;"><span>Asset</span><span style="text-align:right;">Goal</span><span style="text-align:right;">Tilt</span><span style="text-align:right;">Active</span></div>';
+  var total = 0;
+  Object.keys(goalAlloc).forEach(function(asset) {
+    var goal = goalAlloc[asset];
+    var active = targets[asset];
+    var tilt = parseFloat((active - goal).toFixed(1));
+    var tiltStr = tilt > 0 ? '<span style="color:#3B6D11;">+' + tilt + '%</span>' : tilt < 0 ? '<span style="color:#A32D2D;">' + tilt + '%</span>' : '<span style="color:#888;">—</span>';
+    total += active;
+    var barPct = Math.round(active / 0.5);
+    html += '<div style="display:grid;grid-template-columns:1fr 55px 55px 55px;gap:8px;align-items:center;padding:7px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;">';
+    html += '<span style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + (colors[asset] || '#888') + ';flex-shrink:0;"></span><span style="flex:1;">' + asset + '</span><div style="width:50px;"><div style="height:5px;background:#f1efe8;border-radius:2px;overflow:hidden;"><div style="height:100%;border-radius:2px;background:' + (colors[asset] || '#888') + ';width:' + Math.min(100, barPct) + '%;"></div></div></div></span>';
+    html += '<span style="text-align:right;color:#888;">' + goal.toFixed(1) + '%</span>';
+    html += '<span style="text-align:right;">' + tiltStr + '</span>';
+    html += '<span style="text-align:right;font-weight:700;">' + active.toFixed(1) + '%</span>';
+    html += '</div>';
+  });
+  var totalRound = parseFloat(total.toFixed(1));
+  document.getElementById('market-table').innerHTML = html;
+  document.getElementById('market-total').innerHTML = '<span>Total</span><span style="color:' + (totalRound === 100 ? '#3B6D11' : '#A32D2D') + ';">' + totalRound + '% ' + (totalRound === 100 ? '✓' : '⚠') + '</span>';
+}
+
+function setMarket(type, val, el) {
+  var prefix = type + '-';
+  document.querySelectorAll('[id^="' + prefix + '"]').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  marketState[type] = val;
+  renderOverview();
+  renderMarket();
+}
+
+function showTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'market') renderMarket();
+}
+
+renderOverview();
+renderMarket();
 </script>
 </body>
 </html>
