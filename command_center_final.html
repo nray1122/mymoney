@@ -38,20 +38,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .acct-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
 .acct-name { flex: 1; }
 .acct-sub { font-size: 11px; color: #888; margin-top: 1px; }
-.todo-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
-.todo-row:last-child { border-bottom: none; }
-.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
-.dot-red { background: #E24B4A; }
-.dot-amber { background: #EF9F27; }
-.dot-blue { background: #378ADD; }
-.dot-green { background: #639922; }
 .divider { border: none; border-top: 0.5px solid #e0e0d8; margin: 12px 0; }
-.trend-row { display: flex; align-items: center; gap: 0; margin: 12px 0; }
-.trend-point { flex: 1; text-align: center; }
-.trend-label { font-size: 10px; color: #888; margin-bottom: 4px; }
-.trend-value { font-size: 15px; font-weight: 700; }
-.trend-delta { font-size: 11px; margin-top: 2px; }
-.trend-line { flex: 1; height: 2px; background: linear-gradient(to right, #378ADD, #1D9E75); margin-top: -8px; }
 .back-btn { display: inline-block; font-size: 12px; color: #666; text-decoration: none; margin-bottom: 16px; padding: 4px 0; }
 </style>
 </head>
@@ -69,33 +56,35 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <button class="tab-btn" onclick="showTab('accounts')">Accounts</button>
   <button class="tab-btn" onclick="showTab('savings')">Savings Goals</button>
   <button class="tab-btn" onclick="showTab('income')">Income & tax</button>
-  <button class="tab-btn" onclick="showTab('todos')">Open items</button>
 </div>
 
 <!-- OVERVIEW -->
 <div id="tab-overview" class="panel active">
   <div class="grid-4">
     <div class="metric"><div class="metric-label">Personal net worth</div><div class="metric-value">$3.1M</div><div class="metric-sub" style="color:#3B6D11;">↑ $0.5M since Dec '24</div></div>
-    <div class="metric"><div class="metric-label">Total invested</div><div class="metric-value">$2.7M</div><div class="metric-sub">Excl. emergency + savings goals</div></div>
+    <div class="metric"><div class="metric-label">Total invested</div><div class="metric-value">$2.7M</div><div class="metric-sub">Retirement + brokerage</div></div>
     <div class="metric"><div class="metric-label">Annual savings</div><div class="metric-value">$159K</div><div class="metric-sub" style="color:#3B6D11;">All vehicles maxed</div></div>
     <div class="metric"><div class="metric-label">Projected at 55</div><div class="metric-value">$6.1M</div><div class="metric-sub" style="color:#3B6D11;">Base case · Nov 2037</div></div>
   </div>
 
   <div class="grid-2">
     <div class="card">
-      <div class="section-label">Progress to $6.1M at retirement</div>
+      <div class="section-label">Investment progress to $6.1M retirement</div>
       <div style="margin-bottom:6px;">
-        <div style="font-size:11px;color:#888;margin-bottom:4px;">$3.1M of $6.1M · 51%</div>
-        <div class="bar-wrap" style="height:12px;"><div class="bar" style="width:51%;background:#378ADD;"></div></div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px;"><span style="color:#3B6D11;">$3.1M today</span><span style="color:#888;">$6.1M goal · Nov 2037</span></div>
+        <div style="font-size:11px;color:#888;margin-bottom:4px;">$2.7M invested of $6.1M projected · 44%</div>
+        <div class="bar-wrap" style="height:12px;"><div class="bar" style="width:44%;background:#378ADD;"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px;"><span style="color:#3B6D11;">$2.7M invested today</span><span style="color:#888;">$6.1M at 55</span></div>
       </div>
       <div class="divider"></div>
-      <div class="row"><span style="color:#666;">Nick 401k</span><span style="font-weight:700;">$825K</span></div>
-      <div class="row"><span style="color:#666;">Emily 401k</span><span style="font-weight:700;">$733K</span></div>
-      <div class="row"><span style="color:#666;">Vanguard brokerage</span><span style="font-weight:700;">$918K</span></div>
-      <div class="row"><span style="color:#666;">Roth — Nick + Emily</span><span style="font-weight:700;">$133K</span></div>
-      <div class="row"><span style="color:#666;">ESPP + E*TRADE</span><span style="font-weight:700;">$10K</span></div>
-      <div class="row"><span style="color:#666;">Goal accounts (home + weddings)</span><span style="font-weight:700;">$84K</span></div>
+      <div class="row"><span style="color:#666;">Nick 401k</span><span style="font-weight:700;">$825.2K</span></div>
+      <div class="row"><span style="color:#666;">Emily 401k</span><span style="font-weight:700;">$733.4K</span></div>
+      <div class="row"><span style="color:#666;">Vanguard brokerage (both)</span><span style="font-weight:700;">$917.6K</span></div>
+      <div class="row"><span style="color:#666;">Roth — Nick + Emily</span><span style="font-weight:700;">$132.5K</span></div>
+      <div class="row"><span style="color:#666;">ESPP + E*TRADE</span><span style="font-weight:700;">$10.2K</span></div>
+      <div class="row"><span style="color:#666;">New House 2040</span><span style="font-weight:700;">$57.5K</span></div>
+      <div class="divider"></div>
+      <div class="row"><span style="font-weight:700;">Total invested</span><span style="font-weight:700;color:#3B6D11;">$2,676.4K</span></div>
+      <div style="font-size:11px;color:#888;margin-top:6px;">Personal NW $3.1M includes home + car equity, savings goals, emergency fund, and credit balances.</div>
     </div>
 
     <div class="card">
@@ -103,38 +92,40 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
       <div class="alloc-row"><div style="width:120px;color:#666;">401k (pretax+Roth)</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:58%;background:#378ADD;"></div></div></div><div style="width:80px;text-align:right;font-weight:700;">$1.6M · 58%</div></div>
       <div class="alloc-row"><div style="width:120px;color:#666;">Taxable brokerage</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:35%;background:#1D9E75;"></div></div></div><div style="width:80px;text-align:right;font-weight:700;">$928K · 35%</div></div>
       <div class="alloc-row"><div style="width:120px;color:#666;">Roth</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:5%;background:#7F77DD;"></div></div></div><div style="width:80px;text-align:right;font-weight:700;">$133K · 5%</div></div>
-      <div class="alloc-row" style="margin-bottom:0;"><div style="width:120px;color:#666;">Goal accounts</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:3%;background:#EF9F27;"></div></div></div><div style="width:80px;text-align:right;font-weight:700;">$84K · 3%</div></div>
+      <div class="alloc-row" style="margin-bottom:0;"><div style="width:120px;color:#666;">Goal accounts</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:2%;background:#EF9F27;"></div></div></div><div style="width:80px;text-align:right;font-weight:700;">$58K · 2%</div></div>
       <div class="divider"></div>
-      <div class="section-label" style="margin-bottom:8px;">Not in invested total</div>
+      <div class="section-label" style="margin-bottom:8px;">Outside investment total</div>
       <div class="row"><span style="color:#666;">Emergency fund</span><span style="font-weight:700;">$97.7K</span></div>
-      <div class="row"><span style="color:#666;">Savings goals</span><span style="font-weight:700;">$90.4K</span></div>
-      <div class="row"><span style="color:#666;">Kids (529s + UTMAs)</span><span style="font-weight:700;">$360.4K</span></div>
+      <div class="row"><span style="color:#666;">Savings goals</span><span style="font-weight:700;">$116.9K</span></div>
+      <div class="row"><span style="color:#666;">Kids (529s + UTMAs)</span><span style="font-weight:700;">$360.5K</span></div>
     </div>
   </div>
 
   <div class="card">
     <div class="section-label">Net worth trend</div>
-    <div class="trend-row">
-      <div class="trend-point">
-        <div class="trend-label">Dec 31, 2024</div>
-        <div class="trend-value">$2.6M</div>
-        <div class="trend-delta" style="color:#888;">Baseline</div>
+    <div style="display:flex;align-items:flex-start;gap:0;margin:12px 0;">
+      <div style="flex:1;text-align:center;">
+        <div style="font-size:10px;color:#888;margin-bottom:4px;">Dec 31, 2024</div>
+        <div style="font-size:15px;font-weight:700;">$2.6M</div>
+        <div style="font-size:11px;color:#888;margin-top:2px;">Baseline</div>
       </div>
-      <div style="flex:1;height:2px;background:#e0e0d8;margin-bottom:8px;position:relative;">
-        <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:10px;color:#3B6D11;white-space:nowrap;">+$391K · +15.0%</div>
+      <div style="flex:1;position:relative;margin-top:18px;">
+        <div style="height:2px;background:#378ADD;width:100%;"></div>
+        <div style="position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:10px;color:#3B6D11;white-space:nowrap;">+$391K · +15.0%</div>
       </div>
-      <div class="trend-point">
-        <div class="trend-label">Dec 31, 2025</div>
-        <div class="trend-value">$3.0M</div>
-        <div class="trend-delta" style="color:#3B6D11;">↑ +15.0%</div>
+      <div style="flex:1;text-align:center;">
+        <div style="font-size:10px;color:#888;margin-bottom:4px;">Dec 31, 2025</div>
+        <div style="font-size:15px;font-weight:700;">$3.0M</div>
+        <div style="font-size:11px;color:#3B6D11;margin-top:2px;">↑ +15.0%</div>
       </div>
-      <div style="flex:1;height:2px;background:#e0e0d8;margin-bottom:8px;position:relative;">
-        <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:10px;color:#3B6D11;white-space:nowrap;">+$146K · +4.9%</div>
+      <div style="flex:1;position:relative;margin-top:18px;">
+        <div style="height:2px;background:#1D9E75;width:100%;"></div>
+        <div style="position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:10px;color:#3B6D11;white-space:nowrap;">+$146K · +4.9%</div>
       </div>
-      <div class="trend-point">
-        <div class="trend-label">Apr 4, 2026</div>
-        <div class="trend-value">$3.1M</div>
-        <div class="trend-delta" style="color:#3B6D11;">↑ +4.9% YTD</div>
+      <div style="flex:1;text-align:center;">
+        <div style="font-size:10px;color:#888;margin-bottom:4px;">Apr 4, 2026</div>
+        <div style="font-size:15px;font-weight:700;">$3.1M</div>
+        <div style="font-size:11px;color:#3B6D11;margin-top:2px;">↑ +4.9% YTD</div>
       </div>
     </div>
     <div style="font-size:11px;color:#888;text-align:center;margin-top:4px;">15-month total: +$537K · +20.6% · ~16% annualized</div>
@@ -145,91 +136,82 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div id="tab-accounts" class="panel">
   <div class="card">
     <div class="section-label">All investment accounts — April 4, 2026</div>
-
     <div class="acct-row">
       <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
       <div class="acct-name"><div>Emily 401k <span style="font-size:11px;color:#888;">···3397</span></div><div class="acct-sub">Fidelity · Yahoo plan · Pretax + Roth (split TBC)</div></div>
       <div style="text-align:right;"><div style="font-weight:700;">$733.4K</div><span class="badge bg-blue">401k</span></div>
     </div>
-
     <div class="acct-row">
       <div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div>
       <div class="acct-name"><div>Vanguard brokerage <span style="font-size:11px;color:#888;">···0635</span></div><div class="acct-sub">Joint · VTSAX, BRK.B</div></div>
       <div style="text-align:right;"><div style="font-weight:700;">$696.2K</div><span class="badge bg-green">Taxable</span></div>
     </div>
-
     <div class="acct-row">
       <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
       <div class="acct-name"><div>Nick 401k <span style="font-size:11px;color:#888;">···8976</span></div><div class="acct-sub">Fidelity · MSFT plan · Pretax + Roth (split TBC)</div></div>
       <div style="text-align:right;"><div style="font-weight:700;">$441.0K</div><span class="badge bg-blue">401k</span></div>
     </div>
-
     <div class="acct-row">
       <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
       <div class="acct-name"><div>Nick 401k BrokerageLink <span style="font-size:11px;color:#888;">···4781</span></div><div class="acct-sub">Fidelity · Self-directed · Pretax + Roth (split TBC)</div></div>
       <div style="text-align:right;"><div style="font-weight:700;">$384.2K</div><span class="badge bg-blue">401k</span></div>
     </div>
-
     <div class="acct-row">
       <div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div>
       <div class="acct-name"><div>Vanguard brokerage <span style="font-size:11px;color:#888;">···2401</span></div><div class="acct-sub">Joint · Index ETFs · Mega backdoor proceeds</div></div>
       <div style="text-align:right;"><div style="font-weight:700;">$221.4K</div><span class="badge bg-green">Taxable</span></div>
     </div>
-
     <div class="acct-row">
       <div class="acct-icon" style="background:#EEEDFE;color:#534AB7;">V</div>
       <div class="acct-name"><div>Emily Roth <span style="font-size:11px;color:#888;">···2972</span></div><div class="acct-sub">Vanguard · Move REIT → growth ETFs</div></div>
       <div style="text-align:right;"><div style="font-weight:700;">$73.0K</div><span class="badge bg-purple">Roth</span></div>
     </div>
-
     <div class="acct-row">
       <div class="acct-icon" style="background:#EEEDFE;color:#534AB7;">V</div>
       <div class="acct-name"><div>Nick Roth <span style="font-size:11px;color:#888;">···2134</span></div><div class="acct-sub">Vanguard · Move dividends → growth ETFs</div></div>
       <div style="text-align:right;"><div style="font-weight:700;">$59.5K</div><span class="badge bg-purple">Roth</span></div>
     </div>
-
     <div class="acct-row">
       <div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div>
-      <div class="acct-name"><div>New House 2040 <span style="font-size:11px;color:#888;">···5170</span></div><div class="acct-sub">Vanguard · Long-term goal</div></div>
+      <div class="acct-name"><div>New House 2040 <span style="font-size:11px;color:#888;">···5170</span></div><div class="acct-sub">Vanguard · Long-term investment goal</div></div>
       <div style="text-align:right;"><div style="font-weight:700;">$57.5K</div><span class="badge bg-amber">Goal</span></div>
     </div>
-
     <div class="acct-row">
       <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
       <div class="acct-name"><div>Nick MSFT ESPP <span style="font-size:11px;color:#888;">···3247</span></div><div class="acct-sub">Fidelity · Sell on vest → transfer to Vanguard</div></div>
       <div style="text-align:right;"><div style="font-weight:700;">$9.6K</div><span class="badge bg-amber">Stock</span></div>
     </div>
-
     <div class="acct-row">
       <div class="acct-icon" style="background:#FAEEDA;color:#854F0B;">E</div>
       <div class="acct-name"><div>E*TRADE <span style="font-size:11px;color:#888;">···5550 / ···7090</span></div><div class="acct-sub">Minimal balance · Consider consolidating to Vanguard</div></div>
       <div style="text-align:right;"><div style="font-weight:700;">$0.6K</div><span class="badge bg-amber">Taxable</span></div>
     </div>
-
     <div class="divider"></div>
-    <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;"><span>Total invested</span><span style="color:#3B6D11;font-size:16px;">$2,676.5K</span></div>
-    <div style="font-size:11px;color:#888;text-align:right;margin-top:3px;">Excl. emergency · savings goals · kids accounts</div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;"><span>Total invested</span><span style="color:#3B6D11;font-size:16px;">$2,676.4K</span></div>
+    <div style="font-size:11px;color:#888;text-align:right;margin-top:3px;">Excl. emergency fund · savings goals · kids accounts</div>
   </div>
 
   <div class="card">
     <div class="section-label">Kids accounts — tracked separately</div>
-    <div class="row"><span style="color:#666;">529s — Sammie (~$151K) + Evan (~$143K)</span><span style="font-weight:700;">$294.0K</span></div>
-    <div class="row"><span style="color:#666;">Evan UTMA</span><span style="font-weight:700;">$31.2K</span></div>
+    <div class="row"><span style="color:#666;">Sammie 529</span><span style="font-weight:700;">~$151.0K</span></div>
+    <div class="row"><span style="color:#666;">Evan 529</span><span style="font-weight:700;">~$143.0K</span></div>
     <div class="row"><span style="color:#666;">Sammie UTMA</span><span style="font-weight:700;">$35.3K</span></div>
-    <div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">$360.4K</span></div>
+    <div class="row"><span style="color:#666;">Evan UTMA</span><span style="font-weight:700;">$31.2K</span></div>
+    <div class="divider"></div>
+    <div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">$360.5K</span></div>
   </div>
 </div>
 
 <!-- SAVINGS GOALS -->
 <div id="tab-savings" class="panel">
   <div class="grid-3">
-    <div class="metric"><div class="metric-label">Total savings goals</div><div class="metric-value">$116.2K</div><div class="metric-sub">Capital One + Vanguard</div></div>
+    <div class="metric"><div class="metric-label">Total savings goals</div><div class="metric-value">$116.9K</div><div class="metric-sub">Capital One $90.5K + Weddings $26.4K</div></div>
     <div class="metric"><div class="metric-label">Emergency fund</div><div class="metric-value">$97.7K</div><div class="metric-sub">MM $76.2K + IBonds $21.5K</div></div>
-    <div class="metric"><div class="metric-label">Kids 529s</div><div class="metric-value">$294.0K</div><div class="metric-sub">Sammie $151K · Evan $143K</div></div>
+    <div class="metric"><div class="metric-label">Kids 529s + UTMAs</div><div class="metric-value">$360.5K</div><div class="metric-sub">529s $294K · UTMAs $66.5K</div></div>
   </div>
 
   <div class="card">
-    <div class="section-label">Capital One — savings goals</div>
+    <div class="section-label">Capital One — savings goals · $90.5K</div>
     <div class="row"><span style="color:#666;">Vacation</span><span style="font-weight:700;">$24.9K</span></div>
     <div class="row"><span style="color:#666;">House projects</span><span style="font-weight:700;">$18.9K</span></div>
     <div class="row"><span style="color:#666;">Sammie car</span><span style="font-weight:700;">$14.0K</span></div>
@@ -240,17 +222,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   </div>
 
   <div class="card">
-    <div class="section-label">Vanguard — savings goals</div>
+    <div class="section-label">Vanguard — savings goals · $26.4K</div>
     <div class="row"><span style="color:#666;">Sammie wedding <span style="font-size:10px;color:#888;">(2043)</span></span><span style="font-weight:700;">$15.8K</span></div>
     <div class="row"><span style="color:#666;">Evan wedding <span style="font-size:10px;color:#888;">(2045)</span></span><span style="font-weight:700;">$10.6K</span></div>
   </div>
 
   <div class="card">
-    <div class="section-label">College funds</div>
-    <div class="row"><span style="color:#666;">Sammie 529 — starts Fall 2030</span><span><span class="badge bg-amber" style="margin-right:6px;">4 yrs</span><span style="font-weight:700;">~$151K</span></span></div>
-    <div class="row"><span style="color:#666;">Evan 529 — starts Fall 2033</span><span><span class="badge bg-blue" style="margin-right:6px;">7 yrs</span><span style="font-weight:700;">~$143K</span></span></div>
+    <div class="section-label">Kids — 529s + UTMAs · $360.5K</div>
+    <div class="row"><span style="color:#666;">Sammie 529 — starts Fall 2030</span><span><span class="badge bg-amber" style="margin-right:6px;">4 yrs</span><span style="font-weight:700;">~$151.0K</span></span></div>
+    <div class="row"><span style="color:#666;">Evan 529 — starts Fall 2033</span><span><span class="badge bg-blue" style="margin-right:6px;">7 yrs</span><span style="font-weight:700;">~$143.0K</span></span></div>
     <div class="row"><span style="color:#666;">Sammie UTMA</span><span style="font-weight:700;">$35.3K</span></div>
     <div class="row"><span style="color:#666;">Evan UTMA</span><span style="font-weight:700;">$31.2K</span></div>
+    <div class="divider"></div>
+    <div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">$360.5K</span></div>
     <div style="font-size:12px;color:#666;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;">Sammie 529 glide path — reduce stock 10% each July. Both kids overlap in college 2033-2037. Both done before retirement in 2037.</div>
   </div>
 </div>
@@ -289,58 +273,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div class="row"><span style="color:#666;">Emily MEP 2027 (Sep · final)</span><span style="font-weight:700;">$22.8K</span></div>
     <div class="row"><span style="color:#666;">Nick RSU 2028-2029</span><span style="font-weight:700;">$43.6K</span></div>
     <div class="row"><span style="font-weight:700;">Total remaining</span><span style="font-weight:700;color:#185FA5;">$215.0K</span></div>
-  </div>
-</div>
-
-<!-- OPEN ITEMS -->
-<div id="tab-todos" class="panel">
-  <div class="grid-3" style="margin-bottom:14px;">
-    <div class="metric"><div class="metric-label">Open items</div><div class="metric-value" style="color:#A32D2D;">3</div><div class="metric-sub">Decisions needed</div></div>
-    <div class="metric"><div class="metric-label">Next scheduled</div><div class="metric-value">July 2026</div><div class="metric-sub">Rebalance + 529s</div></div>
-    <div class="metric"><div class="metric-label">Projected at 55</div><div class="metric-value">$6.1M</div><div class="metric-sub" style="color:#3B6D11;">Base case · on track</div></div>
-  </div>
-
-  <div class="card">
-    <div class="section-label">Open items — decisions needed</div>
-    <div class="todo-row">
-      <div class="dot dot-red"></div>
-      <div><div style="font-weight:700;">Fix Roth allocations — Emily (···2972) + Nick (···2134)</div><div style="font-size:12px;color:#666;margin-top:2px;">$133K in REITs and dividends. Move to VBK (small cap growth), VWO (emerging markets), QQQ/FTEC (tech). Zero cost, highest impact move.</div></div>
-      <span class="badge bg-red" style="margin-left:auto;flex-shrink:0;">Now</span>
-    </div>
-    <div class="todo-row">
-      <div class="dot dot-red"></div>
-      <div><div style="font-weight:700;">Estate plan + beneficiary review</div><div style="font-size:12px;color:#666;margin-top:2px;">2+ years overdue. Who does the estate plan name vs individuals? Review and decide.</div></div>
-      <span class="badge bg-red" style="margin-left:auto;flex-shrink:0;">Overdue</span>
-    </div>
-    <div class="todo-row">
-      <div class="dot dot-amber"></div>
-      <div><div style="font-weight:700;">Confirm 401k Roth vs pretax split</div><div style="font-size:12px;color:#666;margin-top:2px;">Check Fidelity for exact breakdown in each account. Needed to complete tax location optimizer.</div></div>
-      <span class="badge bg-amber" style="margin-left:auto;flex-shrink:0;">Next visit</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="section-label">Scheduled — calendar items</div>
-    <div class="todo-row">
-      <div class="dot dot-blue"></div>
-      <div><div style="font-weight:700;">July — rebalance</div><div style="font-size:12px;color:#666;margin-top:2px;">Biannual allocation review. Update market conditions in optimizer, execute buys/sells.</div></div>
-      <span class="badge bg-blue" style="margin-left:auto;flex-shrink:0;">July</span>
-    </div>
-    <div class="todo-row">
-      <div class="dot dot-blue"></div>
-      <div><div style="font-weight:700;">July — Sammie + Evan 529 glide paths</div><div style="font-size:12px;color:#666;margin-top:2px;">Annual allocation updates for both. Sammie starts college Fall 2030.</div></div>
-      <span class="badge bg-blue" style="margin-left:auto;flex-shrink:0;">July</span>
-    </div>
-    <div class="todo-row">
-      <div class="dot dot-blue"></div>
-      <div><div style="font-weight:700;">Sep — Nick bonus + Emily MEP</div><div style="font-size:12px;color:#666;margin-top:2px;">Deploy both to plan. Emily MEP ends after 2027.</div></div>
-      <span class="badge bg-blue" style="margin-left:auto;flex-shrink:0;">Sep</span>
-    </div>
-    <div class="todo-row">
-      <div class="dot dot-blue"></div>
-      <div><div style="font-weight:700;">Dec — year-end tax planning</div><div style="font-size:12px;color:#666;margin-top:2px;">Calc next year tax liability, update 401k %, update W4 for Jan 1.</div></div>
-      <span class="badge bg-blue" style="margin-left:auto;flex-shrink:0;">Dec</span>
-    </div>
   </div>
 </div>
 
