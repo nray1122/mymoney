@@ -23,6 +23,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .bg-amber { background: #FAEEDA; color: #854F0B; }
 .bg-blue { background: #E6F1FB; color: #185FA5; }
 .bg-purple { background: #EEEDFE; color: #534AB7; }
+.bg-red { background: #FCEBEB; color: #A32D2D; }
 .spend-row { display: grid; grid-template-columns: 1fr 80px 130px 80px; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
 .spend-row:last-child { border-bottom: none; }
 .spend-header { display: grid; grid-template-columns: 1fr 80px 130px 80px; gap: 8px; padding: 0 0 6px; border-bottom: 0.5px solid #e0e0d8; font-size: 10px; color: #888; letter-spacing: 0.06em; text-transform: uppercase; }
@@ -38,7 +39,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .input-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .input-row label { font-size: 12px; color: #666; width: 150px; flex-shrink: 0; }
 .input-row input { padding: 5px 8px; font-size: 13px; border: 0.5px solid #ccc; border-radius: 8px; background: #fff; color: #1a1a18; font-family: inherit; width: 100px; }
+.rec-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
+.rec-row:last-child { border-bottom: none; }
+.rec-icon { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
 .back-btn { display: inline-block; font-size: 12px; color: #666; text-decoration: none; margin-bottom: 16px; padding: 4px 0; }
+.divider { border: none; border-top: 0.5px solid #e0e0d8; margin: 12px 0; }
 </style>
 </head>
 <body>
@@ -46,14 +51,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <a href="index.html" class="back-btn">← Back to MyMoney</a>
 <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
 <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px;">
-  <div><div style="font-size:20px;font-weight:700;">Credit card optimizer</div><div style="font-size:13px;color:#666;margin-top:2px;">Which card for which spend · Ray family</div></div>
-  <span class="badge bg-blue">Q2 2026</span>
+  <div><div style="font-size:20px;font-weight:700;">Credit card optimizer</div><div style="font-size:13px;color:#666;margin-top:2px;">Which card for which spend · Ray family · 2026</div></div>
+  <span class="badge bg-blue">Q2 2026 active</span>
 </div>
 
 <div class="grid-3">
-  <div class="metric"><div class="metric-label">Est. annual points value</div><div class="metric-value" id="total-pts">$2,840</div><div class="metric-sub">At current spend</div></div>
-  <div class="metric"><div class="metric-label">Cards active</div><div class="metric-value">4</div><div class="metric-sub">Amex, Reserve, Unlimited, Category</div></div>
-  <div class="metric"><div class="metric-label">Current quarter bonus</div><div class="metric-value" style="color:#534AB7;">5x</div><div class="metric-sub">Chase Category — groceries + fitness</div></div>
+  <div class="metric"><div class="metric-label">Est. annual points value</div><div class="metric-value" id="total-pts">—</div><div class="metric-sub">At current spend</div></div>
+  <div class="metric"><div class="metric-label">Cards active</div><div class="metric-value">4</div><div class="metric-sub">Amex Gold · Reserve · Unlimited · Flex</div></div>
+  <div class="metric"><div class="metric-label">Q2 bonus categories</div><div class="metric-value" style="color:#534AB7;">5x</div><div class="metric-sub">Grocery · fitness · Amazon</div></div>
 </div>
 
 <div class="card">
@@ -62,12 +67,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div>
       <div class="input-row"><label>Groceries</label><input id="sp-grocery" type="number" value="15000" oninput="calcPts()"></div>
       <div class="input-row"><label>Restaurants / dining</label><input id="sp-dining" type="number" value="10000" oninput="calcPts()"></div>
-      <div class="input-row"><label>Travel</label><input id="sp-travel" type="number" value="20000" oninput="calcPts()"></div>
+      <div class="input-row"><label>Travel (Chase portal)</label><input id="sp-travel" type="number" value="20000" oninput="calcPts()"></div>
       <div class="input-row"><label>Gas &amp; transit</label><input id="sp-gas" type="number" value="4000" oninput="calcPts()"></div>
     </div>
     <div>
       <div class="input-row"><label>Fitness / gym</label><input id="sp-gym" type="number" value="3000" oninput="calcPts()"></div>
-      <div class="input-row"><label>Hair &amp; spa</label><input id="sp-hair" type="number" value="3000" oninput="calcPts()"></div>
+      <div class="input-row"><label>Amazon</label><input id="sp-amazon" type="number" value="5000" oninput="calcPts()"></div>
       <div class="input-row"><label>Home improvement</label><input id="sp-home" type="number" value="30000" oninput="calcPts()"></div>
       <div class="input-row"><label>Everything else</label><input id="sp-other" type="number" value="20000" oninput="calcPts()"></div>
     </div>
@@ -76,69 +81,151 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 
 <div class="card">
   <div class="section-label">Spend routing — use this card for each category</div>
-  <div class="spend-header"><span>Category</span><span style="text-align:right;">Annual spend</span><span style="text-align:center;">Best card</span><span style="text-align:right;">Est. value</span></div>
-  <div class="spend-row"><span>Groceries</span><span style="text-align:right;" id="d-grocery">$15,000</span><span style="text-align:center;"><span class="card-chip chase-cat">Chase Category 5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-grocery">$375</span></div>
-  <div class="spend-row"><span>Restaurants</span><span style="text-align:right;" id="d-dining">$10,000</span><span style="text-align:center;"><span class="card-chip amex">Amex 4x</span></span><span style="text-align:right;color:#3B6D11;" id="v-dining">$400</span></div>
-  <div class="spend-row"><span>Travel (Chase portal)</span><span style="text-align:right;" id="d-travel">$20,000</span><span style="text-align:center;"><span class="card-chip chase-res">Reserve 5-10x</span></span><span style="text-align:right;color:#3B6D11;" id="v-travel">$1,000</span></div>
-  <div class="spend-row"><span>Gas &amp; transit</span><span style="text-align:right;" id="d-gas">$4,000</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-gas">$60</span></div>
-  <div class="spend-row"><span>Fitness / gym</span><span style="text-align:right;" id="d-gym">$3,000</span><span style="text-align:center;"><span class="card-chip chase-cat">Chase Category 5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-gym">$75</span></div>
-  <div class="spend-row"><span>Hair &amp; spa</span><span style="text-align:right;" id="d-hair">$3,000</span><span style="text-align:center;"><span class="card-chip chase-cat">Chase Category 5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-hair">$75</span></div>
-  <div class="spend-row"><span>Home improvement</span><span style="text-align:right;" id="d-home">$30,000</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-home">$450</span></div>
-  <div class="spend-row"><span>Everything else</span><span style="text-align:right;" id="d-other">$20,000</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-other">$300</span></div>
-  <div class="spend-row" style="border-top:0.5px solid #e0e0d8;margin-top:4px;padding-top:10px;"><span style="font-weight:700;">Total estimated value</span><span></span><span></span><span style="text-align:right;font-weight:700;color:#3B6D11;font-size:14px;" id="v-total">$2,735</span></div>
+  <div class="spend-header"><span>Category</span><span style="text-align:right;">Annual spend</span><span style="text-align:center;">Best card now</span><span style="text-align:right;">Est. value</span></div>
+  <div class="spend-row"><span>Groceries</span><span style="text-align:right;" id="d-grocery">$15,000</span><span style="text-align:center;"><span class="card-chip chase-cat">Freedom Flex 5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-grocery">—</span></div>
+  <div class="spend-row"><span>Restaurants</span><span style="text-align:right;" id="d-dining">$10,000</span><span style="text-align:center;"><span class="card-chip amex">Amex Gold 4x</span></span><span style="text-align:right;color:#3B6D11;" id="v-dining">—</span></div>
+  <div class="spend-row"><span>Travel (Chase portal)</span><span style="text-align:right;" id="d-travel">$20,000</span><span style="text-align:center;"><span class="card-chip chase-res">Reserve 5-10x</span></span><span style="text-align:right;color:#3B6D11;" id="v-travel">—</span></div>
+  <div class="spend-row"><span>Gas &amp; transit</span><span style="text-align:right;" id="d-gas">$4,000</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-gas">—</span></div>
+  <div class="spend-row"><span>Fitness / gym</span><span style="text-align:right;" id="d-gym">$3,000</span><span style="text-align:center;"><span class="card-chip chase-cat">Freedom Flex 5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-gym">—</span></div>
+  <div class="spend-row"><span>Amazon</span><span style="text-align:right;" id="d-amazon">$5,000</span><span style="text-align:center;"><span class="card-chip chase-cat">Freedom Flex 5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-amazon">—</span></div>
+  <div class="spend-row"><span>Home improvement</span><span style="text-align:right;" id="d-home">$30,000</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-home">—</span></div>
+  <div class="spend-row"><span>Everything else</span><span style="text-align:right;" id="d-other">$20,000</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-other">—</span></div>
+  <div class="spend-row" style="border-top:0.5px solid #e0e0d8;margin-top:4px;padding-top:10px;"><span style="font-weight:700;">Total estimated value</span><span></span><span></span><span style="text-align:right;font-weight:700;color:#3B6D11;font-size:14px;" id="v-total">—</span></div>
 </div>
 
 <div class="card">
-  <div class="section-label">Chase category — quarterly rotation (5x bonus)</div>
+  <div class="section-label">Chase Freedom Flex — quarterly rotation (5x)</div>
+  <div style="font-size:12px;color:#888;margin-bottom:10px;">Activate each quarter at chase.com/freedom — easy to forget, costs you 5x vs 1x if missed.</div>
   <div class="rot-grid">
-    <div class="rot-card"><div class="rot-quarter">Q1 · Jan-Mar</div><div class="rot-cats">Grocery stores<br>Fitness clubs<br>Hair &amp; nail</div></div>
-    <div class="rot-card" style="border:2px solid #378ADD;"><div class="rot-quarter" style="color:#185FA5;">Q2 · Apr-Jun ← now</div><div class="rot-cats">Grocery stores<br>Fitness clubs<br>Hair &amp; spa</div></div>
-    <div class="rot-card"><div class="rot-quarter">Q3 · Jul-Sep</div><div class="rot-cats">Gas stations<br>Streaming services<br>EV charging</div></div>
-    <div class="rot-card"><div class="rot-quarter">Q4 · Oct-Dec</div><div class="rot-cats">Department stores<br>PayPal purchases<br>Chase Travel</div></div>
+    <div class="rot-card"><div class="rot-quarter">Q1 · Jan-Mar</div><div class="rot-cats">Grocery stores<br>Gym memberships<br>Hair & nail salons</div></div>
+    <div class="rot-card" style="border:2px solid #534AB7;background:#FAFAFF;">
+      <div class="rot-quarter" style="color:#534AB7;">Q2 · Apr-Jun ← NOW</div>
+      <div class="rot-cats">Grocery stores<br>Fitness clubs<br>Amazon.com</div>
+    </div>
+    <div class="rot-card"><div class="rot-quarter">Q3 · Jul-Sep</div><div class="rot-cats">Gas stations<br>EV charging<br>Streaming services</div></div>
+    <div class="rot-card"><div class="rot-quarter">Q4 · Oct-Dec</div><div class="rot-cats">PayPal purchases<br>Wholesale clubs<br>Select charities</div></div>
   </div>
+  <div style="font-size:11px;color:#888;margin-top:10px;">⚠ Q4 categories are estimates — Chase typically announces Q4 in September. Check chase.com for official categories.</div>
 </div>
 
 <div class="card">
   <div class="section-label">Card quick reference</div>
-  <div class="row"><span style="color:#666;">Amex Gold</span><span style="font-size:12px;">4x grocery + restaurant · Use for dining always</span></div>
-  <div class="row"><span style="color:#666;">Chase Sapphire Reserve</span><span style="font-size:12px;">3x travel · 5x hotel · 10x via portal · $300 travel credit</span></div>
-  <div class="row"><span style="color:#666;">Chase Freedom Unlimited</span><span style="font-size:12px;">1.5x everything · 3x drugstore · default card</span></div>
-  <div class="row"><span style="color:#666;">Chase Freedom Flex</span><span style="font-size:12px;">5x quarterly rotating · activate each quarter</span></div>
-  <div class="row"><span style="color:#666;">Points redemption tip</span><span style="font-size:12px;">Transfer Chase → Hyatt or United for 1.5-2x value</span></div>
+  <div class="row"><span style="font-weight:700;color:#185FA5;">Amex Gold</span><span style="font-size:12px;">4x dining + US grocery · $120 dining credit · $120 Uber Cash · $250 AF</span></div>
+  <div class="row"><span style="font-weight:700;color:#3B6D11;">Chase Sapphire Reserve</span><span style="font-size:12px;">3x travel + dining · 10x hotel via portal · $300 travel credit · $550 AF</span></div>
+  <div class="row"><span style="font-weight:700;color:#854F0B;">Chase Freedom Unlimited</span><span style="font-size:12px;">1.5x everything · 3x dining + drugstore · No AF · Default card</span></div>
+  <div class="row"><span style="font-weight:700;color:#534AB7;">Chase Freedom Flex</span><span style="font-size:12px;">5x quarterly rotating · 3x dining + drugstore · No AF · Activate each quarter</span></div>
+  <div class="divider"></div>
+  <div class="row"><span style="color:#666;">Points redemption tip</span><span style="font-size:12px;">Transfer Chase → Hyatt or United for 1.5-2x value vs cash</span></div>
+  <div class="row"><span style="color:#666;">Annual fee total</span><span style="font-size:12px;">$800/yr · Worth it given travel + dining spend</span></div>
 </div>
+
+<div class="card">
+  <div class="section-label">Card recommendations — review annually</div>
+  <div style="font-size:12px;color:#888;margin-bottom:12px;">Based on your spend profile and current card lineup. Revisit each December.</div>
+
+  <div class="rec-row">
+    <div class="rec-icon" style="background:#639922;"></div>
+    <div>
+      <div style="font-weight:700;margin-bottom:2px;">Keep — Amex Gold <span class="badge bg-green" style="margin-left:6px;">Keep</span></div>
+      <div style="font-size:12px;color:#666;">4x dining on $10K/yr = $400 value. $120 dining credit + $120 Uber Cash offsets most of $250 AF. Net cost ~$10/yr for 4x dining. Easy keep.</div>
+    </div>
+  </div>
+
+  <div class="rec-row">
+    <div class="rec-icon" style="background:#639922;"></div>
+    <div>
+      <div style="font-weight:700;margin-bottom:2px;">Keep — Chase Sapphire Reserve <span class="badge bg-green" style="margin-left:6px;">Keep</span></div>
+      <div style="font-size:12px;color:#666;">$300 travel credit covers most of $550 AF. 10x hotel via Chase portal on $20K travel = $1,000+ value. Unlocks Chase point transfers to Hyatt/United. Essential anchor card.</div>
+    </div>
+  </div>
+
+  <div class="rec-row">
+    <div class="rec-icon" style="background:#639922;"></div>
+    <div>
+      <div style="font-weight:700;margin-bottom:2px;">Keep — Chase Freedom Unlimited <span class="badge bg-green" style="margin-left:6px;">Keep</span></div>
+      <div style="font-size:12px;color:#666;">No AF. 1.5x on everything — perfect default for home improvement ($30K/yr) and uncategorized spend. $750/yr in points at current spend. Free to hold.</div>
+    </div>
+  </div>
+
+  <div class="rec-row">
+    <div class="rec-icon" style="background:#639922;"></div>
+    <div>
+      <div style="font-weight:700;margin-bottom:2px;">Keep — Chase Freedom Flex <span class="badge bg-green" style="margin-left:6px;">Keep</span></div>
+      <div style="font-size:12px;color:#666;">No AF. 5x rotating categories — groceries + gym + Amazon in Q2 alone worth $1,150 in points. Only effort is quarterly activation. Free money.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div style="font-size:11px;color:#888;margin-bottom:10px;">Cards worth considering to add</div>
+
+  <div class="rec-row">
+    <div class="rec-icon" style="background:#EF9F27;"></div>
+    <div>
+      <div style="font-weight:700;margin-bottom:2px;">Consider — Chase Ink Business Preferred <span class="badge bg-amber" style="margin-left:6px;">Consider</span></div>
+      <div style="font-size:12px;color:#666;">If you launch consulting practice — 3x on business spend, large sign-up bonus (80-100K points), $95 AF. Business expenses on a dedicated card also simplifies tax tracking. Worth it once you have 5+ clients.</div>
+    </div>
+  </div>
+
+  <div class="rec-row">
+    <div class="rec-icon" style="background:#EF9F27;"></div>
+    <div>
+      <div style="font-weight:700;margin-bottom:2px;">Consider — Amex Blue Cash Preferred <span class="badge bg-amber" style="margin-left:6px;">Consider</span></div>
+      <div style="font-size:12px;color:#666;">6% on US grocery stores (up to $6K/yr) vs 4x Amex Gold. If grocery spend is primarily at US supermarkets, could beat Gold for that category. $95 AF. Evaluate when Freedom Flex grocery 5x doesn't apply (Q3/Q4).</div>
+    </div>
+  </div>
+
+  <div class="rec-row">
+    <div class="rec-icon" style="background:#888;"></div>
+    <div>
+      <div style="font-weight:700;margin-bottom:2px;">Skip — Additional hotel cards <span class="badge bg-gray" style="margin-left:6px;">Skip</span></div>
+      <div style="font-size:12px;color:#666;">Hyatt, Marriott, Hilton cards add AF complexity. Chase Reserve already gives you transfer access to all major hotel programs. No need to add another card just for hotel points.</div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script>
-function fmt$(n){return'$'+Math.round(n).toLocaleString();}
+function fmt$(n){ return '$' + Math.round(n).toLocaleString(); }
 function calcPts(){
-  var grocery=parseFloat(document.getElementById('sp-grocery').value)||0;
-  var dining=parseFloat(document.getElementById('sp-dining').value)||0;
-  var travel=parseFloat(document.getElementById('sp-travel').value)||0;
-  var gas=parseFloat(document.getElementById('sp-gas').value)||0;
-  var gym=parseFloat(document.getElementById('sp-gym').value)||0;
-  var hair=parseFloat(document.getElementById('sp-hair').value)||0;
-  var home=parseFloat(document.getElementById('sp-home').value)||0;
-  var other=parseFloat(document.getElementById('sp-other').value)||0;
-  var vG=grocery*0.025,vD=dining*0.04,vT=travel*0.05,vGas=gas*0.015,vGym=gym*0.025,vH=hair*0.025,vHm=home*0.015,vO=other*0.015;
-  var total=vG+vD+vT+vGas+vGym+vH+vHm+vO;
-  document.getElementById('d-grocery').textContent=fmt$(grocery);
-  document.getElementById('d-dining').textContent=fmt$(dining);
-  document.getElementById('d-travel').textContent=fmt$(travel);
-  document.getElementById('d-gas').textContent=fmt$(gas);
-  document.getElementById('d-gym').textContent=fmt$(gym);
-  document.getElementById('d-hair').textContent=fmt$(hair);
-  document.getElementById('d-home').textContent=fmt$(home);
-  document.getElementById('d-other').textContent=fmt$(other);
-  document.getElementById('v-grocery').textContent=fmt$(vG);
-  document.getElementById('v-dining').textContent=fmt$(vD);
-  document.getElementById('v-travel').textContent=fmt$(vT);
-  document.getElementById('v-gas').textContent=fmt$(vGas);
-  document.getElementById('v-gym').textContent=fmt$(vGym);
-  document.getElementById('v-hair').textContent=fmt$(vH);
-  document.getElementById('v-home').textContent=fmt$(vHm);
-  document.getElementById('v-other').textContent=fmt$(vO);
-  document.getElementById('v-total').textContent=fmt$(total);
-  document.getElementById('total-pts').textContent=fmt$(total);
+  var grocery = parseFloat(document.getElementById('sp-grocery').value)||0;
+  var dining = parseFloat(document.getElementById('sp-dining').value)||0;
+  var travel = parseFloat(document.getElementById('sp-travel').value)||0;
+  var gas = parseFloat(document.getElementById('sp-gas').value)||0;
+  var gym = parseFloat(document.getElementById('sp-gym').value)||0;
+  var amazon = parseFloat(document.getElementById('sp-amazon').value)||0;
+  var home = parseFloat(document.getElementById('sp-home').value)||0;
+  var other = parseFloat(document.getElementById('sp-other').value)||0;
+
+  // Value rates (points * ~1.5¢ redemption value)
+  var vG = grocery * 0.025;    // Flex 5x * 0.5¢
+  var vD = dining * 0.04;      // Amex Gold 4x * 1¢
+  var vT = travel * 0.05;      // Reserve 5x base via portal
+  var vGas = gas * 0.015;      // Unlimited 1.5x
+  var vGym = gym * 0.025;      // Flex 5x Q2
+  var vAmazon = amazon * 0.025;// Flex 5x Q2
+  var vHm = home * 0.015;      // Unlimited 1.5x
+  var vO = other * 0.015;      // Unlimited 1.5x
+  var total = vG+vD+vT+vGas+vGym+vAmazon+vHm+vO;
+
+  document.getElementById('d-grocery').textContent = fmt$(grocery);
+  document.getElementById('d-dining').textContent = fmt$(dining);
+  document.getElementById('d-travel').textContent = fmt$(travel);
+  document.getElementById('d-gas').textContent = fmt$(gas);
+  document.getElementById('d-gym').textContent = fmt$(gym);
+  document.getElementById('d-amazon').textContent = fmt$(amazon);
+  document.getElementById('d-home').textContent = fmt$(home);
+  document.getElementById('d-other').textContent = fmt$(other);
+  document.getElementById('v-grocery').textContent = fmt$(vG);
+  document.getElementById('v-dining').textContent = fmt$(vD);
+  document.getElementById('v-travel').textContent = fmt$(vT);
+  document.getElementById('v-gas').textContent = fmt$(vGas);
+  document.getElementById('v-gym').textContent = fmt$(vGym);
+  document.getElementById('v-amazon').textContent = fmt$(vAmazon);
+  document.getElementById('v-home').textContent = fmt$(vHm);
+  document.getElementById('v-other').textContent = fmt$(vO);
+  document.getElementById('v-total').textContent = fmt$(total);
+  document.getElementById('total-pts').textContent = fmt$(total);
 }
 calcPts();
 </script>
