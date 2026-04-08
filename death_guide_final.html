@@ -36,8 +36,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .check-box.checked { background: #639922; border-color: #639922; color: white; }
 .divider { border: none; border-top: 0.5px solid #e0e0d8; margin: 12px 0; }
 .back-btn { display: inline-block; font-size: 12px; color: #666; text-decoration: none; margin-bottom: 16px; padding: 4px 0; }
-.highlight-box { background: #EAF3DE; border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; font-size: 13px; color: #1a1a18; line-height: 1.8; }
-.urgent-box { background: #FCEBEB; border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; font-size: 13px; color: #1a1a18; line-height: 1.8; }
 </style>
 </head>
 <body>
@@ -53,8 +51,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <button onclick="window.print()" style="padding:6px 14px;font-size:12px;border:0.5px solid #ccc;border-radius:8px;background:transparent;cursor:pointer;font-family:inherit;">Print / save PDF</button>
 </div>
 
-<div class="highlight-box">
-  You are financially secure. Between your own income ($383K), the investment portfolio ($2.7M), life insurance, and survivor benefits — you and the kids are well protected. The 529s are funded. The sinking funds are pre-funded. Nick built this system so you'd never have to start from zero. Work through this list in order — you don't need to do everything at once.
+<div style="background:#EAF3DE;border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#1a1a18;line-height:1.8;">
+  You are financially secure. Between your own income ($383K), the investment portfolio ($2.7M), life insurance, and survivor benefits — you and the kids are well protected. The 529s are funded. The savings goals are pre-funded. Nick built this system so you'd never have to start from zero. Work through this list in order — you don't need to do everything at once.
 </div>
 
 <!-- FIRST 72 HOURS -->
@@ -124,7 +122,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div class="step">
     <div class="step-num" style="background:#FAEEDA;color:#854F0B;">9</div>
     <div>
-      <div class="step-title">Continue sinking funds — they're pre-funded</div>
+      <div class="step-title">Continue savings goals — they're pre-funded</div>
       <div class="step-desc">All savings goals (vacation, house, camp, kids' cars, college) are pre-funded at Capital One and Vanguard. Don't touch the principal — just let existing auto-transfers continue while you get organized.</div>
     </div>
   </div>
@@ -167,9 +165,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div class="acct-icon" style="background:#EEEDFE;color:#534AB7;">V</div>
     <div style="flex:1;">
       <div style="font-weight:700;">Roth IRAs — Nick + Emily <span style="font-size:11px;color:#888;">···2134 / ···2972</span></div>
-      <div style="font-size:12px;color:#666;">Vanguard · Nick's Roth transfers per beneficiary designation · Emily's is already hers</div>
+      <div style="font-size:12px;color:#666;">Vanguard · Nick's Roth transfers per beneficiary · Emily's is already hers</div>
     </div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$132.5K</div><span class="badge bg-purple" style="background:#EEEDFE;color:#534AB7;">Roth</span></div>
+    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$132.5K</div><span class="badge" style="background:#EEEDFE;color:#534AB7;">Roth</span></div>
   </div>
 
   <div class="acct-row">
@@ -288,7 +286,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   </div>
 </div>
 
-<!-- DOCUMENTS CHECKLIST -->
+<!-- DOCUMENTS -->
 <div class="card">
   <div class="section-label">Important documents — where they are</div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Will + estate plan</strong> — [location: safe / attorney office / Google Drive]</div></div>
@@ -297,9 +295,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Social Security cards — Nick + Emily + kids</strong> — [location]</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Passports — all four</strong> — [location]</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Birth certificates — all four</strong> — [location]</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Password manager</strong> — [app name + how Emily accesses it]</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Marriage certificate</strong> — [location] · Needed for survivor benefits</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Car titles + home deed</strong> — [location]</div></div>
+  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Password manager</strong> — [app name + how Emily accesses it]</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>This financial system</strong> — nray1122.github.io/mymoney</div></div>
 </div>
 
@@ -322,7 +320,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div class="card">
   <div class="section-label">The big picture — you will be ok</div>
   <div style="font-size:13px;color:#666;line-height:1.9;">
-    <div style="margin-bottom:10px;">Your own income is $383K. The investment portfolio is $2.7M. The 529s are funded. The sinking funds are pre-funded. Life insurance will add a significant lump sum. Social Security survivor benefits will provide monthly income for you and the kids.</div>
+    <div style="margin-bottom:10px;">Your own income is $383K. The investment portfolio is $2.7M. The 529s are funded. The savings goals are pre-funded. Life insurance will add a significant lump sum. Social Security survivor benefits will provide monthly income for you and the kids.</div>
     <div style="margin-bottom:10px;">You do not need to make investment decisions quickly. The portfolio can sit exactly as-is for 6-12 months while you find your footing. Nothing is going anywhere.</div>
     <div style="margin-bottom:10px;">The kids' college is covered. The house is fine. You have an emergency fund. You have 10+ years of runway before any major financial decisions are required.</div>
     <div>Nick built this system so you'd always know where everything is and what to do. You are not starting from zero. You have everything you need.</div>
@@ -333,7 +331,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 
 </div>
 <script>
-function toggle(el) { el.classList.toggle('checked'); el.textContent = el.classList.contains('checked') ? '✓' : ''; }
+function toggle(el){ el.classList.toggle('checked'); el.textContent = el.classList.contains('checked') ? '✓' : ''; }
 </script>
 </body>
 </html>
