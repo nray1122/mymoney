@@ -11,10 +11,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 10px; }
 .card { background: #fff; border: 0.5px solid #e0e0d8; border-radius: 12px; padding: 16px 18px; margin-bottom: 12px; }
 .badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 600; }
-.bg-red { background: #FCEBEB; color: #A32D2D; }
-.bg-amber { background: #FAEEDA; color: #854F0B; }
 .bg-blue { background: #E6F1FB; color: #185FA5; }
 .bg-green { background: #EAF3DE; color: #3B6D11; }
+.bg-amber { background: #FAEEDA; color: #854F0B; }
 .bg-purple { background: #EEEDFE; color: #534AB7; }
 .step { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 0.5px solid #e0e0d8; }
 .step:last-child { border-bottom: none; }
@@ -31,23 +30,30 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .contact-role { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
 .contact-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
 .contact-detail { font-size: 12px; color: #666; line-height: 1.6; }
+.done-item { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
+.done-item:last-child { border-bottom: none; }
+.done-box { width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 12px; background: #639922; color: white; font-weight: 700; }
 .check-item { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
 .check-item:last-child { border-bottom: none; }
 .check-box { width: 18px; height: 18px; border: 1.5px solid #ccc; border-radius: 4px; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; }
 .check-box.checked { background: #639922; border-color: #639922; color: white; }
 .divider { border: none; border-top: 0.5px solid #e0e0d8; margin: 12px 0; }
 .back-btn { display: inline-block; font-size: 12px; color: #666; text-decoration: none; margin-bottom: 16px; padding: 4px 0; }
-.scenario-block { border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
 .ins-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
 .ins-card { border: 0.5px solid #e0e0d8; border-radius: 8px; padding: 10px 12px; }
 .ins-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.doc-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; gap: 12px; }
+.doc-row:last-child { border-bottom: none; }
+.doc-location { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; flex-shrink: 0; }
+.loc-safe { background: #EAF3DE; color: #3B6D11; }
+.loc-drive { background: #E6F1FB; color: #185FA5; }
+.loc-digital { background: #EEEDFE; color: #534AB7; }
 </style>
 </head>
 <body>
 <div class="wrap">
 <a href="index.html" class="back-btn">← Back to MyMoney</a>
 <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
-
 <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
   <div>
     <div style="font-size:20px;font-weight:700;">Family emergency guide</div>
@@ -57,31 +63,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 </div>
 
 <div style="background:#EAF3DE;border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#1a1a18;line-height:1.8;">
-  The surviving spouse is financially secure. Between your own income, the investment portfolio ($2.7M), life insurance, and survivor benefits — you and the kids are well protected. The 529s are funded. The savings goals are pre-funded. This system was built so you'd never have to start from zero. Work through this list in order — you don't need to do everything at once.
+  The surviving spouse is financially secure. Between your own income, the investment portfolio ($2.7M), life insurance, and survivor benefits — you and the kids are well protected. The 529s are funded. The savings goals are pre-funded. This system was built so you'd never have to start from zero. Work through this list in order.
 </div>
 
-<!-- LIFE INSURANCE SUMMARY -->
+<!-- LIFE INSURANCE -->
 <div class="card">
   <div class="section-label">Life insurance — depends on who passed</div>
   <div class="ins-grid">
     <div class="ins-card" style="border:1.5px solid #FCEBEB;">
       <div class="ins-label">If Nick passes — Emily collects</div>
       <div style="font-size:22px;font-weight:700;color:#A32D2D;margin-bottom:6px;">$1.537M</div>
-      <div style="font-size:12px;color:#666;line-height:1.7;">
-        Lincoln Financial $537K<br>Policy # 06-066528 · 1-877-321-1015<br><br>
-        Banner Life $1.0M<br>Policy # 5000069335 · 1-800-638-8428
-      </div>
+      <div style="font-size:12px;color:#666;line-height:1.7;">Lincoln Financial $537K<br>Policy # 06-066528 · 1-877-321-1015<br><br>Banner Life $1.0M<br>Policy # 5000069335 · 1-800-638-8428</div>
     </div>
     <div class="ins-card" style="border:1.5px solid #E6F1FB;">
       <div class="ins-label">If Emily passes — Nick collects</div>
       <div style="font-size:22px;font-weight:700;color:#185FA5;margin-bottom:6px;">$1.0M</div>
-      <div style="font-size:12px;color:#666;line-height:1.7;">
-        Banner Life $1.0M<br>Policy # 5000069336 · 1-800-638-8428<br><br>
-        <span style="color:#888;">Both Banner policies expire May 2041</span>
-      </div>
+      <div style="font-size:12px;color:#666;line-height:1.7;">Banner Life $1.0M<br>Policy # 5000069336 · 1-800-638-8428<br><br><span style="color:#888;">Both Banner policies expire May 2041</span></div>
     </div>
   </div>
-  <div style="font-size:11px;color:#888;margin-top:8px;">Lincoln Financial is Nick's employer policy — call 1-877-321-1015 directly to file. For Banner Life call 1-800-638-8428 or go to bannerlife.com.</div>
+  <div style="font-size:11px;color:#888;margin-top:8px;">Lincoln Financial is Nick's employer policy — call 1-877-321-1015 directly. Banner Life: 1-800-638-8428 or bannerlife.com.</div>
 </div>
 
 <!-- FIRST 72 HOURS -->
@@ -89,341 +89,163 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div class="section-label">First 72 hours — do these first</div>
   <div class="step">
     <div class="step-num" style="background:#FCEBEB;color:#A32D2D;">1</div>
-    <div>
-      <div class="step-title">File life insurance claims</div>
-      <div class="step-desc">Call the relevant insurers above with a death certificate. Lincoln Financial (if Nick): 1-877-321-1015. Banner Life (either spouse): 1-800-638-8428. Payouts typically take 2-4 weeks.</div>
-    </div>
+    <div><div class="step-title">File life insurance claims</div><div class="step-desc">Call the relevant insurers above with a death certificate. Lincoln Financial (if Nick): 1-877-321-1015. Banner Life (either spouse): 1-800-638-8428. Payouts typically 2-4 weeks.</div></div>
   </div>
   <div class="step">
     <div class="step-num" style="background:#FCEBEB;color:#A32D2D;">2</div>
-    <div>
-      <div class="step-title">Get 10+ certified death certificates</div>
-      <div class="step-desc">You'll need these for every account, insurance claim, and legal process. Order more than you think — each institution wants an original. The funeral home handles this.</div>
-    </div>
+    <div><div class="step-title">Get 10+ certified death certificates</div><div class="step-desc">You'll need these for every account, insurance claim, and legal process. Each institution wants an original. The funeral home handles this.</div></div>
   </div>
   <div class="step">
     <div class="step-num" style="background:#FCEBEB;color:#A32D2D;">3</div>
-    <div>
-      <div class="step-title">Do not make any big financial decisions yet</div>
-      <div class="step-desc">You will receive large sums of money. Do not invest, move, or spend anything significant in the first 30-90 days. Park everything in Capital One savings temporarily. Good decisions come after the fog lifts.</div>
-    </div>
+    <div><div class="step-title">Do not make any big financial decisions yet</div><div class="step-desc">You will receive large sums of money. Do not invest, move, or spend anything significant for 30-90 days. Park everything in Capital One savings temporarily.</div></div>
   </div>
   <div class="step">
     <div class="step-num" style="background:#FCEBEB;color:#A32D2D;">4</div>
-    <div>
-      <div class="step-title">Notify the estate attorney</div>
-      <div class="step-desc">They will guide probate (if needed), trust activation, and asset transfer. Fitzgerald, Schorr, Barmettler & Brennan · 402.342.1000 · Reference file number 11145-1.</div>
-    </div>
+    <div><div class="step-title">Notify the estate attorney</div><div class="step-desc">Fitzgerald, Schorr, Barmettler & Brennan · 402.342.1000 · Reference file number 11145-1.</div></div>
   </div>
 </div>
 
 <!-- FIRST 30 DAYS -->
 <div class="card">
   <div class="section-label">First 30 days</div>
-
   <div style="font-size:11px;font-weight:700;color:#A32D2D;margin-bottom:6px;padding-bottom:4px;border-bottom:0.5px solid #e0e0d8;">IF NICK PASSES</div>
-
   <div class="step">
     <div class="step-num" style="background:#FAEEDA;color:#854F0B;">5</div>
-    <div>
-      <div class="step-title">Transfer Nick's 401k — do NOT cash out</div>
-      <div class="step-desc">Call Fidelity (1-800-343-3548). As the surviving spouse, Emily can roll Nick's 401k directly into her own IRA — no taxes, no penalties. Say: "I need to initiate a spousal rollover for a deceased participant." Cashing out triggers a massive tax bill.</div>
-    </div>
+    <div><div class="step-title">Transfer Nick's 401k — do NOT cash out</div><div class="step-desc">Call Fidelity (1-800-343-3548). As surviving spouse, Emily can roll Nick's 401k into her own IRA — no taxes, no penalties. Say: "I need to initiate a spousal rollover for a deceased participant."</div></div>
   </div>
   <div class="step">
     <div class="step-num" style="background:#FAEEDA;color:#854F0B;">6</div>
-    <div>
-      <div class="step-title">Vanguard brokerage accounts — already Emily's</div>
-      <div class="step-desc">Both joint accounts pass automatically. Call Vanguard (1-800-662-7447) to remove Nick's name and confirm ownership. Nick's Roth (···2134) and ESPP (···3247) transfer per beneficiary designation.</div>
-    </div>
+    <div><div class="step-title">Vanguard brokerage accounts — already Emily's</div><div class="step-desc">Joint accounts pass automatically. Call Vanguard (1-800-662-7447) to remove Nick's name. Nick's Roth and individual accounts transfer per beneficiary designation.</div></div>
   </div>
-
   <div style="font-size:11px;font-weight:700;color:#185FA5;margin:12px 0 6px;padding-bottom:4px;border-bottom:0.5px solid #e0e0d8;">IF EMILY PASSES</div>
-
   <div class="step">
     <div class="step-num" style="background:#FAEEDA;color:#854F0B;">7</div>
-    <div>
-      <div class="step-title">Transfer Emily's 401k — do NOT cash out</div>
-      <div class="step-desc">Call Fidelity (1-800-343-3548). As surviving spouse, Nick can roll Emily's 401k into his own IRA. Same spousal rollover process. Emily's Roth (···2972) transfers per beneficiary designation.</div>
-    </div>
+    <div><div class="step-title">Transfer Emily's 401k — do NOT cash out</div><div class="step-desc">Call Fidelity (1-800-343-3548). As surviving spouse, Nick can roll Emily's 401k into his own IRA. Same spousal rollover process.</div></div>
   </div>
   <div class="step">
     <div class="step-num" style="background:#FAEEDA;color:#854F0B;">8</div>
-    <div>
-      <div class="step-title">Vanguard brokerage accounts — already Nick's</div>
-      <div class="step-desc">Both joint accounts pass automatically. Call Vanguard (1-800-662-7447) to remove Emily's name and confirm ownership.</div>
-    </div>
+    <div><div class="step-title">Vanguard brokerage accounts — already Nick's</div><div class="step-desc">Joint accounts pass automatically. Call Vanguard (1-800-662-7447) to remove Emily's name.</div></div>
   </div>
-
   <div style="font-size:11px;font-weight:700;color:#888;margin:12px 0 6px;padding-bottom:4px;border-bottom:0.5px solid #e0e0d8;">EITHER SCENARIO</div>
-
   <div class="step">
     <div class="step-num" style="background:#FAEEDA;color:#854F0B;">9</div>
-    <div>
-      <div class="step-title">File for Social Security survivor benefits</div>
-      <div class="step-desc">The surviving spouse and the kids may qualify for monthly survivor benefits. Call SSA at 1-800-772-1213 or visit ssa.gov. Do not skip this — it can be meaningful monthly income for years.</div>
-    </div>
+    <div><div class="step-title">File for Social Security survivor benefits</div><div class="step-desc">Call SSA at 1-800-772-1213 or ssa.gov. The surviving spouse and kids may qualify for monthly benefits. Do not skip this.</div></div>
   </div>
   <div class="step">
     <div class="step-num" style="background:#FAEEDA;color:#854F0B;">10</div>
-    <div>
-      <div class="step-title">Continue savings goals — they're pre-funded</div>
-      <div class="step-desc">All savings goals (vacation, house, camp, kids' cars, college) are pre-funded at Capital One and Vanguard. Don't touch the principal — just let existing auto-transfers continue while you get organized.</div>
-    </div>
+    <div><div class="step-title">Continue savings goals — they're pre-funded</div><div class="step-desc">All savings goals are pre-funded at Capital One and Vanguard. Let auto-transfers continue while you get organized.</div></div>
   </div>
 </div>
 
 <!-- ESTATE STRUCTURE -->
 <div class="card">
   <div class="section-label">Estate plan structure — executed October 12, 2016 · Fitzgerald Schorr</div>
-
   <div style="font-size:12px;color:#666;margin-bottom:12px;">Both Wills are mirror images. Structure is identical regardless of who passes first.</div>
-
   <div style="margin-bottom:12px;">
     <div style="font-size:12px;font-weight:700;color:#3B6D11;margin-bottom:4px;">If one spouse dies first</div>
-    <div style="font-size:12px;color:#666;">Everything passes outright to the surviving spouse. No trust, no probate (assuming accounts are properly titled and beneficiary designations are current).</div>
+    <div style="font-size:12px;color:#666;">Everything passes outright to the surviving spouse. No trust, no probate — assuming accounts are properly titled and beneficiary designations are current.</div>
   </div>
-
   <div class="divider"></div>
-
   <div style="margin-bottom:12px;">
     <div style="font-size:12px;font-weight:700;color:#A32D2D;margin-bottom:4px;">If both spouses die simultaneously OR second spouse dies</div>
     <div style="font-size:12px;color:#666;line-height:1.7;">Assets flow into the <strong>Nicholas G. Ray Family Trust</strong> (from Nick's Will) or <strong>Emily A. Ray Family Trust</strong> (from Emily's Will). Jason Epstein serves as Trustee. Howard Epstein is successor Trustee.</div>
   </div>
-
   <div class="divider"></div>
-
   <div style="margin-bottom:12px;">
     <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Trust distribution to Sammie + Evan</div>
     <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;">
-      <div style="background:#f1efe8;border-radius:8px;padding:10px 12px;text-align:center;">
-        <div style="font-size:18px;font-weight:700;">1/3</div>
-        <div style="font-size:11px;color:#888;margin-top:2px;">At age 25</div>
-        <div style="font-size:11px;color:#888;">distributed outright</div>
-      </div>
-      <div style="background:#f1efe8;border-radius:8px;padding:10px 12px;text-align:center;">
-        <div style="font-size:18px;font-weight:700;">1/2</div>
-        <div style="font-size:11px;color:#888;margin-top:2px;">At age 30</div>
-        <div style="font-size:11px;color:#888;">of remaining balance</div>
-      </div>
-      <div style="background:#f1efe8;border-radius:8px;padding:10px 12px;text-align:center;">
-        <div style="font-size:18px;font-weight:700;">All</div>
-        <div style="font-size:11px;color:#888;margin-top:2px;">At age 35</div>
-        <div style="font-size:11px;color:#888;">trust terminates</div>
-      </div>
+      <div style="background:#f1efe8;border-radius:8px;padding:10px 12px;text-align:center;"><div style="font-size:18px;font-weight:700;">1/3</div><div style="font-size:11px;color:#888;margin-top:2px;">At age 25</div><div style="font-size:11px;color:#888;">distributed outright</div></div>
+      <div style="background:#f1efe8;border-radius:8px;padding:10px 12px;text-align:center;"><div style="font-size:18px;font-weight:700;">1/2</div><div style="font-size:11px;color:#888;margin-top:2px;">At age 30</div><div style="font-size:11px;color:#888;">of remaining balance</div></div>
+      <div style="background:#f1efe8;border-radius:8px;padding:10px 12px;text-align:center;"><div style="font-size:18px;font-weight:700;">All</div><div style="font-size:11px;color:#888;margin-top:2px;">At age 35</div><div style="font-size:11px;color:#888;">trust terminates</div></div>
     </div>
-    <div style="font-size:11px;color:#888;margin-top:8px;">Until age 25: Trustee has full discretion to distribute for health, education, maintenance, and support. Spendthrift trust — creditor protected.</div>
+    <div style="font-size:11px;color:#888;margin-top:8px;">Until age 25: Trustee has full discretion for health, education, maintenance, and support. Spendthrift trust — creditor protected.</div>
   </div>
-
   <div class="divider"></div>
-
   <div style="margin-bottom:12px;">
     <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Guardians if both parents die while kids are minors</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
-        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Primary Co-Guardians</div>
-        <div style="font-size:13px;font-weight:700;">Jason + Laura Epstein</div>
-        <div style="font-size:12px;color:#666;">Emily's brother + sister-in-law</div>
-      </div>
-      <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
-        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Successor Co-Guardians</div>
-        <div style="font-size:13px;font-weight:700;">Howard + Sharon Epstein</div>
-        <div style="font-size:12px;color:#666;">Emily's parents</div>
-      </div>
+      <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Primary Co-Guardians</div><div style="font-size:13px;font-weight:700;">Jason + Laura Epstein</div><div style="font-size:12px;color:#666;">Emily's brother + sister-in-law</div></div>
+      <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Successor Co-Guardians</div><div style="font-size:13px;font-weight:700;">Howard + Sharon Epstein</div><div style="font-size:12px;color:#666;">Emily's parents</div></div>
     </div>
   </div>
-
   <div class="divider"></div>
-
   <div>
-    <div style="font-size:12px;font-weight:700;margin-bottom:4px;">How assets should be titled</div>
+    <div style="font-size:12px;font-weight:700;margin-bottom:4px;">How assets are titled</div>
     <div class="row" style="font-size:12px;"><span style="color:#666;">Checking · savings · brokerage</span><span>Joint with rights of survivorship ✓</span></div>
-    <div class="row" style="font-size:12px;"><span style="color:#666;">IRAs · Roth IRAs · 401ks</span><span>Primary = spouse · Contingent = Family Trust</span></div>
-    <div class="row" style="font-size:12px;"><span style="color:#666;">Life insurance</span><span>Primary = spouse · Contingent = Family Trust</span></div>
+    <div class="row" style="font-size:12px;"><span style="color:#666;">IRAs · Roth IRAs · 401ks</span><span>Primary = spouse · Contingent = Family Trust ✓</span></div>
+    <div class="row" style="font-size:12px;"><span style="color:#666;">Life insurance</span><span>Primary = spouse · Contingent = Family Trust ✓</span></div>
     <div class="row" style="font-size:12px;"><span style="color:#666;">Real estate · vehicles</span><span>Joint with rights of survivorship ✓</span></div>
   </div>
 </div>
 
-<!-- BENEFICIARY CHECKLIST -->
+<!-- BENEFICIARY VERIFICATION -->
 <div class="card">
-  <div class="section-label">Beneficiary verification — 9 items to confirm</div>
-  <div style="background:#FAEEDA;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:12px;color:#854F0B;">Primary = spouse (likely confirmed). Contingent = applicable Family Trust (needs to be added). Check off as completed.</div>
-
+  <div class="section-label">Beneficiary designations — verified April 2026</div>
+  <div style="background:#EAF3DE;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:12px;color:#3B6D11;">✓ All accounts verified and updated April 2026. Primary = spouse · Contingent = applicable Family Trust. Re-verify annually or after any major life event.</div>
   <div style="font-size:11px;font-weight:700;color:#185FA5;margin-bottom:6px;padding-bottom:4px;border-bottom:0.5px solid #e0e0d8;">FIDELITY — 1-800-343-3548</div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Nick 401k ···8976</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Nick BrokerageLink ···4781</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Emily 401k ···3397</strong> — Nick = primary · Emily A. Ray Family Trust = contingent</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Nick ESPP ···3247</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
-
+  <div class="done-item"><div class="done-box">✓</div><div><strong>Nick 401k ···8976 (Microsoft)</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
+  <div class="done-item"><div class="done-box">✓</div><div><strong>Nick ESPP ···3247</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
+  <div class="done-item"><div class="done-box">✓</div><div><strong>Emily 401k ···3397 (Yahoo)</strong> — Nick = primary · Emily A. Ray Family Trust = contingent</div></div>
   <div style="font-size:11px;font-weight:700;color:#185FA5;margin:10px 0 6px;padding-bottom:4px;border-bottom:0.5px solid #e0e0d8;">VANGUARD — 1-800-662-7447</div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Nick Roth ···2134</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Emily Roth ···2972</strong> — Nick = primary · Emily A. Ray Family Trust = contingent</div></div>
-
+  <div class="done-item"><div class="done-box">✓</div><div><strong>Nick Roth ···2134 + individual brokerages</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
+  <div class="done-item"><div class="done-box">✓</div><div><strong>Emily Roth ···2972 + individual brokerages</strong> — Nick = primary · Emily A. Ray Family Trust = contingent</div></div>
   <div style="font-size:11px;font-weight:700;color:#185FA5;margin:10px 0 6px;padding-bottom:4px;border-bottom:0.5px solid #e0e0d8;">LINCOLN FINANCIAL — 1-877-321-1015</div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Nick work life insurance # 06-066528</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
-
-  <div style="font-size:11px;font-weight:700;color:#185FA5;margin:10px 0 6px;padding-bottom:4px;border-bottom:0.5px solid #e0e0d8;">BANNER LIFE — 1-800-638-8428 · bannerlife.com</div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Nick personal policy # 5000069335</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Emily personal policy # 5000069336</strong> — Nick = primary · Emily A. Ray Family Trust = contingent</div></div>
-
-  <div style="font-size:11px;color:#888;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;">When adding contingent trust use exact name: "Nicholas G. Ray Family Trust, created under the Last Will and Testament of Nicholas G. Ray, dated October 12, 2016" — or Emily A. Ray equivalent for Emily's accounts.</div>
+  <div class="done-item"><div class="done-box">✓</div><div><strong>Nick work life insurance # 06-066528</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
+  <div style="font-size:11px;font-weight:700;color:#185FA5;margin:10px 0 6px;padding-bottom:4px;border-bottom:0.5px solid #e0e0d8;">BANNER LIFE — 1-800-638-8428</div>
+  <div class="done-item"><div class="done-box">✓</div><div><strong>Nick personal policy # 5000069335</strong> — Emily = primary · Nicholas G. Ray Family Trust = contingent</div></div>
+  <div class="done-item"><div class="done-box">✓</div><div><strong>Emily personal policy # 5000069336</strong> — Nick = primary · Emily A. Ray Family Trust = contingent</div></div>
+  <div style="font-size:11px;color:#888;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;">Trust language: "Nicholas G. Ray Family Trust, created under the Last Will and Testament of Nicholas G. Ray, dated October 12, 2016" · Trustee: Jason A. Epstein</div>
 </div>
 
 <!-- ALL ACCOUNTS -->
 <div class="card">
   <div class="section-label">All accounts · April 2026</div>
-
   <div style="font-size:11px;color:#888;margin-bottom:10px;">Investment accounts · $2.7M total</div>
-
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
-    <div style="flex:1;">
-      <div style="font-weight:700;">Nick 401k + BrokerageLink <span style="font-size:11px;color:#888;">···8976 / ···4781</span></div>
-      <div style="font-size:12px;color:#666;">Fidelity · MSFT plan · 1-800-343-3548 · Spousal rollover — do NOT cash out</div>
-    </div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$825.2K</div><span class="badge bg-blue">401k</span></div>
-  </div>
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
-    <div style="flex:1;">
-      <div style="font-weight:700;">Emily 401k <span style="font-size:11px;color:#888;">···3397</span></div>
-      <div style="font-size:12px;color:#666;">Fidelity · Yahoo plan · 1-800-343-3548 · Spousal rollover — do NOT cash out</div>
-    </div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$733.4K</div><span class="badge bg-blue">401k</span></div>
-  </div>
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div>
-    <div style="flex:1;">
-      <div style="font-weight:700;">Vanguard brokerage <span style="font-size:11px;color:#888;">···0635 + ···2401</span></div>
-      <div style="font-size:12px;color:#666;">Vanguard · Joint accounts · Pass automatically to survivor · 1-800-662-7447</div>
-    </div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$917.6K</div><span class="badge bg-green">Joint</span></div>
-  </div>
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#EEEDFE;color:#534AB7;">V</div>
-    <div style="flex:1;">
-      <div style="font-weight:700;">Roth IRAs — Nick + Emily <span style="font-size:11px;color:#888;">···2134 / ···2972</span></div>
-      <div style="font-size:12px;color:#666;">Vanguard · Transfer per beneficiary designation · 1-800-662-7447</div>
-    </div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$132.5K</div><span class="badge bg-purple">Roth</span></div>
-  </div>
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
-    <div style="flex:1;">
-      <div style="font-weight:700;">Nick MSFT ESPP <span style="font-size:11px;color:#888;">···3247</span></div>
-      <div style="font-size:12px;color:#666;">Fidelity · 1-800-343-3548 · Transfer or sell remaining shares</div>
-    </div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$9.6K</div><span class="badge bg-amber">Stock</span></div>
-  </div>
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div>
-    <div style="flex:1;">
-      <div style="font-weight:700;">New House 2040 <span style="font-size:11px;color:#888;">···5170</span></div>
-      <div style="font-size:12px;color:#666;">Vanguard · Long-term investment goal · No rush</div>
-    </div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$57.5K</div><span class="badge bg-amber">Goal</span></div>
-  </div>
-
+  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Nick 401k + BrokerageLink <span style="font-size:11px;color:#888;">···8976 / ···4781</span></div><div style="font-size:12px;color:#666;">Fidelity · MSFT plan · 1-800-343-3548 · Spousal rollover — do NOT cash out</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$825.2K</div><span class="badge bg-blue">401k</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Emily 401k <span style="font-size:11px;color:#888;">···3397</span></div><div style="font-size:12px;color:#666;">Fidelity · Yahoo plan · 1-800-343-3548 · Spousal rollover — do NOT cash out</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$733.4K</div><span class="badge bg-blue">401k</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div><div style="flex:1;"><div style="font-weight:700;">Vanguard brokerage <span style="font-size:11px;color:#888;">···0635 + ···2401</span></div><div style="font-size:12px;color:#666;">Vanguard · Joint accounts · Pass automatically · 1-800-662-7447</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$917.6K</div><span class="badge bg-green">Joint</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#EEEDFE;color:#534AB7;">V</div><div style="flex:1;"><div style="font-weight:700;">Roth IRAs — Nick + Emily <span style="font-size:11px;color:#888;">···2134 / ···2972</span></div><div style="font-size:12px;color:#666;">Vanguard · Transfer per beneficiary designation</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$132.5K</div><span class="badge bg-purple">Roth</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Nick MSFT ESPP <span style="font-size:11px;color:#888;">···3247</span></div><div style="font-size:12px;color:#666;">Fidelity · 1-800-343-3548 · Sell on vest, transfer to Vanguard</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$9.6K</div><span class="badge bg-amber">Stock</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div><div style="flex:1;"><div style="font-weight:700;">New House 2040 + Wedding savings</div><div style="font-size:12px;color:#666;">Vanguard · Individual accounts · Long-term goals · No rush</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$84K</div><span class="badge bg-amber">Goals</span></div></div>
   <div class="divider"></div>
   <div style="font-size:11px;color:#888;margin-bottom:10px;">Emergency fund + savings goals · $214.6K</div>
-
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#f1efe8;color:#888;">V</div>
-    <div style="flex:1;"><div style="font-weight:700;">Emergency fund — MM + IBonds</div><div style="font-size:12px;color:#666;">Vanguard money market + Treasury IBonds · Do not touch for 6 months</div></div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$97.7K</div><span class="badge" style="background:#f1efe8;color:#888;">Safe</span></div>
-  </div>
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#f1efe8;color:#888;">C</div>
-    <div style="flex:1;"><div style="font-weight:700;">Capital One savings goals</div><div style="font-size:12px;color:#666;">Vacation · House · Cars · Camp · Bar Mitzvah · Pre-funded · Continue auto-transfers</div></div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$90.5K</div><span class="badge" style="background:#f1efe8;color:#888;">Goals</span></div>
-  </div>
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div>
-    <div style="flex:1;"><div style="font-weight:700;">Wedding savings — Sammie + Evan</div><div style="font-size:12px;color:#666;">Vanguard · Sammie 2043 · Evan 2045 · Long-term · No rush</div></div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$26.4K</div><span class="badge" style="background:#f1efe8;color:#888;">Goals</span></div>
-  </div>
-
+  <div class="acct-row"><div class="acct-icon" style="background:#f1efe8;color:#888;">V</div><div style="flex:1;"><div style="font-weight:700;">Emergency fund — MM + IBonds</div><div style="font-size:12px;color:#666;">Vanguard money market + Treasury IBonds · Do not touch for 6 months</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$97.7K</div><span class="badge" style="background:#f1efe8;color:#888;">Safe</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#f1efe8;color:#888;">C</div><div style="flex:1;"><div style="font-weight:700;">Capital One savings goals</div><div style="font-size:12px;color:#666;">Vacation · House · Cars · Camp · Bar Mitzvah · Pre-funded</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$90.5K</div><span class="badge" style="background:#f1efe8;color:#888;">Goals</span></div></div>
   <div class="divider"></div>
   <div style="font-size:11px;color:#888;margin-bottom:10px;">Kids accounts · $360.5K</div>
+  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">↑</div><div style="flex:1;"><div style="font-weight:700;">Sammie 529 — starts college Fall 2030</div><div style="font-size:12px;color:#666;">Continue as-is · Funded to Wisconsin baseline</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">~$151K</div><span class="badge bg-green">529</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">↑</div><div style="flex:1;"><div style="font-weight:700;">Evan 529 — starts college Fall 2033</div><div style="font-size:12px;color:#666;">Continue as-is · Funded to Wisconsin baseline</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">~$143K</div><span class="badge bg-green">529</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#f1efe8;color:#888;">U</div><div style="flex:1;"><div style="font-weight:700;">Sammie + Evan UTMAs</div><div style="font-size:12px;color:#666;">Custodial · Belong to kids at 18</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$66.5K</div><span class="badge" style="background:#f1efe8;color:#888;">UTMA</span></div></div>
+</div>
 
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">↑</div>
-    <div style="flex:1;"><div style="font-weight:700;">Sammie 529 — starts college Fall 2030</div><div style="font-size:12px;color:#666;">Continue as-is · Funded to Wisconsin baseline · 4 years to first tuition</div></div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">~$151K</div><span class="badge bg-green">529</span></div>
-  </div>
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">↑</div>
-    <div style="flex:1;"><div style="font-weight:700;">Evan 529 — starts college Fall 2033</div><div style="font-size:12px;color:#666;">Continue as-is · Funded to Wisconsin baseline · 7 years to first tuition</div></div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">~$143K</div><span class="badge bg-green">529</span></div>
-  </div>
-  <div class="acct-row">
-    <div class="acct-icon" style="background:#f1efe8;color:#888;">U</div>
-    <div style="flex:1;"><div style="font-weight:700;">Sammie + Evan UTMAs</div><div style="font-size:12px;color:#666;">Custodial accounts · Belong to the kids at 18 · No rush to touch</div></div>
-    <div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$66.5K</div><span class="badge" style="background:#f1efe8;color:#888;">UTMA</span></div>
-  </div>
+<!-- DOCUMENTS -->
+<div class="card">
+  <div class="section-label">Important documents — where they are</div>
+  <div class="doc-row"><span><strong>Will + estate plan originals</strong><div style="font-size:11px;color:#666;margin-top:2px;">Fitzgerald Schorr file # 11145-1 · Digital copies in Nick's Google Drive</div></span><span class="doc-location loc-safe">Home safe</span></div>
+  <div class="doc-row"><span><strong>Life insurance policies</strong><div style="font-size:11px;color:#666;margin-top:2px;">Lincoln # 06-066528 · Banner Life # 5000069335 / # 5000069336</div></span><span class="doc-location loc-safe">Home safe</span></div>
+  <div class="doc-row"><span><strong>Tax returns — last 3 years</strong></span><span class="doc-location loc-drive">Nick's Google Drive</span></div>
+  <div class="doc-row"><span><strong>Social Security cards — all four</strong></span><span class="doc-location loc-safe">Home safe</span></div>
+  <div class="doc-row"><span><strong>Passports — all four</strong></span><span class="doc-location loc-safe">Home safe</span></div>
+  <div class="doc-row"><span><strong>Birth certificates — all four</strong></span><span class="doc-location loc-safe">Home safe</span></div>
+  <div class="doc-row"><span><strong>Marriage certificate</strong><div style="font-size:11px;color:#666;margin-top:2px;">Needed for survivor benefits</div></span><span class="doc-location loc-safe">Home safe</span></div>
+  <div class="doc-row"><span><strong>Car titles + home deed</strong></span><span class="doc-location loc-safe">Home safe</span></div>
+  <div class="doc-row"><span><strong>Password manager — LastPass</strong><div style="font-size:11px;color:#666;margin-top:2px;">Master password in safe</div></span><span class="doc-location loc-safe">Home safe</span></div>
+  <div class="doc-row"><span><strong>This financial system</strong><div style="font-size:11px;color:#666;margin-top:2px;">nray1122.github.io/mymoney</div></span><span class="doc-location loc-digital">Online</span></div>
 </div>
 
 <!-- KEY CONTACTS -->
 <div class="card">
   <div class="section-label">Key contacts</div>
   <div class="contact-grid">
-    <div class="contact-card" style="border:1.5px solid #FAEEDA;">
-      <div class="contact-role">Estate attorney</div>
-      <div class="contact-name">Fitzgerald Schorr</div>
-      <div class="contact-detail">402.342.1000<br>fitzlaw.com<br>10050 Regency Circle, Suite 200<br>Omaha, NE 68114<br>File # 11145-1</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-role">Fidelity — 401k + ESPP</div>
-      <div class="contact-name">Fidelity Investments</div>
-      <div class="contact-detail">1-800-343-3548<br>fidelity.com<br>Have SSN + death cert ready</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-role">Vanguard — brokerage + Roth</div>
-      <div class="contact-name">Vanguard</div>
-      <div class="contact-detail">1-800-662-7447<br>vanguard.com<br>Have account #s ready</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-role">Lincoln Financial — Nick's work life insurance</div>
-      <div class="contact-name">Lincoln Financial Group</div>
-      <div class="contact-detail">1-877-321-1015<br>Policy # 06-066528<br>$537K · Nick only</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-role">Banner Life — personal life insurance</div>
-      <div class="contact-name">Banner Life</div>
-      <div class="contact-detail">1-800-638-8428<br>bannerlife.com<br>Nick # 5000069335 · $1M<br>Emily # 5000069336 · $1M</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-role">Social Security</div>
-      <div class="contact-name">SSA</div>
-      <div class="contact-detail">1-800-772-1213<br>ssa.gov<br>Survivor benefits for spouse + kids</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-role">Trustee — if both parents die</div>
-      <div class="contact-name">Jason Epstein</div>
-      <div class="contact-detail">Emily's brother · Primary Trustee<br>Successor: Howard Epstein<br>(Emily's father)</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-role">Guardians — if both parents die</div>
-      <div class="contact-name">Jason + Laura Epstein</div>
-      <div class="contact-detail">Primary Co-Guardians<br>Successor: Howard + Sharon Epstein</div>
-    </div>
+    <div class="contact-card" style="border:1.5px solid #FAEEDA;"><div class="contact-role">Estate attorney</div><div class="contact-name">Fitzgerald Schorr</div><div class="contact-detail">402.342.1000<br>fitzlaw.com<br>10050 Regency Circle, Suite 200<br>Omaha, NE 68114<br>File # 11145-1</div></div>
+    <div class="contact-card"><div class="contact-role">Fidelity — 401k + ESPP</div><div class="contact-name">Fidelity Investments</div><div class="contact-detail">1-800-343-3548<br>fidelity.com<br>Have SSN + death cert ready</div></div>
+    <div class="contact-card"><div class="contact-role">Vanguard — brokerage + Roth</div><div class="contact-name">Vanguard</div><div class="contact-detail">1-800-662-7447<br>vanguard.com<br>Have account #s ready</div></div>
+    <div class="contact-card"><div class="contact-role">Lincoln Financial — Nick's work LI</div><div class="contact-name">Lincoln Financial Group</div><div class="contact-detail">1-877-321-1015<br>Policy # 06-066528<br>$537K · Nick only</div></div>
+    <div class="contact-card"><div class="contact-role">Banner Life — personal life insurance</div><div class="contact-name">Banner Life</div><div class="contact-detail">1-800-638-8428<br>bannerlife.com<br>Nick # 5000069335 · $1M<br>Emily # 5000069336 · $1M</div></div>
+    <div class="contact-card"><div class="contact-role">Social Security</div><div class="contact-name">SSA</div><div class="contact-detail">1-800-772-1213<br>ssa.gov<br>Survivor benefits for spouse + kids</div></div>
+    <div class="contact-card"><div class="contact-role">Trustee — if both parents die</div><div class="contact-name">Jason Epstein</div><div class="contact-detail">Emily's brother · Primary Trustee<br>Successor: Howard Epstein<br>(Emily's father)</div></div>
+    <div class="contact-card"><div class="contact-role">Guardians — if both parents die</div><div class="contact-name">Jason + Laura Epstein</div><div class="contact-detail">Primary Co-Guardians<br>Successor: Howard + Sharon Epstein</div></div>
   </div>
-</div>
-
-<!-- DOCUMENTS -->
-<div class="card">
-  <div class="section-label">Important documents — where they are</div>
-  <div style="background:#E6F1FB;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#185FA5;"><strong>Original estate documents</strong> are in the home safe. Both spouses should know the combination.</div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Will + estate plan originals</strong> — home safe</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Life insurance policies</strong> — Lincoln # 06-066528 · Banner Life # 5000069335 / # 5000069336</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Tax returns (last 3 years)</strong> — [location or TurboTax / CPA login]</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Social Security cards — Nick + Emily + kids</strong> — [location]</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Passports — all four</strong> — [location]</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Birth certificates — all four</strong> — [location]</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Marriage certificate</strong> — [location] · Needed for survivor benefits</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Car titles + home deed</strong> — [location]</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>Password manager</strong> — [app name + how surviving spouse accesses it]</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div><strong>This financial system</strong> — nray1122.github.io/mymoney</div></div>
 </div>
 
 <!-- 30 DAY CHECKLIST -->
@@ -433,14 +255,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div>Ordered 10+ certified death certificates</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div>Called Fitzgerald Schorr (402.342.1000, file # 11145-1) — trust / estate process started</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div>Called Fidelity — spousal 401k rollover initiated (NOT cashed out)</div></div>
-  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div>Called Vanguard — joint accounts confirmed, Roth transfer initiated</div></div>
+  <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div>Called Vanguard — joint accounts confirmed, individual accounts transferred</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div>Called SSA — survivor benefits application started</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div>Confirmed health insurance coverage (employer plan or COBRA)</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div>Did NOT make any large investment or spending decisions</div></div>
   <div class="check-item"><div class="check-box" onclick="toggle(this)"></div><div>Called a trusted person to help — family, friend, or advisor</div></div>
 </div>
 
-<!-- THE BIG PICTURE -->
+<!-- BIG PICTURE -->
 <div class="card">
   <div class="section-label">The big picture — the family is ok</div>
   <div style="font-size:13px;color:#666;line-height:1.9;">
@@ -451,7 +273,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 </div>
 
 <div style="text-align:center;margin-top:20px;font-size:11px;color:#aaa;">MyMoney · Ray family · Last updated April 2026 · nray1122.github.io/mymoney</div>
-
 </div>
 <script>
 function toggle(el){ el.classList.toggle('checked'); el.textContent = el.classList.contains('checked') ? '✓' : ''; }
