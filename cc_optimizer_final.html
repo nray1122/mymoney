@@ -15,7 +15,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .metric-value { font-size: 19px; font-weight: 700; }
 .metric-sub { font-size: 11px; margin-top: 2px; color: #888; }
 .grid-3 { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid-2 { display: grid; grid-template-columns: 1fr; gap: 8px; }
+@media (min-width: 480px) { .grid-2 { grid-template-columns: 1fr 1fr; gap: 12px; } }
 .row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
 .row:last-child { border-bottom: none; }
 .badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 600; }
@@ -25,21 +26,22 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .bg-purple { background: #EEEDFE; color: #534AB7; }
 .bg-red { background: #FCEBEB; color: #A32D2D; }
 .bg-gray { background: #f1efe8; color: #888; }
-.spend-row { display: grid; grid-template-columns: 1fr 80px 130px 80px; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
+.spend-row { display: grid; grid-template-columns: 1fr 65px 110px 60px; gap: 6px; align-items: center; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 12px; }
 .spend-row:last-child { border-bottom: none; }
-.spend-header { display: grid; grid-template-columns: 1fr 80px 130px 80px; gap: 8px; padding: 0 0 6px; border-bottom: 0.5px solid #e0e0d8; font-size: 10px; color: #888; letter-spacing: 0.06em; text-transform: uppercase; }
+.spend-header { display: grid; grid-template-columns: 1fr 65px 110px 60px; gap: 6px; padding: 0 0 6px; border-bottom: 0.5px solid #e0e0d8; font-size: 10px; color: #888; letter-spacing: 0.06em; text-transform: uppercase; }
 .card-chip { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
 .amex { background: #E6F1FB; color: #185FA5; }
 .chase-res { background: #EAF3DE; color: #3B6D11; }
 .chase-free { background: #FAEEDA; color: #854F0B; }
 .chase-cat { background: #EEEDFE; color: #534AB7; }
-.rot-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; }
+.rot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media (min-width: 480px) { .rot-grid { grid-template-columns: repeat(4,minmax(0,1fr)); } }
 .rot-card { border: 0.5px solid #e0e0d8; border-radius: 8px; padding: 10px 12px; }
 .rot-quarter { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; color: #888; text-transform: uppercase; margin-bottom: 6px; }
 .rot-cats { font-size: 12px; color: #666; line-height: 1.7; }
 .input-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-.input-row label { font-size: 12px; color: #666; width: 150px; flex-shrink: 0; }
-.input-row input { padding: 5px 8px; font-size: 13px; border: 0.5px solid #ccc; border-radius: 8px; background: #fff; color: #1a1a18; font-family: inherit; width: 100px; }
+.input-row label { font-size: 12px; color: #666; flex: 1; }
+.input-row input { padding: 5px 8px; font-size: 13px; border: 0.5px solid #ccc; border-radius: 8px; background: #fff; color: #1a1a18; font-family: inherit; width: 90px; flex-shrink: 0; }
 .rec-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
 .rec-row:last-child { border-bottom: none; }
 .rec-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
@@ -96,7 +98,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 
 <div class="card">
   <div class="section-label">Chase Freedom — quarterly rotation (5x) · activate each quarter</div>
-  <div style="font-size:12px;color:#888;margin-bottom:10px;">Activate at chase.com/freedom each quarter — costs you 4x if missed. Note: this is Chase Freedom (not Freedom Flex).</div>
+  <div style="font-size:12px;color:#888;margin-bottom:10px;">Activate at chase.com/freedom each quarter — easy to forget and costs you 4x if missed.</div>
   <div class="rot-grid">
     <div class="rot-card">
       <div class="rot-quarter">Q1 · Jan-Mar</div>
