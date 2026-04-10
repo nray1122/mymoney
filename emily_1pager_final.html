@@ -198,74 +198,94 @@ function parseKV(rows){var o={};rows.forEach(function(r){o[r.key]=r.value;});ret
 function fmtM(n){n=parseFloat(String(n).replace(/,/g,''));if(isNaN(n))return'—';return'$'+(n/1000000).toFixed(1)+'M';}
 function fmtK(n){n=parseFloat(String(n).replace(/,/g,''));if(isNaN(n))return'—';if(n>=1000)return'$'+Math.round(n/1000)+'K';return'$'+Math.round(n);}
 
-Promise.all([
-  fetch(csvUrl('270306645')).then(function(r){return r.text();}).then(parseCSV),
-  fetch(csvUrl('2084993096')).then(function(r){return r.text();}).then(parseCSV),
-  fetch(csvUrl('0')).then(function(r){return r.text();}).then(parseCSV)
-]).then(function(results){
-  var snap=parseKV(results[0]);
-  var inc=parseKV(results[1]);
-  var accounts=results[2];
+// Fetch all tabs independently
+var snapData={}, incData={}, acctData=[];
+
+function runUpdates(){
+  var snap=snapData, inc=incData, accounts=acctData;
+  if(!snap.nw) return; // Snapshot not loaded yet
+
   var nw=parseFloat(snap.nw);
   var prevDec=parseFloat(snap.nw_prev_dec);
   var gain=nw-prevDec;
   var gainPct=((gain/prevDec)*100).toFixed(1);
 
   // Header NW
-  document.querySelector('[style*="font-size:28px"]').textContent=fmtM(nw);
-  document.querySelector('[style*="font-size:28px"]').nextElementSibling.textContent='↑ '+fmtM(gain)+' since Dec 2024 · +'+gainPct+'%';
+  var nwEl=document.querySelector('[style*="font-size:28px"]');
+  if(nwEl){ nwEl.textContent=fmtM(nw); nwEl.nextElementSibling.textContent='↑ '+fmtM(gain)+' since Dec 2024 · +'+gainPct+'%'; }
 
   // Metric cards
   var metrics=document.querySelectorAll('.metric-value');
   if(metrics[0]) metrics[0].textContent=fmtM(nw);
   if(metrics[1]) metrics[1].textContent=fmtM(snap.invested);
-  if(metrics[2]) metrics[2].textContent=fmtK(inc.contrib_total);
-  if(metrics[3]) metrics[3].textContent='+$'+parseInt(inc.tax_refund).toLocaleString();
+  if(inc.contrib_total && metrics[2]) metrics[2].textContent=fmtK(inc.contrib_total);
+  if(inc.tax_refund && metrics[3]) metrics[3].textContent='+$'+parseInt(inc.tax_refund).toLocaleString();
 
-  // Income section
-  var rows=document.querySelectorAll('.row span[style*="font-weight:700"]');
-  if(rows[0]) rows[0].textContent=fmtK(inc.emily_comp);
-  if(rows[1]) rows[1].textContent=fmtK(inc.nick_comp);
-  if(rows[2]) rows[2].textContent=fmtK(inc.total_comp);
+  // Income rows
+  if(inc.emily_comp||inc.nick_comp){
+    var rows=document.querySelectorAll('.row span[style*="font-weight:700"]');
+    if(rows[0]) rows[0].textContent=fmtK(inc.emily_comp);
+    if(rows[1]) rows[1].textContent=fmtK(inc.nick_comp);
+    if(rows[2]) rows[2].textContent=fmtK(inc.total_comp);
+  }
 
   // Date
-  document.getElementById('ep-date').textContent=snap.updated||'April 2026';
-  document.querySelector('[style*="Quarterly summary"]').textContent=snap.updated+' · Quarterly summary for Emily';
+  if(snap.updated){
+    document.getElementById('ep-date').textContent=snap.updated;
+    var sub=document.querySelector('[style*="Quarterly summary"]');
+    if(sub) sub.textContent=snap.updated+' · Quarterly summary for Emily';
+  }
 
   // Strong year note
   var gain15mo=nw-prevDec;
   var greenDots=document.querySelectorAll('.dot-green');
-  if(greenDots[1]){
-    greenDots[1].nextElementSibling.innerHTML='<strong>Strong year — up '+fmtM(gain15mo)+' since Dec 2024</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $6.1M by Nick\'s 55.';
-  }
+  if(greenDots[1]) greenDots[1].nextElementSibling.innerHTML='<strong>Strong year — up '+fmtM(gain15mo)+' since Dec 2024</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $6.1M by Nick\'s 55.';
 
-  // Retirement grid — populate from Accounts tab
+  // Retirement grid — only if accounts loaded
+  if(accounts.length===0) return;
   var byLast4={};
   var vanguardBrokerage=0;
-  accounts.forEach(function(a){ 
+  accounts.forEach(function(a){
     var key=String(a.last4||'').trim().replace(/\D/g,'');
     var bal=parseFloat(String(a.balance||0).replace(/,/g,''));
     if(key) byLast4[key]=bal;
-    // Handle Vanguard Brokerage which may have non-numeric last4
     if(a.name&&a.name.indexOf('Vanguard Brokerage')>=0) vanguardBrokerage+=bal;
   });
-  console.log('Accounts loaded:', Object.keys(byLast4).length, byLast4, 'Vanguard:', vanguardBrokerage);
   function fmtAcct(n){ if(!n||isNaN(n)) return '—'; if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'M'; if(n>=1000) return '$'+(n/1000).toFixed(1)+'K'; return '$'+Math.round(n); }
-  var emily401k = byLast4['3397']||0;
-  var nick401k = (byLast4['8976']||0)+(byLast4['4781']||0);
-  var vanguard = vanguardBrokerage;
-  var emilyroth = byLast4['2972']||0;
-  var nickroth = byLast4['2134']||0;
-  var espp = (byLast4['3247']||0)+(byLast4['5550']||0);
-  var total = emily401k+nick401k+vanguard+emilyroth+nickroth+espp;
-  if(document.getElementById('ep-emily401k')) document.getElementById('ep-emily401k').textContent=fmtAcct(emily401k);
-  if(document.getElementById('ep-nick401k')) document.getElementById('ep-nick401k').textContent=fmtAcct(nick401k);
-  if(document.getElementById('ep-vanguard')) document.getElementById('ep-vanguard').textContent=fmtAcct(vanguard);
-  if(document.getElementById('ep-emilyroth')) document.getElementById('ep-emilyroth').textContent=fmtAcct(emilyroth);
-  if(document.getElementById('ep-nickroth')) document.getElementById('ep-nickroth').textContent=fmtAcct(nickroth);
-  if(document.getElementById('ep-espp')) document.getElementById('ep-espp').textContent=fmtAcct(espp);
-  if(document.getElementById('ep-total')) document.getElementById('ep-total').textContent=fmtAcct(total);
-}).catch(function(e){console.log('Sheet fetch error:',e);});
+  var emily401k=byLast4['3397']||0;
+  var nick401k=(byLast4['8976']||0)+(byLast4['4781']||0);
+  var vanguard=vanguardBrokerage;
+  var emilyroth=byLast4['2972']||0;
+  var nickroth=byLast4['2134']||0;
+  var espp=(byLast4['3247']||0)+(byLast4['5550']||0);
+  var total=emily401k+nick401k+vanguard+emilyroth+nickroth+espp;
+  function upd(id,val){ var el=document.getElementById(id); if(el) el.textContent=fmtAcct(val); }
+  upd('ep-emily401k',emily401k);
+  upd('ep-nick401k',nick401k);
+  upd('ep-vanguard',vanguard);
+  upd('ep-emilyroth',emilyroth);
+  upd('ep-nickroth',nickroth);
+  upd('ep-espp',espp);
+  upd('ep-total',total);
+}
+
+// Snapshot
+fetch(csvUrl('270306645')).then(function(r){return r.text();}).then(function(text){
+  snapData=parseKV(parseCSV(text));
+  runUpdates();
+}).catch(function(e){console.log('Snapshot error:',e);});
+
+// Income
+fetch(csvUrl('2084993096')).then(function(r){return r.text();}).then(function(text){
+  incData=parseKV(parseCSV(text));
+  runUpdates();
+}).catch(function(e){console.log('Income error:',e);});
+
+// Accounts
+fetch(csvUrl('0')).then(function(r){return r.text();}).then(function(text){
+  acctData=parseCSV(text);
+  runUpdates();
+}).catch(function(e){console.log('Accounts error:',e);});
 </script>
 </body>
 </html>
