@@ -241,11 +241,19 @@ Promise.all([
 
   // Retirement grid — populate from Accounts tab
   var byLast4={};
-  accounts.forEach(function(a){ if(a.last4) byLast4[a.last4.trim()]=parseFloat(String(a.balance).replace(/,/g,'')); });
+  var vanguardBrokerage=0;
+  accounts.forEach(function(a){ 
+    var key=String(a.last4||'').trim().replace(/\D/g,'');
+    var bal=parseFloat(String(a.balance||0).replace(/,/g,''));
+    if(key) byLast4[key]=bal;
+    // Handle Vanguard Brokerage which may have non-numeric last4
+    if(a.name&&a.name.indexOf('Vanguard Brokerage')>=0) vanguardBrokerage+=bal;
+  });
+  console.log('Accounts loaded:', Object.keys(byLast4).length, byLast4, 'Vanguard:', vanguardBrokerage);
   function fmtAcct(n){ if(!n||isNaN(n)) return '—'; if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'M'; if(n>=1000) return '$'+(n/1000).toFixed(1)+'K'; return '$'+Math.round(n); }
   var emily401k = byLast4['3397']||0;
   var nick401k = (byLast4['8976']||0)+(byLast4['4781']||0);
-  var vanguard = (byLast4['0635']||0)+(byLast4['2401']||0);
+  var vanguard = vanguardBrokerage;
   var emilyroth = byLast4['2972']||0;
   var nickroth = byLast4['2134']||0;
   var espp = (byLast4['3247']||0)+(byLast4['5550']||0);

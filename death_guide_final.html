@@ -296,14 +296,19 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB
       return obj;
     });
     var b={};
-    accounts.forEach(function(a){ if(a.last4) b[a.last4.trim()]=parseFloat(String(a.balance).replace(/,/g,'')); });
+    var vanguardBrokerage=0;
+    accounts.forEach(function(a){ 
+      var key=String(a.last4||'').trim().replace(/\D/g,'');
+      var bal=parseFloat(String(a.balance||0).replace(/,/g,''));
+      if(key) b[key]=bal;
+      if(a.name&&a.name.indexOf('Vanguard Brokerage')>=0) vanguardBrokerage+=bal;
+    });
 
     var nick401k=(b['8976']||0)+(b['4781']||0);
     var emily401k=b['3397']||0;
-    var vanguard=(b['0635']||0)+(b['2401']||0);
+    var vanguard=vanguardBrokerage;
     var roth=(b['2134']||0)+(b['2972']||0);
     var espp=b['3247']||0;
-    // Total = investment accounts only (excl. house 2040, weddings, savings goals)
     var total=nick401k+emily401k+vanguard+roth+espp;
 
     function upd(id,val){ var el=document.getElementById(id); if(el&&fmtDG(val)) el.textContent=fmtDG(val); }
