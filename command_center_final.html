@@ -83,15 +83,27 @@ function url(gid) { return BASE + '?gid=' + gid + '&single=true&output=csv'; }
 
 function parseCSV(text) {
   var lines = text.trim().split('\n');
-  var headers = lines[0].split(',').map(function(h){ return h.trim().replace(/^"|"$/g,''); });
+  var headers = splitCSVLine(lines[0]);
   return lines.slice(1).map(function(line) {
-    var vals = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|^(?=,)|(?<=,)$)/g) || [];
+    var vals = splitCSVLine(line);
     var obj = {};
-    headers.forEach(function(h, i) {
-      obj[h] = (vals[i] || '').trim().replace(/^"|"$/g,'');
-    });
+    headers.forEach(function(h, i) { obj[h] = (vals[i] || '').trim(); });
     return obj;
   });
+}
+
+function splitCSVLine(line) {
+  var result = [];
+  var current = '';
+  var inQuotes = false;
+  for (var i = 0; i < line.length; i++) {
+    var ch = line[i];
+    if (ch === '"') { inQuotes = !inQuotes; }
+    else if (ch === ',' && !inQuotes) { result.push(current); current = ''; }
+    else { current += ch; }
+  }
+  result.push(current);
+  return result;
 }
 
 function parseKV(rows) {
