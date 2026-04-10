@@ -467,7 +467,11 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB
     var total=0;
     rows.forEach(function(r){
       var pct=parseFloat(r.current_pct);
-      if(!isNaN(pct)) { newCurrent[r.asset]=pct; total+=parseFloat(r.current_dollars||0); }
+      // Sheet stores as decimal (0.37) — convert to percentage (37.3)
+      if(!isNaN(pct)) { 
+        newCurrent[r.asset] = pct < 1 ? parseFloat((pct*100).toFixed(1)) : pct;
+        total+=parseFloat(String(r.current_dollars||'0').replace(/,/g,''));
+      }
     });
     if(Object.keys(newCurrent).length>0){
       Object.keys(newCurrent).forEach(function(k){ current[k]=newCurrent[k]; });

@@ -112,15 +112,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div style="border-top:0.5px solid #e0e0d8;padding-top:10px;">
     <div style="font-size:11px;color:#888;margin-bottom:8px;">Investment accounts only — excl. emergency fund, savings goals, kids accounts</div>
     <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:12px;">
-      <div><span style="color:#888;">Emily 401k</span><div style="font-weight:700;margin-top:1px;">$733.4K</div></div>
-      <div><span style="color:#888;">Nick 401k</span><div style="font-weight:700;margin-top:1px;">$825.2K</div></div>
-      <div><span style="color:#888;">Vanguard brokerage</span><div style="font-weight:700;margin-top:1px;">$917.6K</div></div>
-      <div><span style="color:#888;">Emily Roth</span><div style="font-weight:700;margin-top:1px;">$73.0K</div></div>
-      <div><span style="color:#888;">Nick Roth</span><div style="font-weight:700;margin-top:1px;">$59.5K</div></div>
-      <div><span style="color:#888;">ESPP + other</span><div style="font-weight:700;margin-top:1px;">$10.2K</div></div>
-      <div><span style="color:#888;">New House 2040</span><div style="font-weight:700;margin-top:1px;">$57.5K</div></div>
+      <div><span style="color:#888;">Emily 401k</span><div style="font-weight:700;margin-top:1px;" id="ep-emily401k">—</div></div>
+      <div><span style="color:#888;">Nick 401k</span><div style="font-weight:700;margin-top:1px;" id="ep-nick401k">—</div></div>
+      <div><span style="color:#888;">Vanguard brokerage</span><div style="font-weight:700;margin-top:1px;" id="ep-vanguard">—</div></div>
+      <div><span style="color:#888;">Emily Roth</span><div style="font-weight:700;margin-top:1px;" id="ep-emilyroth">—</div></div>
+      <div><span style="color:#888;">Nick Roth</span><div style="font-weight:700;margin-top:1px;" id="ep-nickroth">—</div></div>
+      <div><span style="color:#888;">ESPP + other</span><div style="font-weight:700;margin-top:1px;" id="ep-espp">—</div></div>
+      <div><span style="color:#888;">New House 2040</span><div style="font-weight:700;margin-top:1px;" id="ep-house">—</div></div>
       <div></div>
-      <div><span style="color:#888;font-weight:700;">Total</span><div style="font-weight:700;margin-top:1px;color:#3B6D11;">$2,676.4K</div></div>
+      <div><span style="color:#888;font-weight:700;">Total</span><div style="font-weight:700;margin-top:1px;color:#3B6D11;" id="ep-total">—</div></div>
     </div>
   </div>
 </div>
@@ -200,10 +200,12 @@ function fmtK(n){n=parseFloat(String(n).replace(/,/g,''));if(isNaN(n))return'—
 
 Promise.all([
   fetch(csvUrl('270306645')).then(function(r){return r.text();}).then(parseCSV),
-  fetch(csvUrl('2084993096')).then(function(r){return r.text();}).then(parseCSV)
+  fetch(csvUrl('2084993096')).then(function(r){return r.text();}).then(parseCSV),
+  fetch(csvUrl('0')).then(function(r){return r.text();}).then(parseCSV)
 ]).then(function(results){
   var snap=parseKV(results[0]);
   var inc=parseKV(results[1]);
+  var accounts=results[2];
   var nw=parseFloat(snap.nw);
   var prevDec=parseFloat(snap.nw_prev_dec);
   var gain=nw-prevDec;
@@ -236,6 +238,27 @@ Promise.all([
   if(greenDots[1]){
     greenDots[1].nextElementSibling.innerHTML='<strong>Strong year — up '+fmtM(gain15mo)+' since Dec 2024</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $6.1M by Nick\'s 55.';
   }
+
+  // Retirement grid — populate from Accounts tab
+  var byLast4={};
+  accounts.forEach(function(a){ if(a.last4) byLast4[a.last4]=parseFloat(String(a.balance).replace(/,/g,'')); });
+  function fmtAcct(n){ if(!n||isNaN(n)) return '—'; if(n>=1000) return '$'+(n/1000).toFixed(1)+'K'; return '$'+Math.round(n); }
+  var emily401k = byLast4['3397']||0;
+  var nick401k = (byLast4['8976']||0)+(byLast4['4781']||0);
+  var vanguard = (byLast4['0635']||0)+(byLast4['2401']||0);
+  var emilyroth = byLast4['2972']||0;
+  var nickroth = byLast4['2134']||0;
+  var espp = (byLast4['3247']||0)+(byLast4['5550']||0);
+  var house = byLast4['5170']||0;
+  var total = emily401k+nick401k+vanguard+emilyroth+nickroth+espp+house;
+  if(document.getElementById('ep-emily401k')) document.getElementById('ep-emily401k').textContent=fmtAcct(emily401k);
+  if(document.getElementById('ep-nick401k')) document.getElementById('ep-nick401k').textContent=fmtAcct(nick401k);
+  if(document.getElementById('ep-vanguard')) document.getElementById('ep-vanguard').textContent=fmtAcct(vanguard);
+  if(document.getElementById('ep-emilyroth')) document.getElementById('ep-emilyroth').textContent=fmtAcct(emilyroth);
+  if(document.getElementById('ep-nickroth')) document.getElementById('ep-nickroth').textContent=fmtAcct(nickroth);
+  if(document.getElementById('ep-espp')) document.getElementById('ep-espp').textContent=fmtAcct(espp);
+  if(document.getElementById('ep-house')) document.getElementById('ep-house').textContent=fmtAcct(house);
+  if(document.getElementById('ep-total')) document.getElementById('ep-total').textContent='$'+Math.round(total/1000)+'.'+Math.round((total%1000)/100)+'K';
 }).catch(function(e){console.log('Sheet fetch error:',e);});
 </script>
 </body>

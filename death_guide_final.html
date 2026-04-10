@@ -300,21 +300,24 @@ fetch(ACCT_URL).then(function(r){return r.text();}).then(function(text){
   var byLast4={};
   accounts.forEach(function(a){ if(a.last4) byLast4[a.last4]=a; });
 
-  // Update balances — find all bold balance elements and match by nearby account number
-  var acctRows=document.querySelectorAll('.acct-row');
+  // Update balances — find acct rows by searching title divs
   acctRows.forEach(function(row){
-    var span=row.querySelector('span[style*="font-size:11px"][style*="color:#888"]');
-    if(!span) return;
-    var text=span.textContent.replace(/[·\s]/g,'');
-    // Extract last4 digits
-    var match=text.match(/···(\d{4})/);
-    if(!match) return;
-    var last4=match[1];
-    var balDiv=row.querySelector('div[style*="font-weight:700"]');
-    if(!balDiv) return;
+    var titleDivs=row.querySelectorAll('div');
+    var titleDiv=null;
+    var balDiv=null;
+    // Find the name div (first bold div with text) and balance div (last bold div)
+    var boldDivs=Array.from(row.querySelectorAll('div[style*="font-weight:700"]'));
+    if(boldDivs.length<1) return;
+    balDiv=boldDivs[0]; // first bold div in the right column
 
-    if(last4==='8976'){
-      // Nick 401k + BrokerageLink combined
+    // Get last4 from the account number span
+    var numSpan=row.querySelector('span[style*="font-size:11px"][style*="color:#888"]');
+    if(!numSpan) return;
+    var match=numSpan.textContent.match(/\d{4}/g);
+    if(!match) return;
+    var last4=match[match.length-1];
+
+    if(last4==='8976'||last4==='4781'){
       var n401k=byLast4['8976']?parseFloat(String(byLast4['8976'].balance).replace(/,/g,'')):0;
       var nbl=byLast4['4781']?parseFloat(String(byLast4['4781'].balance).replace(/,/g,'')):0;
       var tot=n401k+nbl;
@@ -335,13 +338,15 @@ fetch(ACCT_URL).then(function(r){return r.text();}).then(function(text){
   var roth2972=byLast4['2972']?parseFloat(String(byLast4['2972'].balance).replace(/,/g,'')):0;
   var rothTotal=roth2134+roth2972;
 
-  // Find and update combined rows
+  // Fix combined rows by matching title text
   acctRows.forEach(function(row){
-    var title=row.querySelector('div[style*="font-weight:700"]');
-    if(!title) return;
-    var balDiv=row.querySelector('div[style*="font-weight:700"]');
-    var titleText=title.textContent;
-    if(titleText.indexOf('Vanguard brokerage')>=0&&titleText.indexOf('0635')>=0&&vangTotal>0){
+    var allDivs=row.querySelectorAll('div');
+    var titleText='';
+    allDivs.forEach(function(d){ if(d.style.fontWeight==='700'&&d.children.length===0) titleText+=d.textContent; });
+    var boldDivs=Array.from(row.querySelectorAll('div[style*="font-weight:700"]'));
+    if(!boldDivs.length) return;
+    var balDiv=boldDivs[0];
+    if(titleText.indexOf('Vanguard brokerage')>=0&&vangTotal>0){
       balDiv.textContent=fmtDG(vangTotal);
     }
     if(titleText.indexOf('Roth IRAs')>=0&&rothTotal>0){

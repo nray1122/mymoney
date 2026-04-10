@@ -71,7 +71,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div style="font-size:13px;color:#666;margin-bottom:22px;">Nick 43 (Nov '82) · Emily 42 (May '83) · Sammie 13 (May '12) · Evan 11 (Nov '14)</div>
 
 <div class="snap">
-  <div class="snap-card"><div class="snap-label">Personal net worth</div><div class="snap-value" id="snap-nw">—</div><div class="snap-sub" style="color:#3B6D11;" id="snap-nw-sub">—</div></div>
+  <div class="snap-card"><div class="snap-label">Personal net worth</div><div class="snap-value" id="snap-nw">—</div><div class="snap-sub" style="color:#3B6D11;" id="snap-nw-sub">Loading...</div></div>
   <div class="snap-card"><div class="snap-label">Total invested</div><div class="snap-value" id="snap-invested">—</div><div class="snap-sub">Excl. emergency + savings goals</div></div>
   <div class="snap-card"><div class="snap-label">Years to Nick retirement (55)</div><div class="snap-value">12 yrs</div><div class="snap-sub">Nov 2037 · Emily 54</div></div>
 </div>
@@ -297,10 +297,7 @@ fetch(SNAP_URL)
     document.getElementById('hub-badge').textContent = snap.updated + ' ✓';
   })
   .catch(function(){ 
-    document.getElementById('hub-badge').textContent = 'Updated Apr 2026 ✓';
-    document.getElementById('snap-nw').textContent = '$3.2M';
-    document.getElementById('snap-invested').textContent = '$2.8M';
-    document.getElementById('snap-nw-sub').textContent = '↑ $0.6M since Dec \'24';
+    document.getElementById('hub-badge').textContent = 'Apr 2026 ✓';
   });
 </script>
 </body>
