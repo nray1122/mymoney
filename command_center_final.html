@@ -82,9 +82,8 @@ var GIDS = {
 function url(gid) { return BASE + '?gid=' + gid + '&single=true&output=csv'; }
 
 function parseCSV(text) {
-  var lines = text.trim().split('\n');
-  // Remove BOM and trim headers
-  var headers = splitCSVLine(lines[0]).map(function(h){ return h.trim().replace(/^\uFEFF/,''); });
+  var lines = text.trim().replace(/\r/g, '').split('\n');
+  var headers = splitCSVLine(lines[0]).map(function(h){ return h.trim(); });
   return lines.slice(1).filter(function(l){ return l.trim(); }).map(function(line) {
     var vals = splitCSVLine(line);
     var obj = {};
@@ -109,11 +108,7 @@ function splitCSVLine(line) {
 
 function parseKV(rows) {
   var obj = {};
-  rows.forEach(function(r) {
-    var k = Object.keys(r)[0];
-    var v = Object.keys(r)[1];
-    if (k && r[k]) obj[r[k]] = r[v] || '';
-  });
+  rows.forEach(function(r) { obj[r.key] = r.value; });
   return obj;
 }
 
@@ -188,9 +183,9 @@ Promise.all([
   // 401k only — Roth IRAs tracked separately via Retirement Split tab
   var retirementTotal = accounts.filter(function(a){ return a.type==='401k'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
   var taxableTotal = accounts.filter(function(a){ return a.type==='taxable'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
+  // True Roth total — calculated in Snapshot tab from Retirement Split
+  var rothTotal = parseNum(snap.roth_total);
   var rothIRATotal = accounts.filter(function(a){ return a.type==='roth'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
-  // True Roth total = 401k Roth portions + standalone Roth IRAs (from Retirement Split tab)
-  var rothTotal = retirementSplit.reduce(function(s,r){ return s + parseNum(r.roth_balance); }, 0);
   var goalTotal = accounts.filter(function(a){ return a.type==='goal'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
   // Use totalAccounts as base for split percentages
   var splitBase = totalAccounts || parseNum(snap.invested);
