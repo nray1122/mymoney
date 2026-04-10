@@ -94,9 +94,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div class="grid-3" style="margin-bottom:12px;">
     <div>
       <div style="font-size:11px;color:#888;margin-bottom:3px;">Total invested today</div>
-      <div style="font-size:18px;font-weight:700;">$2.7M</div>
-      <div class="bar-wrap" style="margin-top:6px;"><div class="bar" style="width:44%;background:#378ADD;"></div></div>
-      <div style="font-size:11px;margin-top:3px;color:#3B6D11;">44% to $6.1M goal</div>
+      <div style="font-size:18px;font-weight:700;" id="ep-retire-invested">$2.7M</div>
+      <div class="bar-wrap" style="margin-top:6px;"><div class="bar" id="ep-retire-bar" style="width:44%;background:#378ADD;"></div></div>
+      <div style="font-size:11px;margin-top:3px;color:#3B6D11;" id="ep-retire-pct">44% to $6.1M goal</div>
     </div>
     <div>
       <div style="font-size:11px;color:#888;margin-bottom:3px;">Retirement goal</div>
@@ -194,9 +194,18 @@ function splitLine(line){
   }
   r.push(cur); return r;
 }
-function parseKV(rows){var o={};rows.forEach(function(r){o[r.key]=r.value;});return o;}
+function parseKV(rows){
+  var o={};
+  rows.forEach(function(r){
+    var k=Object.keys(r)[0]; // first column = key
+    var v=Object.keys(r)[1]; // second column = value
+    if(r[k]) o[r[k].trim()]=r[v]?r[v].trim():'';
+  });
+  return o;
+}
 function fmtM(n){n=parseFloat(String(n).replace(/,/g,''));if(isNaN(n))return'—';return'$'+(n/1000000).toFixed(1)+'M';}
 function fmtK(n){n=parseFloat(String(n).replace(/,/g,''));if(isNaN(n))return'—';if(n>=1000)return'$'+Math.round(n/1000)+'K';return'$'+Math.round(n);}
+function parseNum(s){return parseFloat(String(s||0).replace(/,/g,''))||0;}
 
 // Fetch all tabs independently
 var snapData={}, incData={}, acctData=[];
@@ -220,6 +229,16 @@ function runUpdates(){
   if(metrics[1]) metrics[1].textContent=fmtM(snap.invested);
   if(inc.contrib_total && metrics[2]) metrics[2].textContent=fmtK(inc.contrib_total);
   if(inc.tax_refund && metrics[3]) metrics[3].textContent='+$'+parseInt(inc.tax_refund).toLocaleString();
+
+  // Retirement section invested total
+  var invested=parseNum(snap.invested);
+  var pctToGoal=Math.round(invested/6100000*100);
+  var retEl=document.getElementById('ep-retire-invested');
+  if(retEl) retEl.textContent=fmtM(invested);
+  var barEl=document.getElementById('ep-retire-bar');
+  if(barEl) barEl.style.width=pctToGoal+'%';
+  var pctEl=document.getElementById('ep-retire-pct');
+  if(pctEl) pctEl.textContent=pctToGoal+'% to $6.1M goal';
 
   // Income rows
   if(inc.emily_comp||inc.nick_comp){
