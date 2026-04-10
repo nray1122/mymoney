@@ -114,7 +114,10 @@ function fmtFull(n) {
   return '$' + Math.round(n).toLocaleString();
 }
 
-function pct(n) { return parseFloat(n).toFixed(1) + '%'; }
+function parseNum(s) {
+  if (!s) return 0;
+  return parseFloat(String(s).replace(/,/g, '')) || 0;
+}
 
 function acctColor(type) {
   if (type === '401k') return {bg:'#EAF3DE', fg:'#3B6D11', letter:'F', badgeClass:'bg-blue', badgeText:'401k'};
@@ -152,10 +155,10 @@ Promise.all([
   document.getElementById('updated-badge').textContent = snap.updated + ' ✓';
 
   // NW calculations
-  var nw = parseFloat(snap.nw);
-  var invested = parseFloat(snap.invested);
-  var prevDec = parseFloat(snap.nw_prev_dec);
-  var dec2025 = parseFloat(snap.nw_dec_2025);
+  var nw = parseNum(snap.nw);
+  var invested = parseNum(snap.invested);
+  var prevDec = parseNum(snap.nw_prev_dec);
+  var dec2025 = parseNum(snap.nw_dec_2025);
   var gain15mo = nw - prevDec;
   var gainPct15mo = ((gain15mo / prevDec) * 100).toFixed(1);
   var gain2025 = dec2025 - prevDec;
@@ -164,28 +167,29 @@ Promise.all([
   var gainPctYTD = ((gainYTD / dec2025) * 100).toFixed(1);
 
   // OVERVIEW TAB
-  var totalAccounts = accounts.reduce(function(s,a){ return s + parseFloat(a.balance||0); }, 0);
-  var retirementTotal = accounts.filter(function(a){ return a.type==='401k'||a.type==='roth'; }).reduce(function(s,a){ return s+parseFloat(a.balance||0);},0);
-  var taxableTotal = accounts.filter(function(a){ return a.type==='taxable'; }).reduce(function(s,a){ return s+parseFloat(a.balance||0);},0);
+  var totalAccounts = accounts.reduce(function(s,a){ return s + parseNum(a.balance); }, 0);
+  var retirementTotal = accounts.filter(function(a){ return a.type==='401k'||a.type==='roth'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
+  var taxableTotal = accounts.filter(function(a){ return a.type==='taxable'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
   // True Roth total = all roth_balance from Retirement Split tab (includes 401k Roth + Roth IRAs)
-  var rothTotal = retirementSplit.reduce(function(s,r){ return s + parseFloat(r.roth_balance||0); }, 0);
-  var goalTotal = accounts.filter(function(a){ return a.type==='goal'; }).reduce(function(s,a){ return s+parseFloat(a.balance||0);},0);
+  var rothTotal = retirementSplit.reduce(function(s,r){ return s + parseNum(r.roth_balance); }, 0);
+  var goalTotal = accounts.filter(function(a){ return a.type==='goal'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
   // Use invested from snapshot as base for portfolio split percentages to avoid double counting
-  var splitBase = parseFloat(snap.invested) || totalAccounts;
+  var splitBase = parseNum(snap.invested) || totalAccounts;
   var retirePct = Math.round(retirementTotal/splitBase*100);
   var taxablePct = Math.round(taxableTotal/splitBase*100);
   var rothPct = Math.round(rothTotal/splitBase*100);
-  var progressPct = Math.round(invested/6100000*100);
+  var progressPct = Math.round(parseNum(snap.invested)/6100000*100);
 
   // Savings goals totals
-  var capOne = savingsGoals.filter(function(g){ return g.institution==='Capital One'; }).reduce(function(s,g){ return s+parseFloat(g.balance||0);},0);
-  var vangGoals = savingsGoals.filter(function(g){ return g.institution==='Vanguard'; }).reduce(function(s,g){ return s+parseFloat(g.balance||0);},0);
+  var capOne = savingsGoals.filter(function(g){ return g.institution==='Capital One'; }).reduce(function(s,g){ return s+parseNum(g.balance);},0);
+  var vangGoals = savingsGoals.filter(function(g){ return g.institution==='Vanguard'; }).reduce(function(s,g){ return s+parseNum(g.balance);},0);
   var totalGoals = capOne + vangGoals;
-
-  // Kids totals
-  var kids529 = kids.filter(function(k){ return k.type==='529'; }).reduce(function(s,k){ return s+parseFloat(k.balance||0);},0);
-  var kidsUtma = kids.filter(function(k){ return k.type==='utma'; }).reduce(function(s,k){ return s+parseFloat(k.balance||0);},0);
+  var kids529 = kids.filter(function(k){ return k.type==='529'; }).reduce(function(s,k){ return s+parseNum(k.balance);},0);
+  var kidsUtma = kids.filter(function(k){ return k.type==='utma'; }).reduce(function(s,k){ return s+parseNum(k.balance);},0);
   var kidsTotal = kids529 + kidsUtma;
+  var totalPretax = retirementSplit.reduce(function(s,r){ return s + parseNum(r.pretax_balance); }, 0);
+  var totalRoth401k = retirementSplit.reduce(function(s,r){ return s + parseNum(r.roth_balance); }, 0);
+
 
   var overviewHTML = '<div class="grid-4">' +
     '<div class="metric"><div class="metric-label">Personal net worth</div><div class="metric-value">' + fmt(nw) + '</div><div class="metric-sub" style="color:#3B6D11;">↑ ' + fmt(gain15mo) + ' since Dec \'24</div></div>' +
@@ -255,8 +259,6 @@ Promise.all([
   accountsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div></div>';
 
   // Retirement split section
-  var totalPretax = retirementSplit.reduce(function(s,r){ return s + parseFloat(r.pretax_balance||0); }, 0);
-  var totalRoth401k = retirementSplit.reduce(function(s,r){ return s + parseFloat(r.roth_balance||0); }, 0);
   var totalSplit = totalPretax + totalRoth401k;
   var pretaxPct = Math.round(totalPretax / totalSplit * 100);
   var rothPct401k = Math.round(totalRoth401k / totalSplit * 100);
@@ -265,8 +267,8 @@ Promise.all([
   accountsHTML += '<div style="font-size:11px;color:#888;margin-bottom:12px;">Fidelity shows pretax and Roth as separate balances within the same account. Funds are shared — the split is for tax planning and Roth conversion modeling only.</div>';
 
   retirementSplit.forEach(function(r) {
-    var pre = parseFloat(r.pretax_balance||0);
-    var rth = parseFloat(r.roth_balance||0);
+    var pre = parseNum(r.pretax_balance);
+    var rth = parseNum(r.roth_balance);
     var tot = pre + rth;
     var prePct = Math.round(pre/tot*100);
     var rthPct = Math.round(rth/tot*100);
