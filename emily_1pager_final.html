@@ -168,9 +168,75 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 
 <div style="margin-top:16px;padding-top:14px;border-top:0.5px solid #e0e0d8;display:flex;justify-content:space-between;font-size:11px;color:#aaa;">
   <span>MyMoney · Ray family · Nick's financial model</span>
-  <span>April 2026</span>
+  <span id="ep-date">April 2026</span>
 </div>
 
 </div>
+<script>
+var BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub';
+function csvUrl(gid){ return BASE+'?gid='+gid+'&single=true&output=csv'; }
+function parseCSV(text){
+  var lines=text.trim().replace(/\r/g,'').split('\n');
+  var headers=lines[0].split(',').map(function(h){return h.trim();});
+  return lines.slice(1).filter(function(l){return l.trim();}).map(function(line){
+    var vals=splitLine(line); var obj={};
+    headers.forEach(function(h,i){obj[h]=(vals[i]||'').trim();});
+    return obj;
+  });
+}
+function splitLine(line){
+  var r=[],cur='',inQ=false;
+  for(var i=0;i<line.length;i++){
+    var c=line[i];
+    if(c==='"'){inQ=!inQ;}
+    else if(c===','&&!inQ){r.push(cur);cur='';}
+    else{cur+=c;}
+  }
+  r.push(cur); return r;
+}
+function parseKV(rows){var o={};rows.forEach(function(r){o[r.key]=r.value;});return o;}
+function fmtM(n){n=parseFloat(String(n).replace(/,/g,''));if(isNaN(n))return'—';return'$'+(n/1000000).toFixed(1)+'M';}
+function fmtK(n){n=parseFloat(String(n).replace(/,/g,''));if(isNaN(n))return'—';if(n>=1000)return'$'+Math.round(n/1000)+'K';return'$'+Math.round(n);}
+
+Promise.all([
+  fetch(csvUrl('270306645')).then(function(r){return r.text();}).then(parseCSV),
+  fetch(csvUrl('2084993096')).then(function(r){return r.text();}).then(parseCSV)
+]).then(function(results){
+  var snap=parseKV(results[0]);
+  var inc=parseKV(results[1]);
+  var nw=parseFloat(snap.nw);
+  var prevDec=parseFloat(snap.nw_prev_dec);
+  var gain=nw-prevDec;
+  var gainPct=((gain/prevDec)*100).toFixed(1);
+
+  // Header NW
+  document.querySelector('[style*="font-size:28px"]').textContent=fmtM(nw);
+  document.querySelector('[style*="font-size:28px"]').nextElementSibling.textContent='↑ '+fmtM(gain)+' since Dec 2024 · +'+gainPct+'%';
+
+  // Metric cards
+  var metrics=document.querySelectorAll('.metric-value');
+  if(metrics[0]) metrics[0].textContent=fmtM(nw);
+  if(metrics[1]) metrics[1].textContent=fmtM(snap.invested);
+  if(metrics[2]) metrics[2].textContent=fmtK(inc.contrib_total);
+  if(metrics[3]) metrics[3].textContent='+$'+parseInt(inc.tax_refund).toLocaleString();
+
+  // Income section
+  var rows=document.querySelectorAll('.row span[style*="font-weight:700"]');
+  if(rows[0]) rows[0].textContent=fmtK(inc.emily_comp);
+  if(rows[1]) rows[1].textContent=fmtK(inc.nick_comp);
+  if(rows[2]) rows[2].textContent=fmtK(inc.total_comp);
+
+  // Date
+  document.getElementById('ep-date').textContent=snap.updated||'April 2026';
+  document.querySelector('[style*="Quarterly summary"]').textContent=snap.updated+' · Quarterly summary for Emily';
+
+  // Strong year note
+  var gain15mo=nw-prevDec;
+  var greenDots=document.querySelectorAll('.dot-green');
+  if(greenDots[1]){
+    greenDots[1].nextElementSibling.innerHTML='<strong>Strong year — up '+fmtM(gain15mo)+' since Dec 2024</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $6.1M by Nick\'s 55.';
+  }
+}).catch(function(e){console.log('Sheet fetch error:',e);});
+</script>
 </body>
 </html>

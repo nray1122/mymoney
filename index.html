@@ -66,13 +66,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
     <div style="font-size:22px;font-weight:700;">Ray family finances</div>
   </div>
-  <span class="badge bg-green">Updated Apr 2026 ✓</span>
+  <span class="badge bg-green" id="hub-badge">Loading...</span>
 </div>
 <div style="font-size:13px;color:#666;margin-bottom:22px;">Nick 43 (Nov '82) · Emily 42 (May '83) · Sammie 13 (May '12) · Evan 11 (Nov '14)</div>
 
 <div class="snap">
-  <div class="snap-card"><div class="snap-label">Personal net worth</div><div class="snap-value">$3.1M</div><div class="snap-sub" style="color:#3B6D11;">↑ $0.5M since Dec '24</div></div>
-  <div class="snap-card"><div class="snap-label">Total invested</div><div class="snap-value">$2.7M</div><div class="snap-sub">Excl. emergency + savings goals</div></div>
+  <div class="snap-card"><div class="snap-label">Personal net worth</div><div class="snap-value" id="snap-nw">—</div><div class="snap-sub" style="color:#3B6D11;" id="snap-nw-sub">—</div></div>
+  <div class="snap-card"><div class="snap-label">Total invested</div><div class="snap-value" id="snap-invested">—</div><div class="snap-sub">Excl. emergency + savings goals</div></div>
   <div class="snap-card"><div class="snap-label">Years to Nick retirement (55)</div><div class="snap-value">12 yrs</div><div class="snap-sub">Nov 2037 · Emily 54</div></div>
 </div>
 
@@ -266,6 +266,42 @@ function renderCal(key){
   document.getElementById('cal-content').innerHTML=html;
 }
 renderCal('apr');
+</script>
+<script>
+// Fetch Snapshot tab from Google Sheets
+var SNAP_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub?gid=270306645&single=true&output=csv';
+
+function fmtM(n) {
+  n = parseFloat(String(n).replace(/,/g,''));
+  if (isNaN(n)) return '—';
+  return '$' + (n/1000000).toFixed(1) + 'M';
+}
+
+fetch(SNAP_URL)
+  .then(function(r){ return r.text(); })
+  .then(function(text) {
+    var lines = text.trim().replace(/\r/g,'').split('\n');
+    var snap = {};
+    lines.slice(1).forEach(function(line) {
+      var parts = line.split(',');
+      var key = parts[0].trim();
+      var val = parts.slice(1).join(',').trim().replace(/^"|"$/g,'');
+      snap[key] = val;
+    });
+    var nw = parseFloat(snap.nw);
+    var prevDec = parseFloat(snap.nw_prev_dec);
+    var gain = nw - prevDec;
+    document.getElementById('snap-nw').textContent = fmtM(nw);
+    document.getElementById('snap-nw-sub').textContent = '↑ ' + fmtM(gain) + ' since Dec \'24';
+    document.getElementById('snap-invested').textContent = fmtM(snap.invested);
+    document.getElementById('hub-badge').textContent = snap.updated + ' ✓';
+  })
+  .catch(function(){ 
+    document.getElementById('hub-badge').textContent = 'Updated Apr 2026 ✓';
+    document.getElementById('snap-nw').textContent = '$3.2M';
+    document.getElementById('snap-invested').textContent = '$2.8M';
+    document.getElementById('snap-nw-sub').textContent = '↑ $0.6M since Dec \'24';
+  });
 </script>
 </body>
 </html>

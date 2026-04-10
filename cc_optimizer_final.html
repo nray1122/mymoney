@@ -218,6 +218,19 @@ function calcPts(){
   document.getElementById('total-pts').textContent  = fmt$(total);
 }
 calcPts();
+
+// Update date badge from sheet
+fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub?gid=270306645&single=true&output=csv')
+  .then(function(r){return r.text();})
+  .then(function(text){
+    var lines=text.trim().replace(/\r/g,'').split('\n');
+    var snap={};
+    lines.slice(1).forEach(function(line){
+      var p=line.split(','); snap[p[0].trim()]=p.slice(1).join(',').trim().replace(/^"|"$/g,'');
+    });
+    var badge=document.querySelector('.badge.bg-blue');
+    if(badge&&snap.updated) badge.textContent=snap.updated+' active';
+  }).catch(function(){});
 </script>
 </body>
 </html>

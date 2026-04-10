@@ -351,6 +351,33 @@ function updateAll() {
 }
 
 updateAll();
+
+// Fetch live Snapshot data and update
+fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub?gid=270306645&single=true&output=csv')
+  .then(function(r){return r.text();})
+  .then(function(text){
+    var lines=text.trim().replace(/\r/g,'').split('\n');
+    var snap={};
+    lines.slice(1).forEach(function(line){
+      var parts=line.split(',');
+      snap[parts[0].trim()]=parts.slice(1).join(',').trim().replace(/^"|"$/g,'');
+    });
+    var nw=parseFloat(snap.nw);
+    var prevDec=parseFloat(snap.nw_prev_dec);
+    var dec2025=parseFloat(snap.nw_dec_2025);
+    var nwDate=snap.nw_date||'Apr 2026';
+    if(nw && prevDec && dec2025){
+      START=nw;
+      historicalValues=[prevDec,dec2025,nw];
+      historicalLabels=['Dec 2024\n(Nick 41)','Dec 2025\n(Nick 43)',nwDate+'\n(Nick 43)'];
+      // Update metric cards
+      var cards=document.querySelectorAll('.metric-value');
+      if(cards[0]) cards[0].textContent='$'+(prevDec/1000000).toFixed(1)+'M';
+      if(cards[1]) cards[1].textContent='$'+(dec2025/1000000).toFixed(1)+'M';
+      if(cards[2]) cards[2].textContent='$'+(nw/1000000).toFixed(1)+'M';
+      updateAll();
+    }
+  }).catch(function(){});
 </script>
 </body>
 </html>

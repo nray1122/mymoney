@@ -276,6 +276,80 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 </div>
 <script>
 function toggle(el){ el.classList.toggle('checked'); el.textContent = el.classList.contains('checked') ? '✓' : ''; }
+
+// Fetch live account balances from Google Sheet
+function fmtDG(n){
+  n=parseFloat(String(n).replace(/,/g,''));
+  if(isNaN(n)||n===0) return null;
+  if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'M';
+  if(n>=1000) return '$'+Math.round(n/1000)+'K';
+  return '$'+Math.round(n);
+}
+
+var ACCT_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub?gid=0&single=true&output=csv';
+fetch(ACCT_URL).then(function(r){return r.text();}).then(function(text){
+  var lines=text.trim().replace(/\r/g,'').split('\n');
+  var headers=lines[0].split(',').map(function(h){return h.trim();});
+  var accounts=lines.slice(1).filter(function(l){return l.trim();}).map(function(line){
+    var vals=line.split(','); var obj={};
+    headers.forEach(function(h,i){obj[h]=(vals[i]||'').trim();});
+    return obj;
+  });
+
+  // Build lookup by last4
+  var byLast4={};
+  accounts.forEach(function(a){ if(a.last4) byLast4[a.last4]=a; });
+
+  // Update balances — find all bold balance elements and match by nearby account number
+  var acctRows=document.querySelectorAll('.acct-row');
+  acctRows.forEach(function(row){
+    var span=row.querySelector('span[style*="font-size:11px"][style*="color:#888"]');
+    if(!span) return;
+    var text=span.textContent.replace(/[·\s]/g,'');
+    // Extract last4 digits
+    var match=text.match(/···(\d{4})/);
+    if(!match) return;
+    var last4=match[1];
+    var balDiv=row.querySelector('div[style*="font-weight:700"]');
+    if(!balDiv) return;
+
+    if(last4==='8976'){
+      // Nick 401k + BrokerageLink combined
+      var n401k=byLast4['8976']?parseFloat(String(byLast4['8976'].balance).replace(/,/g,'')):0;
+      var nbl=byLast4['4781']?parseFloat(String(byLast4['4781'].balance).replace(/,/g,'')):0;
+      var tot=n401k+nbl;
+      if(tot>0) balDiv.textContent=fmtDG(tot)||balDiv.textContent;
+    } else if(byLast4[last4]){
+      var fmt=fmtDG(byLast4[last4].balance);
+      if(fmt) balDiv.textContent=fmt;
+    }
+  });
+
+  // Combined Vanguard brokerage
+  var vang0635=byLast4['0635']?parseFloat(String(byLast4['0635'].balance).replace(/,/g,'')):0;
+  var vang2401=byLast4['2401']?parseFloat(String(byLast4['2401'].balance).replace(/,/g,'')):0;
+  var vangTotal=vang0635+vang2401;
+
+  // Combined Roth IRAs
+  var roth2134=byLast4['2134']?parseFloat(String(byLast4['2134'].balance).replace(/,/g,'')):0;
+  var roth2972=byLast4['2972']?parseFloat(String(byLast4['2972'].balance).replace(/,/g,'')):0;
+  var rothTotal=roth2134+roth2972;
+
+  // Find and update combined rows
+  acctRows.forEach(function(row){
+    var title=row.querySelector('div[style*="font-weight:700"]');
+    if(!title) return;
+    var balDiv=row.querySelector('div[style*="font-weight:700"]');
+    var titleText=title.textContent;
+    if(titleText.indexOf('Vanguard brokerage')>=0&&titleText.indexOf('0635')>=0&&vangTotal>0){
+      balDiv.textContent=fmtDG(vangTotal);
+    }
+    if(titleText.indexOf('Roth IRAs')>=0&&rothTotal>0){
+      balDiv.textContent=fmtDG(rothTotal);
+    }
+  });
+
+}).catch(function(e){console.log('Death guide fetch error:',e);});
 </script>
 </body>
 </html>

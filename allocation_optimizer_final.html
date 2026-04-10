@@ -451,6 +451,30 @@ function showTab(name) {
 
 renderOverview();
 renderMarket();
+
+// Fetch live allocations from Google Sheet
+fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub?gid=2068010017&single=true&output=csv')
+  .then(function(r){return r.text();})
+  .then(function(text){
+    var lines=text.trim().replace(/\r/g,'').split('\n');
+    var headers=lines[0].split(',').map(function(h){return h.trim();});
+    var rows=lines.slice(1).filter(function(l){return l.trim();}).map(function(line){
+      var vals=line.split(','); var obj={};
+      headers.forEach(function(h,i){obj[h]=(vals[i]||'').trim();});
+      return obj;
+    });
+    var newCurrent={};
+    var total=0;
+    rows.forEach(function(r){
+      var pct=parseFloat(r.current_pct);
+      if(!isNaN(pct)) { newCurrent[r.asset]=pct; total+=parseFloat(r.current_dollars||0); }
+    });
+    if(Object.keys(newCurrent).length>0){
+      Object.keys(newCurrent).forEach(function(k){ current[k]=newCurrent[k]; });
+      if(total>0) PORTFOLIO=total;
+      renderOverview();
+    }
+  }).catch(function(){});
 </script>
 </body>
 </html>
