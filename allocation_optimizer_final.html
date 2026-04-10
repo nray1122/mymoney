@@ -64,10 +64,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <!-- TAB 1: PORTFOLIO OVERVIEW -->
 <div id="tab-overview" class="panel active">
   <div class="grid-4">
-    <div class="metric"><div class="metric-label">Total invested</div><div class="metric-value">$2.7M</div><div class="metric-sub">Per Empower Mar 2026</div></div>
-    <div class="metric"><div class="metric-label">Retirement (401k+Roth)</div><div class="metric-value">$1.6M</div><div class="metric-sub">58% of portfolio</div></div>
-    <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value">$928K</div><div class="metric-sub">35% of portfolio</div></div>
-    <div class="metric"><div class="metric-label">Drift threshold</div><div class="metric-value">±3%</div><div class="metric-sub">~$81K at current size</div></div>
+    <div class="metric"><div class="metric-label">Total invested</div><div class="metric-value" id="ao-total">$2.7M</div><div class="metric-sub" id="ao-total-sub">Per Empower Apr 2026</div></div>
+    <div class="metric"><div class="metric-label">Retirement (401k+Roth)</div><div class="metric-value" id="ao-retirement">$1.6M</div><div class="metric-sub" id="ao-retire-sub">58% of portfolio</div></div>
+    <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value" id="ao-taxable">$928K</div><div class="metric-sub" id="ao-taxable-sub">35% of portfolio</div></div>
+    <div class="metric"><div class="metric-label">Drift threshold</div><div class="metric-value">±3%</div><div class="metric-sub" id="ao-drift-sub">~$81K at current size</div></div>
   </div>
 
   <div class="card">
@@ -452,33 +452,71 @@ function showTab(name) {
 renderOverview();
 renderMarket();
 
-// Fetch live allocations from Google Sheet
-fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub?gid=2068010017&single=true&output=csv')
-  .then(function(r){return r.text();})
-  .then(function(text){
-    var lines=text.trim().replace(/\r/g,'').split('\n');
-    var headers=lines[0].split(',').map(function(h){return h.trim();});
-    var rows=lines.slice(1).filter(function(l){return l.trim();}).map(function(line){
-      var vals=line.split(','); var obj={};
-      headers.forEach(function(h,i){obj[h]=(vals[i]||'').trim();});
-      return obj;
-    });
-    var newCurrent={};
-    var total=0;
-    rows.forEach(function(r){
-      var pct=parseFloat(r.current_pct);
-      // Sheet stores as decimal (0.37) — convert to percentage (37.3)
-      if(!isNaN(pct)) { 
-        newCurrent[r.asset] = pct < 1 ? parseFloat((pct*100).toFixed(1)) : pct;
-        total+=parseFloat(String(r.current_dollars||'0').replace(/,/g,''));
-      }
-    });
-    if(Object.keys(newCurrent).length>0){
-      Object.keys(newCurrent).forEach(function(k){ current[k]=newCurrent[k]; });
-      if(total>0) PORTFOLIO=total;
-      renderOverview();
+// Fetch live data from Google Sheet
+var SHEET_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub';
+function sheetUrl(gid){ return SHEET_BASE+'?gid='+gid+'&single=true&output=csv'; }
+function parseNum(s){ return parseFloat(String(s||0).replace(/,/g,''))||0; }
+function fmtShort(n){ if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'M'; if(n>=1000) return '$'+Math.round(n/1000)+'K'; return '$'+Math.round(n); }
+function splitLine(line){var r=[],cur='',inQ=false;for(var i=0;i<line.length;i++){var c=line[i];if(c==='"'){inQ=!inQ;}else if(c===','&&!inQ){r.push(cur);cur='';}else{cur+=c;}}r.push(cur);return r;}
+function parseCSVTab(text){
+  var lines=text.trim().replace(/\r/g,'').split('\n');
+  var headers=splitLine(lines[0]).map(function(h){return h.trim();});
+  return lines.slice(1).filter(function(l){return l.trim();}).map(function(line){
+    var vals=splitLine(line);var obj={};
+    headers.forEach(function(h,i){obj[h]=(vals[i]||'').trim();});
+    return obj;
+  });
+}
+
+Promise.all([
+  fetch(sheetUrl('270306645')).then(function(r){return r.text();}),
+  fetch(sheetUrl('0')).then(function(r){return r.text();}),
+  fetch(sheetUrl('2068010017')).then(function(r){return r.text();})
+]).then(function(texts){
+  // Parse Snapshot
+  var snapRows=parseCSVTab(texts[0]);
+  var snap={};
+  snapRows.forEach(function(r){snap[r.key]=r.value;});
+
+  // Parse Accounts
+  var accounts=parseCSVTab(texts[1]);
+
+  // Parse Allocations
+  var allocRows=parseCSVTab(texts[2]);
+
+  // Update metric cards from Accounts
+  var retirementTotal=accounts.filter(function(a){return a.type==='401k'||a.type==='roth';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
+  var taxableTotal=accounts.filter(function(a){return a.type==='taxable';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
+  var invested=parseNum(snap.invested)||retirementTotal+taxableTotal;
+  var retirePct=Math.round(retirementTotal/invested*100);
+  var taxablePct=Math.round(taxableTotal/invested*100);
+  var driftAmt=Math.round(invested*0.03/1000);
+  var updated=snap.updated||'Apr 2026';
+
+  if(document.getElementById('ao-total')) document.getElementById('ao-total').textContent=fmtShort(invested);
+  if(document.getElementById('ao-total-sub')) document.getElementById('ao-total-sub').textContent='Per Empower '+updated;
+  if(document.getElementById('ao-retirement')) document.getElementById('ao-retirement').textContent=fmtShort(retirementTotal);
+  if(document.getElementById('ao-retire-sub')) document.getElementById('ao-retire-sub').textContent=retirePct+'% of portfolio';
+  if(document.getElementById('ao-taxable')) document.getElementById('ao-taxable').textContent=fmtShort(taxableTotal);
+  if(document.getElementById('ao-taxable-sub')) document.getElementById('ao-taxable-sub').textContent=taxablePct+'% of portfolio';
+  if(document.getElementById('ao-drift-sub')) document.getElementById('ao-drift-sub').textContent='~$'+driftAmt+'K at current size';
+
+  // Update current allocations
+  var newCurrent={};
+  var total=0;
+  allocRows.forEach(function(r){
+    var pct=parseFloat(r.current_pct);
+    if(!isNaN(pct)){
+      newCurrent[r.asset]=pct<1?parseFloat((pct*100).toFixed(1)):pct;
+      total+=parseNum(r.current_dollars);
     }
-  }).catch(function(){});
+  });
+  if(Object.keys(newCurrent).length>0){
+    Object.keys(newCurrent).forEach(function(k){ current[k]=newCurrent[k]; });
+    if(total>0) PORTFOLIO=total;
+    renderOverview();
+  }
+}).catch(function(e){console.log('Alloc fetch error:',e);});
 </script>
 </body>
 </html>

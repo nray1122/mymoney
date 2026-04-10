@@ -200,11 +200,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <!-- ALL ACCOUNTS -->
 <div class="card">
   <div class="section-label">All accounts · April 2026</div>
-  <div style="font-size:11px;color:#888;margin-bottom:10px;">Investment accounts · $2.7M total</div>
-  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Nick 401k + BrokerageLink <span style="font-size:11px;color:#888;">···8976 / ···4781</span></div><div style="font-size:12px;color:#666;">Fidelity · MSFT plan · 1-800-343-3548 · Spousal rollover — do NOT cash out</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$825.2K</div><span class="badge bg-blue">401k</span></div></div>
-  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Emily 401k <span style="font-size:11px;color:#888;">···3397</span></div><div style="font-size:12px;color:#666;">Fidelity · Yahoo plan · 1-800-343-3548 · Spousal rollover — do NOT cash out</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$733.4K</div><span class="badge bg-blue">401k</span></div></div>
-  <div class="acct-row"><div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div><div style="flex:1;"><div style="font-weight:700;">Vanguard brokerage <span style="font-size:11px;color:#888;">···0635 + ···2401</span></div><div style="font-size:12px;color:#666;">Vanguard · Joint accounts · Pass automatically · 1-800-662-7447</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$917.6K</div><span class="badge bg-green">Joint</span></div></div>
-  <div class="acct-row"><div class="acct-icon" style="background:#EEEDFE;color:#534AB7;">V</div><div style="flex:1;"><div style="font-weight:700;">Roth IRAs — Nick + Emily <span style="font-size:11px;color:#888;">···2134 / ···2972</span></div><div style="font-size:12px;color:#666;">Vanguard · Transfer per beneficiary designation</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$132.5K</div><span class="badge bg-purple">Roth</span></div></div>
+  <div style="font-size:11px;color:#888;margin-bottom:10px;" id="dg-invest-total">Investment accounts · $2.7M total</div>
+  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Nick 401k + BrokerageLink <span style="font-size:11px;color:#888;">···8976 / ···4781</span></div><div style="font-size:12px;color:#666;">Fidelity · MSFT plan · 1-800-343-3548 · Spousal rollover — do NOT cash out</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;" id="dg-nick401k">$825.2K</div><span class="badge bg-blue">401k</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Emily 401k <span style="font-size:11px;color:#888;">···3397</span></div><div style="font-size:12px;color:#666;">Fidelity · Yahoo plan · 1-800-343-3548 · Spousal rollover — do NOT cash out</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;" id="dg-emily401k">$733.4K</div><span class="badge bg-blue">401k</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div><div style="flex:1;"><div style="font-weight:700;">Vanguard brokerage <span style="font-size:11px;color:#888;">···0635 + ···2401</span></div><div style="font-size:12px;color:#666;">Vanguard · Joint accounts · Pass automatically · 1-800-662-7447</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;" id="dg-vanguard">$917.6K</div><span class="badge bg-green">Joint</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#EEEDFE;color:#534AB7;">V</div><div style="flex:1;"><div style="font-weight:700;">Roth IRAs — Nick + Emily <span style="font-size:11px;color:#888;">···2134 / ···2972</span></div><div style="font-size:12px;color:#666;">Vanguard · Transfer per beneficiary designation</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;" id="dg-roth">$132.5K</div><span class="badge bg-purple">Roth</span></div></div>
   <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Nick MSFT ESPP <span style="font-size:11px;color:#888;">···3247</span></div><div style="font-size:12px;color:#666;">Fidelity · 1-800-343-3548 · Sell on vest, transfer to Vanguard</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$9.6K</div><span class="badge bg-amber">Stock</span></div></div>
   <div class="acct-row"><div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div><div style="flex:1;"><div style="font-weight:700;">New House 2040 + Wedding savings</div><div style="font-size:12px;color:#666;">Vanguard · Individual accounts · Long-term goals · No rush</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$84K</div><span class="badge bg-amber">Goals</span></div></div>
   <div class="divider"></div>
@@ -277,84 +277,43 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <script>
 function toggle(el){ el.classList.toggle('checked'); el.textContent = el.classList.contains('checked') ? '✓' : ''; }
 
-// Fetch live account balances from Google Sheet
 function fmtDG(n){
-  n=parseFloat(String(n).replace(/,/g,''));
-  if(isNaN(n)||n===0) return null;
+  n=parseFloat(String(n||0).replace(/,/g,''));
+  if(!n||isNaN(n)) return null;
   if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'M';
-  if(n>=1000) return '$'+Math.round(n/1000)+'K';
+  if(n>=1000) return '$'+(n/1000).toFixed(1)+'K';
   return '$'+Math.round(n);
 }
+function splitLine(line){var r=[],cur='',inQ=false;for(var i=0;i<line.length;i++){var c=line[i];if(c==='"'){inQ=!inQ;}else if(c===','&&!inQ){r.push(cur);cur='';}else{cur+=c;}}r.push(cur);return r;}
 
-var ACCT_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub?gid=0&single=true&output=csv';
-fetch(ACCT_URL).then(function(r){return r.text();}).then(function(text){
-  var lines=text.trim().replace(/\r/g,'').split('\n');
-  var headers=lines[0].split(',').map(function(h){return h.trim();});
-  var accounts=lines.slice(1).filter(function(l){return l.trim();}).map(function(line){
-    var vals=line.split(','); var obj={};
-    headers.forEach(function(h,i){obj[h]=(vals[i]||'').trim();});
-    return obj;
-  });
+fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub?gid=0&single=true&output=csv')
+  .then(function(r){return r.text();})
+  .then(function(text){
+    var lines=text.trim().replace(/\r/g,'').split('\n');
+    var headers=splitLine(lines[0]).map(function(h){return h.trim();});
+    var accounts=lines.slice(1).filter(function(l){return l.trim();}).map(function(line){
+      var vals=splitLine(line); var obj={};
+      headers.forEach(function(h,i){obj[h]=(vals[i]||'').trim();});
+      return obj;
+    });
+    var b={};
+    accounts.forEach(function(a){ if(a.last4) b[a.last4.trim()]=parseFloat(String(a.balance).replace(/,/g,'')); });
 
-  // Build lookup by last4
-  var byLast4={};
-  accounts.forEach(function(a){ if(a.last4) byLast4[a.last4]=a; });
+    var nick401k=(b['8976']||0)+(b['4781']||0);
+    var emily401k=b['3397']||0;
+    var vanguard=(b['0635']||0)+(b['2401']||0);
+    var roth=(b['2134']||0)+(b['2972']||0);
+    var espp=b['3247']||0;
+    var total=nick401k+emily401k+vanguard+roth+espp;
 
-  // Update balances — find acct rows by searching title divs
-  acctRows.forEach(function(row){
-    var titleDivs=row.querySelectorAll('div');
-    var titleDiv=null;
-    var balDiv=null;
-    // Find the name div (first bold div with text) and balance div (last bold div)
-    var boldDivs=Array.from(row.querySelectorAll('div[style*="font-weight:700"]'));
-    if(boldDivs.length<1) return;
-    balDiv=boldDivs[0]; // first bold div in the right column
-
-    // Get last4 from the account number span
-    var numSpan=row.querySelector('span[style*="font-size:11px"][style*="color:#888"]');
-    if(!numSpan) return;
-    var match=numSpan.textContent.match(/\d{4}/g);
-    if(!match) return;
-    var last4=match[match.length-1];
-
-    if(last4==='8976'||last4==='4781'){
-      var n401k=byLast4['8976']?parseFloat(String(byLast4['8976'].balance).replace(/,/g,'')):0;
-      var nbl=byLast4['4781']?parseFloat(String(byLast4['4781'].balance).replace(/,/g,'')):0;
-      var tot=n401k+nbl;
-      if(tot>0) balDiv.textContent=fmtDG(tot)||balDiv.textContent;
-    } else if(byLast4[last4]){
-      var fmt=fmtDG(byLast4[last4].balance);
-      if(fmt) balDiv.textContent=fmt;
-    }
-  });
-
-  // Combined Vanguard brokerage
-  var vang0635=byLast4['0635']?parseFloat(String(byLast4['0635'].balance).replace(/,/g,'')):0;
-  var vang2401=byLast4['2401']?parseFloat(String(byLast4['2401'].balance).replace(/,/g,'')):0;
-  var vangTotal=vang0635+vang2401;
-
-  // Combined Roth IRAs
-  var roth2134=byLast4['2134']?parseFloat(String(byLast4['2134'].balance).replace(/,/g,'')):0;
-  var roth2972=byLast4['2972']?parseFloat(String(byLast4['2972'].balance).replace(/,/g,'')):0;
-  var rothTotal=roth2134+roth2972;
-
-  // Fix combined rows by matching title text
-  acctRows.forEach(function(row){
-    var allDivs=row.querySelectorAll('div');
-    var titleText='';
-    allDivs.forEach(function(d){ if(d.style.fontWeight==='700'&&d.children.length===0) titleText+=d.textContent; });
-    var boldDivs=Array.from(row.querySelectorAll('div[style*="font-weight:700"]'));
-    if(!boldDivs.length) return;
-    var balDiv=boldDivs[0];
-    if(titleText.indexOf('Vanguard brokerage')>=0&&vangTotal>0){
-      balDiv.textContent=fmtDG(vangTotal);
-    }
-    if(titleText.indexOf('Roth IRAs')>=0&&rothTotal>0){
-      balDiv.textContent=fmtDG(rothTotal);
-    }
-  });
-
-}).catch(function(e){console.log('Death guide fetch error:',e);});
+    function upd(id,val){ var el=document.getElementById(id); if(el&&fmtDG(val)) el.textContent=fmtDG(val); }
+    upd('dg-nick401k', nick401k);
+    upd('dg-emily401k', emily401k);
+    upd('dg-vanguard', vanguard);
+    upd('dg-roth', roth);
+    var sub=document.getElementById('dg-invest-total');
+    if(sub&&total>0) sub.textContent='Investment accounts · '+fmtDG(total)+' total';
+  }).catch(function(e){console.log('Death guide fetch error:',e);});
 </script>
 </body>
 </html>

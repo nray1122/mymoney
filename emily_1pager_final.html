@@ -241,8 +241,8 @@ Promise.all([
 
   // Retirement grid — populate from Accounts tab
   var byLast4={};
-  accounts.forEach(function(a){ if(a.last4) byLast4[a.last4]=parseFloat(String(a.balance).replace(/,/g,'')); });
-  function fmtAcct(n){ if(!n||isNaN(n)) return '—'; if(n>=1000) return '$'+(n/1000).toFixed(1)+'K'; return '$'+Math.round(n); }
+  accounts.forEach(function(a){ if(a.last4) byLast4[a.last4.trim()]=parseFloat(String(a.balance).replace(/,/g,'')); });
+  function fmtAcct(n){ if(!n||isNaN(n)) return '—'; if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'M'; if(n>=1000) return '$'+(n/1000).toFixed(1)+'K'; return '$'+Math.round(n); }
   var emily401k = byLast4['3397']||0;
   var nick401k = (byLast4['8976']||0)+(byLast4['4781']||0);
   var vanguard = (byLast4['0635']||0)+(byLast4['2401']||0);
@@ -258,7 +258,7 @@ Promise.all([
   if(document.getElementById('ep-nickroth')) document.getElementById('ep-nickroth').textContent=fmtAcct(nickroth);
   if(document.getElementById('ep-espp')) document.getElementById('ep-espp').textContent=fmtAcct(espp);
   if(document.getElementById('ep-house')) document.getElementById('ep-house').textContent=fmtAcct(house);
-  if(document.getElementById('ep-total')) document.getElementById('ep-total').textContent='$'+Math.round(total/1000)+'.'+Math.round((total%1000)/100)+'K';
+  if(document.getElementById('ep-total')) document.getElementById('ep-total').textContent=fmtAcct(total);
 }).catch(function(e){console.log('Sheet fetch error:',e);});
 </script>
 </body>
