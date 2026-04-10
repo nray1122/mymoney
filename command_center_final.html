@@ -170,9 +170,11 @@ Promise.all([
   // True Roth total = all roth_balance from Retirement Split tab (includes 401k Roth + Roth IRAs)
   var rothTotal = retirementSplit.reduce(function(s,r){ return s + parseFloat(r.roth_balance||0); }, 0);
   var goalTotal = accounts.filter(function(a){ return a.type==='goal'; }).reduce(function(s,a){ return s+parseFloat(a.balance||0);},0);
-  var retirePct = Math.round(retirementTotal/totalAccounts*100);
-  var taxablePct = Math.round(taxableTotal/totalAccounts*100);
-  var rothPct = Math.round(rothTotal/totalAccounts*100);
+  // Use invested from snapshot as base for portfolio split percentages to avoid double counting
+  var splitBase = parseFloat(snap.invested) || totalAccounts;
+  var retirePct = Math.round(retirementTotal/splitBase*100);
+  var taxablePct = Math.round(taxableTotal/splitBase*100);
+  var rothPct = Math.round(rothTotal/splitBase*100);
   var progressPct = Math.round(invested/6100000*100);
 
   // Savings goals totals
