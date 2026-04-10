@@ -205,8 +205,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Emily 401k <span style="font-size:11px;color:#888;">···3397</span></div><div style="font-size:12px;color:#666;">Fidelity · Yahoo plan · 1-800-343-3548 · Spousal rollover — do NOT cash out</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;" id="dg-emily401k">$733.4K</div><span class="badge bg-blue">401k</span></div></div>
   <div class="acct-row"><div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div><div style="flex:1;"><div style="font-weight:700;">Vanguard brokerage <span style="font-size:11px;color:#888;">···0635 + ···2401</span></div><div style="font-size:12px;color:#666;">Vanguard · Joint accounts · Pass automatically · 1-800-662-7447</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;" id="dg-vanguard">$917.6K</div><span class="badge bg-green">Joint</span></div></div>
   <div class="acct-row"><div class="acct-icon" style="background:#EEEDFE;color:#534AB7;">V</div><div style="flex:1;"><div style="font-weight:700;">Roth IRAs — Nick + Emily <span style="font-size:11px;color:#888;">···2134 / ···2972</span></div><div style="font-size:12px;color:#666;">Vanguard · Transfer per beneficiary designation</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;" id="dg-roth">$132.5K</div><span class="badge bg-purple">Roth</span></div></div>
-  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Nick MSFT ESPP <span style="font-size:11px;color:#888;">···3247</span></div><div style="font-size:12px;color:#666;">Fidelity · 1-800-343-3548 · Sell on vest, transfer to Vanguard</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$9.6K</div><span class="badge bg-amber">Stock</span></div></div>
-  <div class="acct-row"><div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div><div style="flex:1;"><div style="font-weight:700;">New House 2040 + Wedding savings</div><div style="font-size:12px;color:#666;">Vanguard · Individual accounts · Long-term goals · No rush</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$84K</div><span class="badge bg-amber">Goals</span></div></div>
+  <div class="acct-row"><div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div><div style="flex:1;"><div style="font-weight:700;">Nick MSFT ESPP <span style="font-size:11px;color:#888;">···3247</span></div><div style="font-size:12px;color:#666;">Fidelity · 1-800-343-3548 · Sell on vest, transfer to Vanguard</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;" id="dg-espp">$9.6K</div><span class="badge bg-amber">Stock</span></div></div>
   <div class="divider"></div>
   <div style="font-size:11px;color:#888;margin-bottom:10px;">Emergency fund + savings goals · $214.6K</div>
   <div class="acct-row"><div class="acct-icon" style="background:#f1efe8;color:#888;">V</div><div style="flex:1;"><div style="font-weight:700;">Emergency fund — MM + IBonds</div><div style="font-size:12px;color:#666;">Vanguard money market + Treasury IBonds · Do not touch for 6 months</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-weight:700;">$97.7K</div><span class="badge" style="background:#f1efe8;color:#888;">Safe</span></div></div>
@@ -304,6 +303,7 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB
     var vanguard=(b['0635']||0)+(b['2401']||0);
     var roth=(b['2134']||0)+(b['2972']||0);
     var espp=b['3247']||0;
+    // Total = investment accounts only (excl. house 2040, weddings, savings goals)
     var total=nick401k+emily401k+vanguard+roth+espp;
 
     function upd(id,val){ var el=document.getElementById(id); if(el&&fmtDG(val)) el.textContent=fmtDG(val); }
@@ -311,6 +311,7 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB
     upd('dg-emily401k', emily401k);
     upd('dg-vanguard', vanguard);
     upd('dg-roth', roth);
+    upd('dg-espp', espp);
     var sub=document.getElementById('dg-invest-total');
     if(sub&&total>0) sub.textContent='Investment accounts · '+fmtDG(total)+' total';
   }).catch(function(e){console.log('Death guide fetch error:',e);});

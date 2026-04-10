@@ -486,7 +486,7 @@ Promise.all([
 
   // Update metric cards from Accounts
   var retirementTotal=accounts.filter(function(a){return a.type==='401k'||a.type==='roth';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
-  var taxableTotal=accounts.filter(function(a){return a.type==='taxable';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
+  var taxableTotal=accounts.filter(function(a){return a.type==='taxable'||a.type==='stock';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
   var invested=parseNum(snap.invested)||retirementTotal+taxableTotal;
   var retirePct=Math.round(retirementTotal/invested*100);
   var taxablePct=Math.round(taxableTotal/invested*100);
