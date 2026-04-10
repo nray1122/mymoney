@@ -134,13 +134,15 @@ Promise.all([
   fetchTab(GIDS.accounts),
   fetchTab(GIDS.savingsGoals),
   fetchTab(GIDS.kids),
-  fetchTab(GIDS.income)
+  fetchTab(GIDS.income),
+  fetchTab(GIDS.retirementSplit)
 ]).then(function(results) {
   var snapRows = results[0];
   var accounts = results[1];
   var savingsGoals = results[2];
   var kids = results[3];
   var incomeRows = results[4];
+  var retirementSplit = results[5];
 
   var snap = parseKV(snapRows);
   var inc = parseKV(incomeRows);
@@ -250,6 +252,46 @@ Promise.all([
     accountsHTML += '<div class="row"><span style="color:#666;">' + k.name + (k.start_year ? ' <span style="font-size:10px;color:#888;">(' + k.note + ')</span>' : '') + '</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>';
   });
   accountsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div></div>';
+
+  // Retirement split section
+  var totalPretax = retirementSplit.reduce(function(s,r){ return s + parseFloat(r.pretax_balance||0); }, 0);
+  var totalRoth401k = retirementSplit.reduce(function(s,r){ return s + parseFloat(r.roth_balance||0); }, 0);
+  var totalSplit = totalPretax + totalRoth401k;
+  var pretaxPct = Math.round(totalPretax / totalSplit * 100);
+  var rothPct401k = Math.round(totalRoth401k / totalSplit * 100);
+
+  accountsHTML += '<div class="card"><div class="section-label">401k pretax vs Roth split — verified ' + snap.nw_date + '</div>';
+  accountsHTML += '<div style="font-size:11px;color:#888;margin-bottom:12px;">Fidelity shows pretax and Roth as separate balances within the same account. Funds are shared — the split is for tax planning and Roth conversion modeling only.</div>';
+
+  retirementSplit.forEach(function(r) {
+    var pre = parseFloat(r.pretax_balance||0);
+    var rth = parseFloat(r.roth_balance||0);
+    var tot = pre + rth;
+    var prePct = Math.round(pre/tot*100);
+    var rthPct = Math.round(rth/tot*100);
+    accountsHTML += '<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:0.5px solid #e0e0d8;">' +
+      '<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px;">' +
+      '<span>' + r.account + ' <span style="font-size:11px;color:#888;">···' + r.last4 + '</span></span>' +
+      '<span>' + fmt(tot) + '</span></div>' +
+      '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:4px;">' +
+      '<div style="width:' + prePct + '%;background:#378ADD;"></div>' +
+      '<div style="width:' + rthPct + '%;background:#7F77DD;"></div>' +
+      '</div>' +
+      '<div style="display:flex;justify-content:space-between;font-size:11px;">' +
+      '<span style="color:#378ADD;">Pretax ' + fmt(pre) + ' · ' + prePct + '%</span>' +
+      '<span style="color:#7F77DD;">Roth ' + fmt(rth) + ' · ' + rthPct + '%</span>' +
+      '</div></div>';
+  });
+
+  accountsHTML += '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:6px;">' +
+    '<div style="width:' + pretaxPct + '%;background:#378ADD;"></div>' +
+    '<div style="width:' + rothPct401k + '%;background:#7F77DD;"></div>' +
+    '</div>' +
+    '<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;">' +
+    '<span style="color:#378ADD;">Total pretax ' + fmt(totalPretax) + ' · ' + pretaxPct + '%</span>' +
+    '<span style="color:#7F77DD;">Total Roth ' + fmt(totalRoth401k) + ' · ' + rothPct401k + '%</span>' +
+    '</div></div>';
+
   document.getElementById('tab-accounts').innerHTML = accountsHTML;
 
   // SAVINGS GOALS TAB
