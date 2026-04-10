@@ -40,6 +40,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .acct-sub { font-size: 11px; color: #888; margin-top: 1px; }
 .divider { border: none; border-top: 0.5px solid #e0e0d8; margin: 12px 0; }
 .back-btn { display: inline-block; font-size: 12px; color: #666; text-decoration: none; margin-bottom: 16px; padding: 4px 0; }
+.loading { color: #888; font-size: 13px; text-align: center; padding: 40px 0; }
 </style>
 </head>
 <body>
@@ -47,8 +48,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <a href="index.html" class="back-btn">← Back to MyMoney</a>
 <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
 <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-  <div><div style="font-size:20px;font-weight:700;">Financial command center</div><div style="font-size:13px;color:#666;margin-top:2px;">Ray family · April 4, 2026 · Nick 43 · Emily 42</div></div>
-  <span class="badge bg-green">Current ✓</span>
+  <div><div style="font-size:20px;font-weight:700;">Financial command center</div><div style="font-size:13px;color:#666;margin-top:2px;" id="subtitle">Loading...</div></div>
+  <span class="badge bg-green" id="updated-badge">Loading...</span>
 </div>
 
 <div class="tab-bar">
@@ -58,227 +59,271 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <button class="tab-btn" onclick="showTab('income')">Income & tax</button>
 </div>
 
-<!-- OVERVIEW -->
-<div id="tab-overview" class="panel active">
-  <div class="grid-4">
-    <div class="metric"><div class="metric-label">Personal net worth</div><div class="metric-value">$3.1M</div><div class="metric-sub" style="color:#3B6D11;">↑ $0.5M since Dec '24</div></div>
-    <div class="metric"><div class="metric-label">Total invested</div><div class="metric-value">$2.7M</div><div class="metric-sub">Retirement + brokerage</div></div>
-    <div class="metric"><div class="metric-label">Annual savings</div><div class="metric-value">$159K</div><div class="metric-sub" style="color:#3B6D11;">All vehicles maxed</div></div>
-    <div class="metric"><div class="metric-label">Projected at 55</div><div class="metric-value">$6.1M</div><div class="metric-sub" style="color:#3B6D11;">Base case · Nov 2037</div></div>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <div class="section-label">Investment progress to $6.1M retirement</div>
-      <div style="margin-bottom:6px;">
-        <div style="font-size:11px;color:#888;margin-bottom:4px;">$2.7M invested of $6.1M projected · 44%</div>
-        <div class="bar-wrap" style="height:12px;"><div class="bar" style="width:44%;background:#378ADD;"></div></div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px;"><span style="color:#3B6D11;">$2.7M invested today</span><span style="color:#888;">$6.1M at 55</span></div>
-      </div>
-      <div class="divider"></div>
-      <div class="row"><span style="color:#666;">Nick 401k</span><span style="font-weight:700;">$825.2K</span></div>
-      <div class="row"><span style="color:#666;">Emily 401k</span><span style="font-weight:700;">$733.4K</span></div>
-      <div class="row"><span style="color:#666;">Vanguard brokerage (both)</span><span style="font-weight:700;">$917.6K</span></div>
-      <div class="row"><span style="color:#666;">Roth — Nick + Emily</span><span style="font-weight:700;">$132.5K</span></div>
-      <div class="row"><span style="color:#666;">ESPP + E*TRADE</span><span style="font-weight:700;">$10.2K</span></div>
-      <div class="row"><span style="color:#666;">New House 2040</span><span style="font-weight:700;">$57.5K</span></div>
-      <div class="divider"></div>
-      <div class="row"><span style="font-weight:700;">Total invested</span><span style="font-weight:700;color:#3B6D11;">$2,676.4K</span></div>
-      <div style="font-size:11px;color:#888;margin-top:6px;">Personal NW $3.1M includes home + car equity, savings goals, emergency fund, and credit balances.</div>
-    </div>
-
-    <div class="card">
-      <div class="section-label">Portfolio split</div>
-      <div class="alloc-row"><div style="width:120px;color:#666;">401k (pretax+Roth)</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:58%;background:#378ADD;"></div></div></div><div style="width:80px;text-align:right;font-weight:700;">$1.6M · 58%</div></div>
-      <div class="alloc-row"><div style="width:120px;color:#666;">Taxable brokerage</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:35%;background:#1D9E75;"></div></div></div><div style="width:80px;text-align:right;font-weight:700;">$917.6K · 35%</div></div>
-      <div class="alloc-row"><div style="width:120px;color:#666;">Roth IRAs</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:5%;background:#7F77DD;"></div></div></div><div style="width:80px;text-align:right;font-weight:700;">$132.5K · 5%</div></div>
-      <div class="alloc-row" style="margin-bottom:0;"><div style="width:120px;color:#666;">Goal accounts</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:2%;background:#EF9F27;"></div></div></div><div style="width:80px;text-align:right;font-weight:700;">$57.5K · 2%</div></div>
-      <div class="divider"></div>
-      <div class="section-label" style="margin-bottom:8px;">Outside investment total</div>
-      <div class="row"><span style="color:#666;">Emergency fund</span><span style="font-weight:700;">$97.7K</span></div>
-      <div class="row"><span style="color:#666;">Savings goals</span><span style="font-weight:700;">$116.9K</span></div>
-      <div class="row"><span style="color:#666;">Kids (529s + UTMAs)</span><span style="font-weight:700;">$360.5K</span></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="section-label">Net worth trend</div>
-    <div style="display:flex;align-items:flex-start;gap:0;margin:12px 0;">
-      <div style="flex:1;text-align:center;">
-        <div style="font-size:10px;color:#888;margin-bottom:4px;">Dec 31, 2024</div>
-        <div style="font-size:15px;font-weight:700;">$2.6M</div>
-        <div style="font-size:11px;color:#888;margin-top:2px;">Baseline</div>
-      </div>
-      <div style="flex:1;position:relative;margin-top:18px;">
-        <div style="height:2px;background:#378ADD;width:100%;"></div>
-        <div style="position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:10px;color:#3B6D11;white-space:nowrap;">+$391K · +15.0%</div>
-      </div>
-      <div style="flex:1;text-align:center;">
-        <div style="font-size:10px;color:#888;margin-bottom:4px;">Dec 31, 2025</div>
-        <div style="font-size:15px;font-weight:700;">$3.0M</div>
-        <div style="font-size:11px;color:#3B6D11;margin-top:2px;">↑ +15.0%</div>
-      </div>
-      <div style="flex:1;position:relative;margin-top:18px;">
-        <div style="height:2px;background:#1D9E75;width:100%;"></div>
-        <div style="position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:10px;color:#3B6D11;white-space:nowrap;">+$146K · +4.9%</div>
-      </div>
-      <div style="flex:1;text-align:center;">
-        <div style="font-size:10px;color:#888;margin-bottom:4px;">Apr 4, 2026</div>
-        <div style="font-size:15px;font-weight:700;">$3.1M</div>
-        <div style="font-size:11px;color:#3B6D11;margin-top:2px;">↑ +4.9% YTD</div>
-      </div>
-    </div>
-    <div style="font-size:11px;color:#888;text-align:center;margin-top:4px;">15-month total: +$537K · +20.6% · ~16% annualized</div>
-  </div>
-</div>
-
-<!-- ACCOUNTS -->
-<div id="tab-accounts" class="panel">
-  <div class="card">
-    <div class="section-label">All investment accounts — April 4, 2026</div>
-    <div class="acct-row">
-      <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
-      <div class="acct-name"><div>Emily 401k <span style="font-size:11px;color:#888;">···3397</span></div><div class="acct-sub">Fidelity · Yahoo plan · Pretax + Roth (split TBC)</div></div>
-      <div style="text-align:right;"><div style="font-weight:700;">$733.4K</div><span class="badge bg-blue">401k</span></div>
-    </div>
-    <div class="acct-row">
-      <div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div>
-      <div class="acct-name"><div>Vanguard brokerage <span style="font-size:11px;color:#888;">···0635</span></div><div class="acct-sub">Joint · VTSAX, BRK.B</div></div>
-      <div style="text-align:right;"><div style="font-weight:700;">$696.2K</div><span class="badge bg-green">Taxable</span></div>
-    </div>
-    <div class="acct-row">
-      <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
-      <div class="acct-name"><div>Nick 401k <span style="font-size:11px;color:#888;">···8976</span></div><div class="acct-sub">Fidelity · MSFT plan · Pretax + Roth (split TBC)</div></div>
-      <div style="text-align:right;"><div style="font-weight:700;">$441.0K</div><span class="badge bg-blue">401k</span></div>
-    </div>
-    <div class="acct-row">
-      <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
-      <div class="acct-name"><div>Nick 401k BrokerageLink <span style="font-size:11px;color:#888;">···4781</span></div><div class="acct-sub">Fidelity · Self-directed · Pretax + Roth (split TBC)</div></div>
-      <div style="text-align:right;"><div style="font-weight:700;">$384.2K</div><span class="badge bg-blue">401k</span></div>
-    </div>
-    <div class="acct-row">
-      <div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div>
-      <div class="acct-name"><div>Vanguard brokerage <span style="font-size:11px;color:#888;">···2401</span></div><div class="acct-sub">Joint · Index ETFs · Mega backdoor proceeds</div></div>
-      <div style="text-align:right;"><div style="font-weight:700;">$221.4K</div><span class="badge bg-green">Taxable</span></div>
-    </div>
-    <div class="acct-row">
-      <div class="acct-icon" style="background:#EEEDFE;color:#534AB7;">V</div>
-      <div class="acct-name"><div>Emily Roth <span style="font-size:11px;color:#888;">···2972</span></div><div class="acct-sub">Vanguard · Move REIT → growth ETFs</div></div>
-      <div style="text-align:right;"><div style="font-weight:700;">$73.0K</div><span class="badge bg-purple">Roth</span></div>
-    </div>
-    <div class="acct-row">
-      <div class="acct-icon" style="background:#EEEDFE;color:#534AB7;">V</div>
-      <div class="acct-name"><div>Nick Roth <span style="font-size:11px;color:#888;">···2134</span></div><div class="acct-sub">Vanguard · Move dividends → growth ETFs</div></div>
-      <div style="text-align:right;"><div style="font-weight:700;">$59.5K</div><span class="badge bg-purple">Roth</span></div>
-    </div>
-    <div class="acct-row">
-      <div class="acct-icon" style="background:#E6F1FB;color:#185FA5;">V</div>
-      <div class="acct-name"><div>New House 2040 <span style="font-size:11px;color:#888;">···5170</span></div><div class="acct-sub">Vanguard · Long-term investment goal</div></div>
-      <div style="text-align:right;"><div style="font-weight:700;">$57.5K</div><span class="badge bg-amber">Goal</span></div>
-    </div>
-    <div class="acct-row">
-      <div class="acct-icon" style="background:#EAF3DE;color:#3B6D11;">F</div>
-      <div class="acct-name"><div>Nick MSFT ESPP <span style="font-size:11px;color:#888;">···3247</span></div><div class="acct-sub">Fidelity · Sell on vest → transfer to Vanguard</div></div>
-      <div style="text-align:right;"><div style="font-weight:700;">$9.6K</div><span class="badge bg-amber">Stock</span></div>
-    </div>
-    <div class="acct-row">
-      <div class="acct-icon" style="background:#FAEEDA;color:#854F0B;">E</div>
-      <div class="acct-name"><div>E*TRADE <span style="font-size:11px;color:#888;">···5550 / ···7090</span></div><div class="acct-sub">Minimal balance · Legacy Yahoo/Altaba — review separately</div></div>
-      <div style="text-align:right;"><div style="font-weight:700;">$0.6K</div><span class="badge bg-amber">Taxable</span></div>
-    </div>
-    <div class="divider"></div>
-    <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;"><span>Total invested</span><span style="color:#3B6D11;font-size:16px;">$2,676.4K</span></div>
-    <div style="font-size:11px;color:#888;text-align:right;margin-top:3px;">Excl. emergency fund · savings goals · kids accounts</div>
-  </div>
-
-  <div class="card">
-    <div class="section-label">Kids accounts — tracked separately</div>
-    <div class="row"><span style="color:#666;">Sammie 529</span><span style="font-weight:700;">~$151.0K</span></div>
-    <div class="row"><span style="color:#666;">Evan 529</span><span style="font-weight:700;">~$143.0K</span></div>
-    <div class="row"><span style="color:#666;">Sammie UTMA</span><span style="font-weight:700;">$35.3K</span></div>
-    <div class="row"><span style="color:#666;">Evan UTMA</span><span style="font-weight:700;">$31.2K</span></div>
-    <div class="divider"></div>
-    <div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">$360.5K</span></div>
-  </div>
-</div>
-
-<!-- SAVINGS GOALS -->
-<div id="tab-savings" class="panel">
-  <div class="grid-3">
-    <div class="metric"><div class="metric-label">Total savings goals</div><div class="metric-value">$116.9K</div><div class="metric-sub">Capital One $90.5K + Weddings $26.4K</div></div>
-    <div class="metric"><div class="metric-label">Emergency fund</div><div class="metric-value">$97.7K</div><div class="metric-sub">MM $76.2K + IBonds $21.5K</div></div>
-    <div class="metric"><div class="metric-label">Kids 529s + UTMAs</div><div class="metric-value">$360.5K</div><div class="metric-sub">529s $294K · UTMAs $66.5K</div></div>
-  </div>
-
-  <div class="card">
-    <div class="section-label">Capital One — savings goals · $90.5K</div>
-    <div class="row"><span style="color:#666;">Vacation</span><span style="font-weight:700;">$24.9K</span></div>
-    <div class="row"><span style="color:#666;">House projects</span><span style="font-weight:700;">$18.9K</span></div>
-    <div class="row"><span style="color:#666;">Sammie car</span><span style="font-weight:700;">$14.0K</span></div>
-    <div class="row"><span style="color:#666;">Evan car</span><span style="font-weight:700;">$8.1K</span></div>
-    <div class="row"><span style="color:#666;">Evan Bar Mitzvah <span style="font-size:10px;color:#888;">(2028)</span></span><span><span class="badge bg-blue" style="margin-right:6px;">In progress · funded by 2028</span><span style="font-weight:700;">$21.2K</span></span></div>
-    <div class="row"><span style="color:#666;">Camp</span><span style="font-weight:700;">$0.6K</span></div>
-    <div class="row"><span style="color:#666;">Investment excess</span><span style="font-weight:700;">$2.8K</span></div>
-  </div>
-
-  <div class="card">
-    <div class="section-label">Vanguard — savings goals · $26.4K</div>
-    <div class="row"><span style="color:#666;">Sammie wedding <span style="font-size:10px;color:#888;">(2043)</span></span><span style="font-weight:700;">$15.8K</span></div>
-    <div class="row"><span style="color:#666;">Evan wedding <span style="font-size:10px;color:#888;">(2045)</span></span><span style="font-weight:700;">$10.6K</span></div>
-  </div>
-
-  <div class="card">
-    <div class="section-label">Kids — 529s + UTMAs · $360.5K</div>
-    <div class="row"><span style="color:#666;">Sammie 529 — starts Fall 2030</span><span><span class="badge bg-amber" style="margin-right:6px;">4 yrs</span><span style="font-weight:700;">~$151.0K</span></span></div>
-    <div class="row"><span style="color:#666;">Evan 529 — starts Fall 2033</span><span><span class="badge bg-blue" style="margin-right:6px;">7 yrs</span><span style="font-weight:700;">~$143.0K</span></span></div>
-    <div class="row"><span style="color:#666;">Sammie UTMA</span><span style="font-weight:700;">$35.3K</span></div>
-    <div class="row"><span style="color:#666;">Evan UTMA</span><span style="font-weight:700;">$31.2K</span></div>
-    <div class="divider"></div>
-    <div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">$360.5K</span></div>
-    <div style="font-size:12px;color:#666;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;">Sammie 529 glide path — reduce stock 10% each July. Both kids overlap in college 2033-2037. Both done before retirement in 2037.</div>
-  </div>
-</div>
-
-<!-- INCOME & TAX -->
-<div id="tab-income" class="panel">
-  <div class="grid-4">
-    <div class="metric"><div class="metric-label">Nick 2026E comp</div><div class="metric-value">$303K</div><div class="metric-sub">Salary + RSU + bonus</div></div>
-    <div class="metric"><div class="metric-label">Emily 2026E comp</div><div class="metric-value">$383K</div><div class="metric-sub">Salary + MEP + bonus</div></div>
-    <div class="metric"><div class="metric-label">Total household</div><div class="metric-value">$685K</div><div class="metric-sub">2026 estimate</div></div>
-    <div class="metric"><div class="metric-label">Tax refund est.</div><div class="metric-value" style="color:#3B6D11;">+$683</div><div class="metric-sub">Withholding dialed in</div></div>
-  </div>
-  <div class="card">
-    <div class="section-label">2026 savings — all maxed</div>
-    <div class="row"><span style="color:#666;">401k contributions (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Maxed</span>$49.0K</span></div>
-    <div class="row"><span style="color:#666;">Employer match (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Auto</span>$26.0K</span></div>
-    <div class="row"><span style="color:#666;">Mega backdoor Roth (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Maxed</span>$69.0K</span></div>
-    <div class="row"><span style="color:#666;">Backdoor Roth (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Done</span>$15.0K</span></div>
-    <div class="row"><span style="font-weight:700;">Total annual retirement</span><span style="font-weight:700;color:#3B6D11;font-size:14px;">$159.0K</span></div>
-  </div>
-  <div class="card">
-    <div class="section-label">2026 tax estimate</div>
-    <div class="row"><span style="color:#666;">Taxable income</span><span style="font-weight:700;">$611.7K</span></div>
-    <div class="row"><span style="color:#666;">Federal tax owed</span><span style="font-weight:700;">$157.0K</span></div>
-    <div class="row"><span style="color:#666;">Paycheck taxes paid</span><span style="font-weight:700;">$157.7K</span></div>
-    <div class="row"><span style="color:#666;">Effective rate</span><span style="font-weight:700;">24.3%</span></div>
-    <div class="row"><span style="color:#666;">Nick add'l WHT/check</span><span style="font-weight:700;">$800 · updated 2/22/26</span></div>
-    <div class="row"><span style="color:#666;">Emily add'l WHT/check</span><span style="font-weight:700;">$1,150 · updated 2/22/26</span></div>
-    <div class="row"><span style="font-weight:700;">Estimated refund</span><span style="font-weight:700;color:#3B6D11;">+$683</span></div>
-  </div>
-  <div class="card">
-    <div class="section-label">Vesting schedule — remaining</div>
-    <div class="row"><span style="color:#666;">Nick RSU 2026 (quarterly M2)</span><span style="font-weight:700;">$79.0K</span></div>
-    <div class="row"><span style="color:#666;">Emily MEP 2026 (Sep)</span><span style="font-weight:700;">$38.2K</span></div>
-    <div class="row"><span style="color:#666;">Nick RSU 2027</span><span style="font-weight:700;">$31.3K</span></div>
-    <div class="row"><span style="color:#666;">Emily MEP 2027 (Sep · final)</span><span style="font-weight:700;">$22.8K</span></div>
-    <div class="row"><span style="color:#666;">Nick RSU 2028-2029</span><span style="font-weight:700;">$43.6K</span></div>
-    <div class="row"><span style="font-weight:700;">Total remaining</span><span style="font-weight:700;color:#185FA5;">$215.0K</span></div>
-  </div>
-</div>
+<div id="tab-overview" class="panel active"><div class="loading">Loading data...</div></div>
+<div id="tab-accounts" class="panel"><div class="loading">Loading data...</div></div>
+<div id="tab-savings" class="panel"><div class="loading">Loading data...</div></div>
+<div id="tab-income" class="panel"><div class="loading">Loading data...</div></div>
 
 </div>
+
 <script>
-function showTab(name){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+name).classList.add('active');event.target.classList.add('active');}
+var BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub';
+var GIDS = {
+  snapshot:      '270306645',
+  accounts:      '0',
+  savingsGoals:  '1378910221',
+  kids:          '607695056',
+  income:        '2084993096',
+  allocations:   '2068010017',
+  holdings:      '866457208',
+  retirementSplit: '1611246416'
+};
+
+function url(gid) { return BASE + '?gid=' + gid + '&single=true&output=csv'; }
+
+function parseCSV(text) {
+  var lines = text.trim().split('\n');
+  var headers = lines[0].split(',').map(function(h){ return h.trim().replace(/^"|"$/g,''); });
+  return lines.slice(1).map(function(line) {
+    var vals = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|^(?=,)|(?<=,)$)/g) || [];
+    var obj = {};
+    headers.forEach(function(h, i) {
+      obj[h] = (vals[i] || '').trim().replace(/^"|"$/g,'');
+    });
+    return obj;
+  });
+}
+
+function parseKV(rows) {
+  var obj = {};
+  rows.forEach(function(r) { obj[r.key] = r.value; });
+  return obj;
+}
+
+function fmt(n) {
+  n = parseFloat(n);
+  if (isNaN(n)) return '—';
+  if (Math.abs(n) >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+  if (Math.abs(n) >= 1000) return '$' + Math.round(n/1000) + 'K';
+  return '$' + n.toLocaleString();
+}
+
+function fmtFull(n) {
+  n = parseFloat(n);
+  if (isNaN(n)) return '—';
+  return '$' + Math.round(n).toLocaleString();
+}
+
+function pct(n) { return parseFloat(n).toFixed(1) + '%'; }
+
+function acctColor(type) {
+  if (type === '401k') return {bg:'#EAF3DE', fg:'#3B6D11', letter:'F', badgeClass:'bg-blue', badgeText:'401k'};
+  if (type === 'roth') return {bg:'#EEEDFE', fg:'#534AB7', letter:'V', badgeClass:'bg-purple', badgeText:'Roth'};
+  if (type === 'taxable') return {bg:'#E6F1FB', fg:'#185FA5', letter:'V', badgeClass:'bg-green', badgeText:'Taxable'};
+  if (type === 'stock') return {bg:'#EAF3DE', fg:'#3B6D11', letter:'F', badgeClass:'bg-amber', badgeText:'Stock'};
+  if (type === 'goal') return {bg:'#E6F1FB', fg:'#185FA5', letter:'V', badgeClass:'bg-amber', badgeText:'Goal'};
+  return {bg:'#FAEEDA', fg:'#854F0B', letter:'E', badgeClass:'bg-amber', badgeText:'Other'};
+}
+
+function fetchTab(gid) {
+  return fetch(url(gid)).then(function(r){ return r.text(); }).then(parseCSV);
+}
+
+Promise.all([
+  fetchTab(GIDS.snapshot),
+  fetchTab(GIDS.accounts),
+  fetchTab(GIDS.savingsGoals),
+  fetchTab(GIDS.kids),
+  fetchTab(GIDS.income)
+]).then(function(results) {
+  var snapRows = results[0];
+  var accounts = results[1];
+  var savingsGoals = results[2];
+  var kids = results[3];
+  var incomeRows = results[4];
+
+  var snap = parseKV(snapRows);
+  var inc = parseKV(incomeRows);
+
+  // Update header
+  document.getElementById('subtitle').textContent = 'Ray family · ' + snap.nw_date + ' · Nick ' + snap.nick_age + ' · Emily ' + snap.emily_age;
+  document.getElementById('updated-badge').textContent = snap.updated + ' ✓';
+
+  // NW calculations
+  var nw = parseFloat(snap.nw);
+  var invested = parseFloat(snap.invested);
+  var prevDec = parseFloat(snap.nw_prev_dec);
+  var dec2025 = parseFloat(snap.nw_dec_2025);
+  var gain15mo = nw - prevDec;
+  var gainPct15mo = ((gain15mo / prevDec) * 100).toFixed(1);
+  var gain2025 = dec2025 - prevDec;
+  var gainPct2025 = ((gain2025 / prevDec) * 100).toFixed(1);
+  var gainYTD = nw - dec2025;
+  var gainPctYTD = ((gainYTD / dec2025) * 100).toFixed(1);
+
+  // OVERVIEW TAB
+  var totalAccounts = accounts.reduce(function(s,a){ return s + parseFloat(a.balance||0); }, 0);
+  var retirementTotal = accounts.filter(function(a){ return a.type==='401k'||a.type==='roth'; }).reduce(function(s,a){ return s+parseFloat(a.balance||0);},0);
+  var taxableTotal = accounts.filter(function(a){ return a.type==='taxable'; }).reduce(function(s,a){ return s+parseFloat(a.balance||0);},0);
+  var rothTotal = accounts.filter(function(a){ return a.type==='roth'; }).reduce(function(s,a){ return s+parseFloat(a.balance||0);},0);
+  var goalTotal = accounts.filter(function(a){ return a.type==='goal'; }).reduce(function(s,a){ return s+parseFloat(a.balance||0);},0);
+  var retirePct = Math.round(retirementTotal/totalAccounts*100);
+  var taxablePct = Math.round(taxableTotal/totalAccounts*100);
+  var rothPct = Math.round(rothTotal/totalAccounts*100);
+  var goalPct = Math.round(goalTotal/totalAccounts*100);
+  var progressPct = Math.round(invested/6100000*100);
+
+  // Savings goals totals
+  var capOne = savingsGoals.filter(function(g){ return g.institution==='Capital One'; }).reduce(function(s,g){ return s+parseFloat(g.balance||0);},0);
+  var vangGoals = savingsGoals.filter(function(g){ return g.institution==='Vanguard'; }).reduce(function(s,g){ return s+parseFloat(g.balance||0);},0);
+  var totalGoals = capOne + vangGoals;
+
+  // Kids totals
+  var kids529 = kids.filter(function(k){ return k.type==='529'; }).reduce(function(s,k){ return s+parseFloat(k.balance||0);},0);
+  var kidsUtma = kids.filter(function(k){ return k.type==='utma'; }).reduce(function(s,k){ return s+parseFloat(k.balance||0);},0);
+  var kidsTotal = kids529 + kidsUtma;
+
+  var overviewHTML = '<div class="grid-4">' +
+    '<div class="metric"><div class="metric-label">Personal net worth</div><div class="metric-value">' + fmt(nw) + '</div><div class="metric-sub" style="color:#3B6D11;">↑ ' + fmt(gain15mo) + ' since Dec \'24</div></div>' +
+    '<div class="metric"><div class="metric-label">Total invested</div><div class="metric-value">' + fmt(invested) + '</div><div class="metric-sub">Retirement + brokerage</div></div>' +
+    '<div class="metric"><div class="metric-label">Annual savings</div><div class="metric-value">' + fmt(inc.contrib_total) + '</div><div class="metric-sub" style="color:#3B6D11;">All vehicles maxed</div></div>' +
+    '<div class="metric"><div class="metric-label">Projected at 55</div><div class="metric-value">$6.1M</div><div class="metric-sub" style="color:#3B6D11;">Base case · Nov 2037</div></div>' +
+    '</div>' +
+    '<div class="grid-2">' +
+    '<div class="card"><div class="section-label">Investment progress to $6.1M retirement</div>' +
+    '<div style="margin-bottom:6px;"><div style="font-size:11px;color:#888;margin-bottom:4px;">' + fmt(invested) + ' invested of $6.1M projected · ' + progressPct + '%</div>' +
+    '<div class="bar-wrap" style="height:12px;"><div class="bar" style="width:' + progressPct + '%;background:#378ADD;"></div></div>' +
+    '<div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px;"><span style="color:#3B6D11;">' + fmt(invested) + ' today</span><span style="color:#888;">$6.1M at 55</span></div></div>' +
+    '<div class="divider"></div>';
+
+  accounts.forEach(function(a) {
+    var c = acctColor(a.type);
+    overviewHTML += '<div class="row"><span style="color:#666;">' + a.name + '</span><span style="font-weight:700;">' + fmtFull(a.balance) + '</span></div>';
+  });
+
+  overviewHTML += '<div class="divider"></div>' +
+    '<div class="row"><span style="font-weight:700;">Total invested</span><span style="font-weight:700;color:#3B6D11;font-size:14px;">' + fmtFull(totalAccounts) + '</span></div>' +
+    '<div style="font-size:11px;color:#888;margin-top:6px;">Personal NW ' + fmt(nw) + ' includes home + car equity, savings goals, emergency fund, and credit balances.</div>' +
+    '</div>' +
+    '<div class="card"><div class="section-label">Portfolio split</div>' +
+    '<div class="alloc-row"><div style="width:120px;color:#666;">401k (pretax + Roth)</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + retirePct + '%;background:#378ADD;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(retirementTotal) + ' · ' + retirePct + '%</div></div>' +
+    '<div class="alloc-row"><div style="width:120px;color:#666;">Taxable brokerage</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + taxablePct + '%;background:#1D9E75;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(taxableTotal) + ' · ' + taxablePct + '%</div></div>' +
+    '<div class="alloc-row"><div style="width:120px;color:#666;">Roth IRAs</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + rothPct + '%;background:#7F77DD;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(rothTotal) + ' · ' + rothPct + '%</div></div>' +
+    '<div class="alloc-row" style="margin-bottom:0;"><div style="width:120px;color:#666;">Goal accounts</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + goalPct + '%;background:#EF9F27;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(goalTotal) + ' · ' + goalPct + '%</div></div>' +
+    '<div class="divider"></div>' +
+    '<div class="section-label" style="margin-bottom:8px;">Outside investment total</div>' +
+    '<div class="row"><span style="color:#666;">Emergency fund</span><span style="font-weight:700;">$97.7K</span></div>' +
+    '<div class="row"><span style="color:#666;">Savings goals</span><span style="font-weight:700;">' + fmt(totalGoals) + '</span></div>' +
+    '<div class="row"><span style="color:#666;">Kids (529s + UTMAs)</span><span style="font-weight:700;">' + fmt(kidsTotal) + '</span></div>' +
+    '</div></div>' +
+    '<div class="card"><div class="section-label">Net worth trend</div>' +
+    '<div style="display:flex;align-items:flex-start;gap:0;margin:12px 0;">' +
+    '<div style="flex:1;text-align:center;"><div style="font-size:10px;color:#888;margin-bottom:4px;">Dec 31, 2024</div><div style="font-size:15px;font-weight:700;">' + fmt(prevDec) + '</div><div style="font-size:11px;color:#888;margin-top:2px;">Baseline</div></div>' +
+    '<div style="flex:1;position:relative;margin-top:18px;"><div style="height:2px;background:#378ADD;width:100%;"></div><div style="position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:10px;color:#3B6D11;white-space:nowrap;">+' + fmt(gain2025) + ' · +' + gainPct2025 + '%</div></div>' +
+    '<div style="flex:1;text-align:center;"><div style="font-size:10px;color:#888;margin-bottom:4px;">Dec 31, 2025</div><div style="font-size:15px;font-weight:700;">' + fmt(dec2025) + '</div><div style="font-size:11px;color:#3B6D11;margin-top:2px;">↑ +' + gainPct2025 + '%</div></div>' +
+    '<div style="flex:1;position:relative;margin-top:18px;"><div style="height:2px;background:#1D9E75;width:100%;"></div><div style="position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:10px;color:#3B6D11;white-space:nowrap;">+' + fmt(gainYTD) + ' · +' + gainPctYTD + '%</div></div>' +
+    '<div style="flex:1;text-align:center;"><div style="font-size:10px;color:#888;margin-bottom:4px;">' + snap.nw_date + '</div><div style="font-size:15px;font-weight:700;">' + fmt(nw) + '</div><div style="font-size:11px;color:#3B6D11;margin-top:2px;">↑ +' + gainPctYTD + '% YTD</div></div>' +
+    '</div>' +
+    '<div style="font-size:11px;color:#888;text-align:center;margin-top:4px;">15-month total: +' + fmt(gain15mo) + ' · +' + gainPct15mo + '% · ~16% annualized</div>' +
+    '</div>';
+
+  document.getElementById('tab-overview').innerHTML = overviewHTML;
+
+  // ACCOUNTS TAB
+  var accountsHTML = '<div class="card"><div class="section-label">All investment accounts — ' + snap.nw_date + '</div>';
+  accounts.forEach(function(a) {
+    var c = acctColor(a.type);
+    var instLetter = a.institution === 'Fidelity' ? 'F' : a.institution === 'Vanguard' ? 'V' : 'E';
+    accountsHTML += '<div class="acct-row">' +
+      '<div class="acct-icon" style="background:' + c.bg + ';color:' + c.fg + ';">' + instLetter + '</div>' +
+      '<div class="acct-name"><div>' + a.name + (a.last4 ? ' <span style="font-size:11px;color:#888;">···' + a.last4 + '</span>' : '') + '</div>' +
+      '<div class="acct-sub">' + (a.note || '') + '</div></div>' +
+      '<div style="text-align:right;"><div style="font-weight:700;">' + fmtFull(a.balance) + '</div><span class="badge ' + c.badgeClass + '">' + c.badgeText + '</span></div>' +
+      '</div>';
+  });
+  accountsHTML += '<div class="divider"></div><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;"><span>Total invested</span><span style="color:#3B6D11;font-size:16px;">' + fmtFull(totalAccounts) + '</span></div>' +
+    '<div style="font-size:11px;color:#888;text-align:right;margin-top:3px;">Excl. emergency fund · savings goals · kids accounts</div></div>';
+
+  // Kids section
+  accountsHTML += '<div class="card"><div class="section-label">Kids accounts — tracked separately</div>';
+  kids.forEach(function(k) {
+    accountsHTML += '<div class="row"><span style="color:#666;">' + k.name + (k.start_year ? ' <span style="font-size:10px;color:#888;">(' + k.note + ')</span>' : '') + '</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>';
+  });
+  accountsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div></div>';
+  document.getElementById('tab-accounts').innerHTML = accountsHTML;
+
+  // SAVINGS GOALS TAB
+  var savingsHTML = '<div class="grid-3">' +
+    '<div class="metric"><div class="metric-label">Total savings goals</div><div class="metric-value">' + fmt(totalGoals) + '</div><div class="metric-sub">Capital One ' + fmt(capOne) + ' + Weddings ' + fmt(vangGoals) + '</div></div>' +
+    '<div class="metric"><div class="metric-label">Emergency fund</div><div class="metric-value">$97.7K</div><div class="metric-sub">MM $76.2K + IBonds $21.5K</div></div>' +
+    '<div class="metric"><div class="metric-label">Kids 529s + UTMAs</div><div class="metric-value">' + fmt(kidsTotal) + '</div><div class="metric-sub">529s ' + fmt(kids529) + ' · UTMAs ' + fmt(kidsUtma) + '</div></div>' +
+    '</div>';
+
+  // Capital One goals
+  var capOneGoals = savingsGoals.filter(function(g){ return g.institution === 'Capital One'; });
+  savingsHTML += '<div class="card"><div class="section-label">Capital One — savings goals · ' + fmt(capOne) + '</div>';
+  capOneGoals.forEach(function(g) {
+    savingsHTML += '<div class="row"><span style="color:#666;">' + g.name + (g.note ? ' <span style="font-size:10px;color:#888;">(' + g.note + ')</span>' : '') + '</span><span style="font-weight:700;">' + fmtFull(g.balance) + '</span></div>';
+  });
+  savingsHTML += '</div>';
+
+  // Vanguard goals
+  var vangGoalsList = savingsGoals.filter(function(g){ return g.institution === 'Vanguard'; });
+  savingsHTML += '<div class="card"><div class="section-label">Vanguard — savings goals · ' + fmt(vangGoals) + '</div>';
+  vangGoalsList.forEach(function(g) {
+    savingsHTML += '<div class="row"><span style="color:#666;">' + g.name + (g.note ? ' <span style="font-size:10px;color:#888;">(' + g.note + ')</span>' : '') + '</span><span style="font-weight:700;">' + fmtFull(g.balance) + '</span></div>';
+  });
+  savingsHTML += '</div>';
+
+  // Kids
+  var kids529List = kids.filter(function(k){ return k.type==='529'; });
+  var kidsUtmaList = kids.filter(function(k){ return k.type==='utma'; });
+  savingsHTML += '<div class="card"><div class="section-label">Kids — 529s + UTMAs · ' + fmt(kidsTotal) + '</div>';
+  kids529List.forEach(function(k) {
+    var yrs = k.start_year ? (parseInt(k.start_year) - 2026) : null;
+    savingsHTML += '<div class="row"><span style="color:#666;">' + k.name + ' — starts ' + k.note + '</span><span><span class="badge ' + (yrs && yrs<=5?'bg-amber':'bg-blue') + '" style="margin-right:6px;">' + (yrs?yrs+' yrs':'') + '</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></span></div>';
+  });
+  kidsUtmaList.forEach(function(k) {
+    savingsHTML += '<div class="row"><span style="color:#666;">' + k.name + '</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>';
+  });
+  savingsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div>' +
+    '<div style="font-size:12px;color:#666;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;">Sammie 529 glide path — reduce stock 10% each July. Both kids overlap in college 2033–2037. Both done before retirement in 2037.</div></div>';
+  document.getElementById('tab-savings').innerHTML = savingsHTML;
+
+  // INCOME & TAX TAB
+  var incomeHTML = '<div class="grid-4">' +
+    '<div class="metric"><div class="metric-label">Nick 2026E comp</div><div class="metric-value">' + fmt(inc.nick_comp) + '</div><div class="metric-sub">Salary + RSU + bonus</div></div>' +
+    '<div class="metric"><div class="metric-label">Emily 2026E comp</div><div class="metric-value">' + fmt(inc.emily_comp) + '</div><div class="metric-sub">Salary + MEP + bonus</div></div>' +
+    '<div class="metric"><div class="metric-label">Total household</div><div class="metric-value">' + fmt(inc.total_comp) + '</div><div class="metric-sub">2026 estimate</div></div>' +
+    '<div class="metric"><div class="metric-label">Tax refund est.</div><div class="metric-value" style="color:#3B6D11;">+$' + parseInt(inc.tax_refund).toLocaleString() + '</div><div class="metric-sub">Withholding dialed in</div></div>' +
+    '</div>' +
+    '<div class="card"><div class="section-label">2026 savings — all maxed</div>' +
+    '<div class="row"><span style="color:#666;">401k contributions (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Maxed</span>' + fmt(inc.contrib_401k) + '</span></div>' +
+    '<div class="row"><span style="color:#666;">Employer match (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Auto</span>' + fmt(inc.contrib_match) + '</span></div>' +
+    '<div class="row"><span style="color:#666;">Mega backdoor Roth (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Maxed</span>' + fmt(inc.contrib_mega) + '</span></div>' +
+    '<div class="row"><span style="color:#666;">Backdoor Roth (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Done</span>' + fmt(inc.contrib_backdoor) + '</span></div>' +
+    '<div class="row"><span style="font-weight:700;">Total annual retirement savings</span><span style="font-weight:700;color:#3B6D11;font-size:14px;">' + fmt(inc.contrib_total) + '</span></div>' +
+    '</div>' +
+    '<div class="card"><div class="section-label">2026 tax estimate</div>' +
+    '<div class="row"><span style="color:#666;">Taxable income</span><span style="font-weight:700;">' + fmt(inc.taxable_income) + '</span></div>' +
+    '<div class="row"><span style="color:#666;">Federal tax owed</span><span style="font-weight:700;">' + fmt(inc.federal_tax) + '</span></div>' +
+    '<div class="row"><span style="color:#666;">Paycheck taxes paid</span><span style="font-weight:700;">' + fmt(inc.paycheck_tax) + '</span></div>' +
+    '<div class="row"><span style="color:#666;">Effective rate</span><span style="font-weight:700;">' + inc.effective_rate + '%</span></div>' +
+    '<div class="row"><span style="font-weight:700;">Estimated refund</span><span style="font-weight:700;color:#3B6D11;">+$' + parseInt(inc.tax_refund).toLocaleString() + '</span></div>' +
+    '</div>';
+  document.getElementById('tab-income').innerHTML = incomeHTML;
+
+}).catch(function(err) {
+  console.error(err);
+  document.querySelectorAll('.panel').forEach(function(p){ p.innerHTML = '<div class="loading">Error loading data. Check sheet is published.</div>'; });
+});
+
+function showTab(name){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
 </script>
 </body>
 </html>
