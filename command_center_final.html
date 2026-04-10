@@ -180,13 +180,15 @@ Promise.all([
 
   // OVERVIEW TAB
   var totalAccounts = accounts.reduce(function(s,a){ return s + parseNum(a.balance); }, 0);
-  var retirementTotal = accounts.filter(function(a){ return a.type==='401k'||a.type==='roth'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
+  // 401k only — Roth IRAs tracked separately via Retirement Split tab
+  var retirementTotal = accounts.filter(function(a){ return a.type==='401k'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
   var taxableTotal = accounts.filter(function(a){ return a.type==='taxable'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
-  // True Roth total = all roth_balance from Retirement Split tab (includes 401k Roth + Roth IRAs)
+  var rothIRATotal = accounts.filter(function(a){ return a.type==='roth'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
+  // True Roth total = 401k Roth portions + standalone Roth IRAs (from Retirement Split tab)
   var rothTotal = retirementSplit.reduce(function(s,r){ return s + parseNum(r.roth_balance); }, 0);
   var goalTotal = accounts.filter(function(a){ return a.type==='goal'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
-  // Use invested from snapshot as base for portfolio split percentages to avoid double counting
-  var splitBase = parseNum(snap.invested) || totalAccounts;
+  // Use totalAccounts as base for split percentages
+  var splitBase = totalAccounts || parseNum(snap.invested);
   var retirePct = Math.round(retirementTotal/splitBase*100);
   var taxablePct = Math.round(taxableTotal/splitBase*100);
   var rothPct = Math.round(rothTotal/splitBase*100);
@@ -228,7 +230,8 @@ Promise.all([
     '<div class="card"><div class="section-label">Portfolio split</div>' +
     '<div class="alloc-row"><div style="width:120px;color:#666;">401k (pretax + Roth)</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + retirePct + '%;background:#378ADD;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(retirementTotal) + ' · ' + retirePct + '%</div></div>' +
     '<div class="alloc-row"><div style="width:120px;color:#666;">Taxable brokerage</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + taxablePct + '%;background:#1D9E75;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(taxableTotal) + ' · ' + taxablePct + '%</div></div>' +
-    '<div class="alloc-row" style="margin-bottom:0;"><div style="width:120px;color:#666;">Roth IRAs</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + rothPct + '%;background:#7F77DD;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(rothTotal) + ' · ' + rothPct + '%</div></div>' +
+    '<div class="alloc-row" style="margin-bottom:0;"><div style="width:120px;color:#666;">Roth IRAs</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + Math.round(rothIRATotal/splitBase*100) + '%;background:#7F77DD;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(rothIRATotal) + ' · ' + Math.round(rothIRATotal/splitBase*100) + '%</div></div>' +
+    '<div style="font-size:11px;color:#888;margin-top:8px;">401k Roth portion: ' + fmt(rothTotal - rothIRATotal) + ' · shown within 401k total above. True total Roth across all accounts: ' + fmt(rothTotal) + '</div>' +
     '<div class="divider"></div>' +
     '<div class="section-label" style="margin-bottom:8px;">Outside investment total</div>' +
     '<div class="row"><span style="color:#666;">Emergency fund</span><span style="font-weight:700;">$97.7K</span></div>' +
