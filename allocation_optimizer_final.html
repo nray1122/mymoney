@@ -124,7 +124,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div id="tab-retvsbrok" class="panel">
   <div class="grid-3" style="margin-bottom:14px;">
     <div class="metric"><div class="metric-label">401k (Nick + Emily)</div><div class="metric-value">$1.6M</div><div class="metric-sub">Pretax + Roth (split TBC)</div></div>
-    <div class="metric"><div class="metric-label">Roth IRAs</div><div class="metric-value">$132.5K</div><div class="metric-sub">Nick + Emily · needs realloc</div></div>
+    <div class="metric"><div class="metric-label">Roth IRAs</div><div class="metric-value">$132.5K</div><div class="metric-sub">Nick → VTI · Emily → VGSLX ✓</div></div>
     <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value">$928K</div><div class="metric-sub">Vanguard joint accounts</div></div>
   </div>
 
@@ -175,14 +175,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   </div>
 
   <div class="card" style="margin-bottom:12px;">
-    <div class="section-label">Roth IRAs — fix now</div>
-    <div style="background:#FCEBEB;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#A32D2D;">Both Roths hold wrong asset types. REITs and dividends belong in pretax 401k. Move immediately — no tax consequence inside Roth.</div>
+    <div class="section-label">Roth IRAs — ✓ reallocated July 2026</div>
+    <div style="background:#EAF3DE;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#3B6D11;">Both Roths reallocated July 2026. Nick → VTI (total market, maximum growth). Emily → VGSLX (REIT, well-suited for Roth — dividends sheltered from tax). Excellent tax location.</div>
     <div class="fund-header"><span>Account / asset</span><span style="text-align:right;">Current</span><span style="text-align:right;">Target</span><span style="text-align:right;">Action</span></div>
-    <div class="fund-row"><span>Emily Roth — REIT (VGSLX)</span><span style="text-align:right;">~100%</span><span style="text-align:right;">0%</span><span style="text-align:right;"><span class="badge bg-red">Sell</span></span></div>
-    <div class="fund-row"><span>Nick Roth — Dividends (VDADX)</span><span style="text-align:right;">~100%</span><span style="text-align:right;">0%</span><span style="text-align:right;"><span class="badge bg-red">Sell</span></span></div>
-    <div class="fund-row"><span>Small cap growth (VBK)</span><span style="text-align:right;">0%</span><span style="text-align:right;">40%</span><span style="text-align:right;"><span class="badge bg-blue">Buy</span></span></div>
-    <div class="fund-row"><span>Emerging markets (VWO)</span><span style="text-align:right;">0%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-blue">Buy</span></span></div>
-    <div class="fund-row"><span>Tech ETF (QQQ or FTEC)</span><span style="text-align:right;">0%</span><span style="text-align:right;">30%</span><span style="text-align:right;"><span class="badge bg-blue">Buy</span></span></div>
+    <div class="fund-row"><span>Nick Roth (···2134) — VTI</span><span style="text-align:right;">100%</span><span style="text-align:right;">100%</span><span style="text-align:right;"><span class="badge bg-green">✓ Done</span></span></div>
+    <div class="fund-row"><span>Emily Roth (···2972) — VGSLX (REIT)</span><span style="text-align:right;">100%</span><span style="text-align:right;">100%</span><span style="text-align:right;"><span class="badge bg-green">✓ Done</span></span></div>
+    <div style="font-size:11px;color:#888;margin-top:8px;">Note: Emily's REIT contributes to overall real estate allocation — currently at 7% vs 5% target. Monitor at rebalance.</div>
   </div>
 
   <div class="card">
@@ -200,9 +198,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <!-- TAB 4: RECOMMENDED ACTIONS -->
 <div id="tab-actions" class="panel">
   <div class="grid-4" style="margin-bottom:14px;">
-    <div class="metric"><div class="metric-label">Do now</div><div class="metric-value" style="color:#A32D2D;">2</div><div class="metric-sub">High impact</div></div>
+    <div class="metric"><div class="metric-label">Do now</div><div class="metric-value" style="color:#A32D2D;">1</div><div class="metric-sub">High impact</div></div>
     <div class="metric"><div class="metric-label">At July rebalance</div><div class="metric-value" style="color:#854F0B;">3</div><div class="metric-sub">Scheduled</div></div>
-    <div class="metric"><div class="metric-label">Est. tax drag saved</div><div class="metric-value" style="color:#3B6D11;">$3-6K/yr</div><div class="metric-sub">Tax location fix</div></div>
+    <div class="metric"><div class="metric-label">Roth status</div><div class="metric-value" style="color:#3B6D11;">✓</div><div class="metric-sub">Reallocated July 2026</div></div>
     <div class="metric"><div class="metric-label">Material flags</div><div class="metric-value" id="action-flag-count" style="color:#185FA5;">—</div><div class="metric-sub" id="action-flag-desc">Calculating...</div></div>
   </div>
 
@@ -210,17 +208,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div class="section-label">Do now — high impact</div>
     <div class="action-row">
       <div style="flex:1;">
-        <div style="font-weight:700;font-size:13px;margin-bottom:3px;">Fix Roth allocations — both accounts</div>
-        <div style="font-size:12px;color:#666;line-height:1.6;">Emily (···2972): sell VGSLX (REIT), buy VBK 40% / VWO 30% / QQQ 30%. Nick (···2134): sell VDADX (dividends), same allocation. Zero cost — no tax consequence inside Roth. Estimated value: $50-150K additional tax-free compounding by retirement.</div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:3px;">✓ Roth allocations complete — July 2026</div>
+        <div style="font-size:12px;color:#666;line-height:1.6;">Nick (···2134) → VTI. Emily (···2972) → VGSLX (REIT, intentional — best tax location for REIT dividends). Done. No further action needed.</div>
       </div>
-      <span class="badge bg-red" style="margin-left:12px;flex-shrink:0;">Do now</span>
+      <span class="badge bg-green" style="margin-left:12px;flex-shrink:0;">Done</span>
     </div>
     <div class="action-row">
       <div style="flex:1;">
-        <div style="font-weight:700;font-size:13px;margin-bottom:3px;">Add gold / metals position — 0% vs 2% target</div>
-        <div style="font-size:12px;color:#666;line-height:1.6;">Currently missing entirely. With rates falling and macro uncertainty, gold is a portfolio hedge. Buy IAU or GLD in Vanguard taxable brokerage. Fund from next RSU vest proceeds (~$20K to start).</div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:3px;">Real estate trim — 7% vs 5% target</div>
+        <div style="font-size:12px;color:#666;line-height:1.6;">Emily's VGSLX in Roth pushes real estate to ~7% vs 5% target. 2% over — flag for July rebalance. Trim REIT positions elsewhere if possible, or accept slight over-allocation given intentional tax location strategy.</div>
       </div>
-      <span class="badge bg-red" style="margin-left:12px;flex-shrink:0;">Do now</span>
+      <span class="badge bg-amber" style="margin-left:12px;flex-shrink:0;">July rebalance</span>
     </div>
   </div>
 
@@ -250,12 +248,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   </div>
 
   <div class="card">
-    <div class="section-label">Watch list</div>
-    <div class="row"><span style="color:#666;">MSFT ESPP ($9.6K)</span><span style="font-size:12px;">Sell on next vest → redeploy to VTSAX</span></div>
-    <div class="row"><span style="color:#666;">Crypto (0.5% vs 1% target)</span><span style="font-size:12px;">Add on dips — $13K gap</span></div>
-    <div class="row"><span style="color:#666;">Emily MEP (Sep 2026)</span><span style="font-size:12px;">$38.2K — deploy per plan on receipt</span></div>
+    <div class="section-label">Watch list — July 2026</div>
+    <div class="row"><span style="color:#666;">✓ Roth allocations</span><span style="font-size:12px;">Complete — Nick VTI · Emily VGSLX</span></div>
+    <div class="row"><span style="color:#666;">ESPP sold ($10.7K)</span><span style="font-size:12px;">Transfer to Vanguard → buy VTI — pending</span></div>
+    <div class="row"><span style="color:#666;">MSFT Vanguard $31K</span><span style="font-size:12px;">Check cost basis — decide timing before selling</span></div>
+    <div class="row"><span style="color:#666;">SPGI $23.5K</span><span style="font-size:12px;">Hold through Mobility spin-off — reassess December</span></div>
+    <div class="row"><span style="color:#666;">FBTC — added $15K</span><span style="font-size:12px;">Total $30K · 0.9% of portfolio · hold</span></div>
+    <div class="row"><span style="color:#666;">Crypto (0.5% vs 1% target)</span><span style="font-size:12px;">FBTC position — monitor</span></div>
+    <div class="row"><span style="color:#666;">Emily MEP (Sep 2026)</span><span style="font-size:12px;">$38.2K — deploy to Capital One sinking funds</span></div>
     <div class="row"><span style="color:#666;">Nick bonus (Sep 2026)</span><span style="font-size:12px;">Deploy to address remaining gaps</span></div>
-    <div class="row"><span style="color:#666;">401k Roth vs pretax split</span><span style="font-size:12px;">Confirm at Fidelity — needed for next update</span></div>
+    <div class="row"><span style="color:#666;">Chase Freedom Q3</span><span style="font-size:12px;">Gas stations · EV charging · Public transit · Live entertainment · United Way donations — activate now</span></div>
   </div>
 </div>
 
