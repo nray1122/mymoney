@@ -50,8 +50,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div class="grid-4">
   <div class="metric"><div class="metric-label">Dec 31, 2024</div><div class="metric-value">$2.6M</div><div class="metric-sub">Actual baseline</div></div>
   <div class="metric"><div class="metric-label">Dec 31, 2025</div><div class="metric-value">$3.0M</div><div class="metric-sub" style="color:#3B6D11;">↑ $0.4M · +15.0%</div></div>
-  <div class="metric"><div class="metric-label">Apr 4, 2026</div><div class="metric-value">$3.1M</div><div class="metric-sub" style="color:#3B6D11;">↑ $0.1M YTD · +4.9%</div></div>
-  <div class="metric"><div class="metric-label">Years to retirement</div><div class="metric-value">12 yrs</div><div class="metric-sub">Nick 55 · Nov 2037</div></div>
+  <div class="metric"><div class="metric-label">Jul 8, 2026</div><div class="metric-value">$3.4M</div><div class="metric-sub" style="color:#3B6D11;">↑ $0.4M YTD · +13.1%</div></div>
+  <div class="metric"><div class="metric-label">Years to retirement</div><div class="metric-value">7 yrs</div><div class="metric-sub">Nick 50 · Nov 2033</div></div>
 </div>
 
 <div class="card">
@@ -143,8 +143,8 @@ var SS_NICK = 33600;
 var SS_EMILY = 40800;
 var MAX_YEARS = 20;
 
-var historicalLabels = ['Dec 2024\n(Nick 41)', 'Dec 2025\n(Nick 43)', 'Apr 2026\n(Nick 43)'];
-var historicalValues = [2611000, 3002000, 3148000];
+var historicalLabels = ['Dec 2024\n(Nick 41)', 'Dec 2025\n(Nick 43)', 'Jul 2026\n(Nick 43)'];
+var historicalValues = [2611000, 3002000, 3385000];
 
 function fmt(n) {
   if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
@@ -301,7 +301,7 @@ function updateAll() {
 
   var actualLine = historicalValues.concat(nullFwd);
   // Forward lines start from last historical point (index HIST_LEN-1)
-  // so they share the Apr 2026 anchor
+  // so they share the Jul 2026 anchor
   var worstLine = new Array(HIST_LEN-1).fill(null).concat(worstData);
   var baseLine  = new Array(HIST_LEN-1).fill(null).concat(baseData);
   var bestLine  = new Array(HIST_LEN-1).fill(null).concat(bestData);
@@ -365,7 +365,7 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB
     var nw=parseFloat(snap.nw);
     var prevDec=parseFloat(snap.nw_prev_dec);
     var dec2025=parseFloat(snap.nw_dec_2025);
-    var nwDate=snap.nw_date||'Apr 2026';
+    var nwDate=snap.nw_date||'Jul 2026';
     if(nw && prevDec && dec2025){
       START=nw;
       historicalValues=[prevDec,dec2025,nw];

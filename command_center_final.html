@@ -234,7 +234,7 @@ Promise.all([
     '<div style="font-size:11px;color:#888;margin-top:8px;">401k Roth portion: ' + fmt(rothTotal - rothIRATotal) + ' · shown within 401k total above. True total Roth across all accounts: ' + fmt(rothTotal) + '</div>' +
     '<div class="divider"></div>' +
     '<div class="section-label" style="margin-bottom:8px;">Outside investment total</div>' +
-    '<div class="row"><span style="color:#666;">Emergency fund</span><span style="font-weight:700;">$97.7K</span></div>' +
+    '<div class="row"><span style="color:#666;">Emergency fund</span><span style="font-weight:700;">' + fmt(parseNum(snap.emergency_total)) + '</span></div>' +
     '<div class="row"><span style="color:#666;">Savings goals</span><span style="font-weight:700;">' + fmt(totalGoals) + '</span></div>' +
     '<div class="row"><span style="color:#666;">Kids (529s + UTMAs)</span><span style="font-weight:700;">' + fmt(kidsTotal) + '</span></div>' +
     '</div></div>' +
@@ -315,7 +315,7 @@ Promise.all([
   // SAVINGS GOALS TAB
   var savingsHTML = '<div class="grid-3">' +
     '<div class="metric"><div class="metric-label">Total savings goals</div><div class="metric-value">' + fmt(totalGoals) + '</div><div class="metric-sub">Capital One ' + fmt(capOne) + ' + Weddings ' + fmt(vangGoals) + '</div></div>' +
-    '<div class="metric"><div class="metric-label">Emergency fund</div><div class="metric-value">$97.7K</div><div class="metric-sub">MM $76.2K + IBonds $21.5K</div></div>' +
+    '<div class="metric"><div class="metric-label">Emergency fund</div><div class="metric-value">' + fmt(parseNum(snap.emergency_total)) + '</div><div class="metric-sub">MM ' + fmt(parseNum(snap.emergency_mm)) + ' + IBonds ' + fmt(parseNum(snap.emergency_ibonds)) + '</div></div>' +
     '<div class="metric"><div class="metric-label">Kids 529s + UTMAs</div><div class="metric-value">' + fmt(kidsTotal) + '</div><div class="metric-sub">529s ' + fmt(kids529) + ' · UTMAs ' + fmt(kidsUtma) + '</div></div>' +
     '</div>';
 
