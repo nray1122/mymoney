@@ -25,6 +25,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 .row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 0.5px solid #e0e0d8; font-size: 13px; }
 .row:last-child { border-bottom: none; }
 .badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 600; }
+.dot-red { background: #E24B4A; }
+.dot-amber { background: #EF9F27; }
+.dot-blue { background: #378ADD; }
+.dot-green { background: #639922; }
 .bg-green { background: #EAF3DE; color: #3B6D11; }
 .bg-amber { background: #FAEEDA; color: #854F0B; }
 .bg-blue { background: #E6F1FB; color: #185FA5; }
@@ -57,12 +61,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <button class="tab-btn" onclick="showTab('accounts')">Accounts</button>
   <button class="tab-btn" onclick="showTab('savings')">Savings Goals</button>
   <button class="tab-btn" onclick="showTab('income')">Income & tax</button>
+  <button class="tab-btn" onclick="showTab('actions')">Open items</button>
 </div>
 
 <div id="tab-overview" class="panel active"><div class="loading">Loading data...</div></div>
 <div id="tab-accounts" class="panel"><div class="loading">Loading data...</div></div>
 <div id="tab-savings" class="panel"><div class="loading">Loading data...</div></div>
 <div id="tab-income" class="panel"><div class="loading">Loading data...</div></div>
+<div id="tab-actions" class="panel"><div class="loading">Loading action items...</div></div>
 
 </div>
 
@@ -76,7 +82,8 @@ var GIDS = {
   income:        '2084993096',
   allocations:   '2068010017',
   holdings:      '866457208',
-  retirementSplit: '1611246416'
+  retirementSplit: '1611246416',
+  actions:       '1747244375'
 };
 
 function url(gid) { return BASE + '?gid=' + gid + '&single=true&output=csv'; }
@@ -150,7 +157,8 @@ Promise.all([
   fetchTab(GIDS.savingsGoals),
   fetchTab(GIDS.kids),
   fetchTab(GIDS.income),
-  fetchTab(GIDS.retirementSplit)
+  fetchTab(GIDS.retirementSplit),
+  fetchTab(GIDS.actions)
 ]).then(function(results) {
   var snapRows = results[0];
   var accounts = results[1];
@@ -158,9 +166,36 @@ Promise.all([
   var kids = results[3];
   var incomeRows = results[4];
   var retirementSplit = results[5];
+  var actionItems = results[6];
 
   var snap = parseKV(snapRows);
   var inc = parseKV(incomeRows);
+
+  // Render actions tab
+  var BADGE_CLASS = { red:'bg-red', amber:'bg-amber', blue:'bg-blue', green:'bg-green' };
+  var DOT_CLASS = { red:'dot-red', amber:'dot-amber', blue:'dot-blue', green:'dot-green' };
+  var openCount = actionItems.filter(function(i){ return i.status === 'open'; }).length;
+  var order = { red:0, amber:1, blue:2, green:3 };
+  actionItems.sort(function(a,b){
+    if(a.status==='done'&&b.status!=='done') return 1;
+    if(b.status==='done'&&a.status!=='done') return -1;
+    return (order[a.priority]||9)-(order[b.priority]||9);
+  });
+  var actHTML = '<div class="section-label">Open items (' + openCount + ')</div>';
+  actHTML += '<div class="card">';
+  actionItems.forEach(function(item){
+    var dot = DOT_CLASS[item.priority]||'dot-blue';
+    var badge = BADGE_CLASS[item.priority]||'bg-blue';
+    var title = item.status==='done' ? '✓ '+item.title : item.title;
+    var opacity = item.status==='done' ? 'opacity:0.6;' : '';
+    actHTML += '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:13px;'+opacity+'">' +
+      '<div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;" class="'+dot+'"></div>' +
+      '<div style="flex:1;"><strong>'+title+'</strong>'+(item.description?' — '+item.description:'')+'</div>' +
+      '<span class="badge '+badge+'" style="margin-left:8px;flex-shrink:0;">'+item.badge+'</span>' +
+      '</div>';
+  });
+  actHTML += '</div>';
+  document.getElementById('tab-actions').innerHTML = actHTML;
 
   // Update header
   document.getElementById('subtitle').textContent = 'Ray family · ' + snap.nw_date + ' · Nick ' + snap.nick_age + ' · Emily ' + snap.emily_age;
