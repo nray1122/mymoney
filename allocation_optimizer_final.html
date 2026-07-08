@@ -124,7 +124,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div id="tab-retvsbrok" class="panel">
   <div class="grid-3" style="margin-bottom:14px;">
     <div class="metric"><div class="metric-label">401k (Nick + Emily)</div><div class="metric-value">$1.6M</div><div class="metric-sub">Pretax + Roth (split TBC)</div></div>
-    <div class="metric"><div class="metric-label">Roth IRAs</div><div class="metric-value">$132.5K</div><div class="metric-sub">Nick → VTI · Emily → VGSLX ✓</div></div>
+    <div class="metric"><div class="metric-label">Roth IRAs</div><div class="metric-value" id="ao-roth">—</div><div class="metric-sub">Nick → VTI · Emily → VGSLX ✓</div></div>
     <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value">$928K</div><div class="metric-sub">Vanguard joint accounts</div></div>
   </div>
 
@@ -486,6 +486,7 @@ Promise.all([
 
   // Update metric cards from Accounts
   var retirementTotal=accounts.filter(function(a){return a.type==='401k'||a.type==='roth';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
+  var rothIRATotal=accounts.filter(function(a){return a.type==='roth';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
   var taxableTotal=accounts.filter(function(a){return a.type==='taxable'||a.type==='stock';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
   var invested=parseNum(snap.invested)||retirementTotal+taxableTotal;
   var retirePct=Math.round(retirementTotal/invested*100);
@@ -497,6 +498,7 @@ Promise.all([
   if(document.getElementById('ao-total-sub')) document.getElementById('ao-total-sub').textContent='Per Empower '+updated;
   if(document.getElementById('ao-retirement')) document.getElementById('ao-retirement').textContent=fmtShort(retirementTotal);
   if(document.getElementById('ao-retire-sub')) document.getElementById('ao-retire-sub').textContent=retirePct+'% of portfolio';
+  if(document.getElementById('ao-roth')) document.getElementById('ao-roth').textContent=fmtShort(rothIRATotal);
   if(document.getElementById('ao-taxable')) document.getElementById('ao-taxable').textContent=fmtShort(taxableTotal);
   if(document.getElementById('ao-taxable-sub')) document.getElementById('ao-taxable-sub').textContent=taxablePct+'% of portfolio';
   if(document.getElementById('ao-drift-sub')) document.getElementById('ao-drift-sub').textContent='~$'+driftAmt+'K at current size';
