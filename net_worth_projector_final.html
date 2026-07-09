@@ -78,18 +78,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 
 <div class="card">
   <div class="section-label">Assumptions</div>
-  <div class="slider-row"><label>Annual return — worst case</label><input type="range" min="1" max="6" value="4" step="0.5" id="s-worst" oninput="updateAll()"><span class="slider-val" id="v-worst">4.0%</span></div>
-  <div class="slider-row"><label>Annual return — base case</label><input type="range" min="4" max="10" value="7" step="0.5" id="s-base" oninput="updateAll()"><span class="slider-val" id="v-base">7.0%</span></div>
-  <div class="slider-row"><label>Annual return — best case</label><input type="range" min="6" max="14" value="10" step="0.5" id="s-best" oninput="updateAll()"><span class="slider-val" id="v-best">10.0%</span></div>
-  <div class="slider-row"><label>Annual savings contribution</label><input type="range" min="100000" max="350000" value="159000" step="5000" id="s-contrib" oninput="updateAll()"><span class="slider-val" id="v-contrib">$159K</span></div>
+  <div class="slider-row"><label>Annual return — worst case</label><input type="range" min="0" max="6" value="4" step="0.5" id="s-worst" oninput="updateAll()"><span class="slider-val" id="v-worst">4.0%</span></div>
+  <div class="slider-row"><label>Annual return — base case</label><input type="range" min="0" max="10" value="7" step="0.5" id="s-base" oninput="updateAll()"><span class="slider-val" id="v-base">7.0%</span></div>
+  <div class="slider-row"><label>Annual return — best case</label><input type="range" min="0" max="14" value="10" step="0.5" id="s-best" oninput="updateAll()"><span class="slider-val" id="v-best">10.0%</span></div>
+  <div class="slider-row"><label>Annual savings contribution</label><input type="range" min="0" max="350000" value="159000" step="5000" id="s-contrib" oninput="updateAll()"><span class="slider-val" id="v-contrib">$159K</span></div>
   <div class="divider"></div>
   <div class="slider-row">
-    <label>Annual retirement spend</label>
-    <input type="range" min="150000" max="400000" value="225000" step="5000" id="s-expenses" oninput="updateAll()">
+    <label>Annual retirement spend (today's $)</label>
+    <input type="range" min="0" max="400000" value="225000" step="5000" id="s-expenses" oninput="updateAll()">
     <span class="slider-val" id="v-expenses">$225K</span>
   </div>
   <div style="font-size:11px;color:#888;margin-top:2px;padding-left:170px;">
-    Your retirement number: <strong id="threshold-label">$6.43M</strong> — funds <span id="spend-label">$225K</span>/year forever at 3.5% withdrawal
+    Inflation-adjusted to 2037 (3%/yr): <strong id="spend-2037-label">$314K/yr</strong> → retirement number: <strong id="threshold-label">$9.0M</strong>
   </div>
 </div>
 
@@ -102,7 +102,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#E24B4A;margin-right:4px;vertical-align:middle;"></span>Worst &nbsp;
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px;vertical-align:middle;"></span>Base &nbsp;
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#639922;margin-right:4px;vertical-align:middle;"></span>Best &nbsp;
-    <span style="display:inline-block;width:20px;height:3px;background:#EF9F27;margin-right:4px;vertical-align:middle;"></span>Retirement number
+    <span style="display:inline-block;width:20px;height:3px;background:#EF9F27;margin-right:4px;vertical-align:middle;"></span>$9.0M inflation-adjusted target
   </div>
   <div style="position:relative;width:100%;height:300px;"><canvas id="projChart"></canvas></div>
 </div>
@@ -121,8 +121,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 var chart = null;
 var NICK_AGE = 43;
 var RETIRE_YEAR = 2026;
-var YEARS_TO_55 = 12;
+var YEARS_TO_55 = 11.33;
 var WR = 0.035;
+var INFLATION = 0.03;
+var INFLATION_FACTOR = Math.pow(1 + INFLATION, YEARS_TO_55); // 1.397
 
 var START = 3000000;
 var historicalLabels = ['Dec 2024\n(Nick 41)', 'Dec 2025\n(Nick 43)', 'Jul 2026\n(Nick 43)'];
@@ -157,9 +159,10 @@ function updateAll() {
   document.getElementById('v-contrib').textContent = '$'+Math.round(contrib/1000)+'K';
   document.getElementById('v-expenses').textContent= '$'+Math.round(expenses/1000)+'K';
 
-  var threshold = expenses / WR;
+  var threshold = (expenses * INFLATION_FACTOR) / WR;
+  var spend2037 = Math.round(expenses * INFLATION_FACTOR / 1000);
   document.getElementById('threshold-label').textContent = fmt(threshold);
-  document.getElementById('spend-label').textContent = '$'+Math.round(expenses/1000)+'K';
+  document.getElementById('spend-2037-label').textContent = '$'+spend2037+'K/yr';
 
   var worstData = project(worst, contrib, YEARS_TO_55);
   var baseData  = project(base,  contrib, YEARS_TO_55);
@@ -174,20 +177,22 @@ function updateAll() {
 
   var cardsHTML = '';
   scenarios.forEach(function(s) {
-    var val55 = s.data[YEARS_TO_55];
+    var val55 = s.data[Math.round(YEARS_TO_55)];
     var funded = val55 >= threshold;
     var gap = val55 - threshold;
     var pct = Math.min(Math.round(val55/threshold*100), 100);
     var annualIncome = Math.round(val55 * WR / 1000);
+    var gapText = funded ? '✓ '+fmt(Math.abs(gap))+' above target' : '⚠ '+fmt(Math.abs(gap))+' short of target';
+    var gapColor = funded ? '#3B6D11' : '#A32D2D';
 
     cardsHTML += '<div class="scenario-card" style="background:'+s.bg+';border:1px solid '+s.border+';">';
     cardsHTML += '<div class="sc-header"><span class="sc-label" style="color:'+s.color+';">'+s.label+' ('+(s.rate*100).toFixed(1)+'%)</span><span class="sc-value">'+fmt(val55)+'</span></div>';
     cardsHTML += '<div class="sc-grid">';
-    cardsHTML += '<div><div class="sc-item-label">vs retirement number ('+fmt(threshold)+')</div><div class="sc-item-value" style="color:'+(funded?'#3B6D11':'#A32D2D')+';">'+(funded?'✓ '+fmt(gap)+' above':'⚠ '+fmt(Math.abs(gap))+' short')+'</div></div>';
-    cardsHTML += '<div><div class="sc-item-label">Annual income this generates</div><div class="sc-item-value">$'+annualIncome+'K/year forever</div></div>';
+    cardsHTML += '<div><div class="sc-item-label">vs inflation-adjusted target ('+fmt(threshold)+')</div><div class="sc-item-value" style="color:'+gapColor+';">'+gapText+'</div></div>';
+    cardsHTML += '<div><div class="sc-item-label">Annual income this generates</div><div class="sc-item-value">$'+annualIncome+'K/yr · +$133K SS from age 70</div></div>';
     cardsHTML += '</div>';
     cardsHTML += '<div class="progress-wrap" style="border-top:0.5px solid '+s.border+';">';
-    cardsHTML += '<div class="progress-label"><span>$0</span><span style="color:'+s.color+';font-weight:600;">'+pct+'% to retirement number</span><span>'+fmt(threshold)+'</span></div>';
+    cardsHTML += '<div class="progress-label"><span>$0</span><span style="color:'+s.color+';font-weight:600;">'+pct+'% to '+fmt(threshold)+' target</span><span>'+fmt(threshold)+'</span></div>';
     cardsHTML += '<div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%;background:'+s.color+';"></div></div>';
     cardsHTML += '</div>';
     cardsHTML += '</div>';
