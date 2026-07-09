@@ -92,12 +92,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
       <div style="font-size:11px;color:#888;margin-bottom:3px;">Total invested today</div>
       <div style="font-size:18px;font-weight:700;" id="ep-retire-invested">$2.7M</div>
       <div class="bar-wrap" style="margin-top:6px;"><div class="bar" id="ep-retire-bar" style="width:44%;background:#378ADD;"></div></div>
-      <div style="font-size:11px;margin-top:3px;color:#3B6D11;" id="ep-retire-pct">% funded of $9.0M inflation-adjusted target</div>
+      <div style="font-size:11px;margin-top:3px;color:#3B6D11;" id="ep-retire-pct">% funded of $9.0M what you need to retire in 2037</div>
     </div>
     <div>
       <div style="font-size:11px;color:#888;margin-bottom:3px;">Retirement goal</div>
       <div style="font-size:16px;font-weight:700;color:#3B6D11;">On track ✓</div>
-      <div style="font-size:11px;color:#888;margin-top:9px;">Inflation-adjusted target: $9.0M by 2037 · Base case within range · Average case comfortable</div>
+      <div style="font-size:11px;color:#888;margin-top:9px;">Expected scenario on track to hit $9.0M retirement goal by Nov 2037</div>
     </div>
     <div>
       <div style="font-size:11px;color:#888;margin-bottom:3px;">Retire together</div>
@@ -150,7 +150,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   </div>
   <div class="alert-row">
     <div class="dot dot-green"></div>
-    <div><strong>Strong year — up $0.4M since Dec 2025</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case on track to hit $9.0M inflation-adjusted target by Nick's 55.</div>
+    <div><strong>Strong year — up $0.4M since Dec 2025</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. On track to retire together November 2037.</div>
   </div>
 </div>
 
@@ -230,7 +230,7 @@ function runUpdates(){
   var barEl=document.getElementById('ep-retire-bar');
   if(barEl) barEl.style.width=pctToGoal+'%';
   var pctEl=document.getElementById('ep-retire-pct');
-  if(pctEl) pctEl.textContent=pctToGoal+'% to $9.0M inflation-adjusted target';
+  if(pctEl) pctEl.textContent=pctToGoal+'% to $9.0M what you need to retire in 2037';
 
   // Income rows
   if(inc.emily_comp||inc.nick_comp){
@@ -250,7 +250,7 @@ function runUpdates(){
   // Strong year note
   var gain15mo=nw-dec2025;
   var greenDots=document.querySelectorAll('.dot-green');
-  if(greenDots[1]) greenDots[1].nextElementSibling.innerHTML='<strong>Strong year — up '+fmtM(gain15mo)+' since Dec 2025</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case on track to hit $9.0M inflation-adjusted target by Nick\'s 55.';
+  if(greenDots[1]) greenDots[1].nextElementSibling.innerHTML='<strong>Strong year — up '+fmtM(gain15mo)+' since Dec 2025</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. On track to retire together November 2037.';
 
   // Retirement grid — only if accounts loaded
   if(accounts.length===0) return;

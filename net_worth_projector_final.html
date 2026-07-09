@@ -89,7 +89,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <span class="slider-val" id="v-expenses">$225K</span>
   </div>
   <div style="font-size:11px;color:#888;margin-top:2px;padding-left:170px;">
-    Inflation-adjusted to 2037 (3%/yr): <strong id="spend-2037-label">$314K/yr</strong> → retirement number: <strong id="threshold-label">$9.0M</strong>
+    In 2037 dollars (3%/yr inflation): <strong id="spend-2037-label">$314K/yr</strong> → retirement number: <strong id="threshold-label">$9.0M</strong>
   </div>
 </div>
 
@@ -102,7 +102,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#E24B4A;margin-right:4px;vertical-align:middle;"></span>Worst &nbsp;
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px;vertical-align:middle;"></span>Base &nbsp;
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#639922;margin-right:4px;vertical-align:middle;"></span>Best &nbsp;
-    <span style="display:inline-block;width:20px;height:3px;background:#EF9F27;margin-right:4px;vertical-align:middle;"></span>$9.0M inflation-adjusted target
+    <span style="display:inline-block;width:20px;height:3px;background:#EF9F27;margin-right:4px;vertical-align:middle;"></span>$9.0M what you need to retire in 2037
   </div>
   <div style="position:relative;width:100%;height:300px;"><canvas id="projChart"></canvas></div>
 </div>
@@ -110,7 +110,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div class="card">
   <div class="row"><span style="color:#666;">2025 full year</span><span id="hist-2025" style="font-weight:700;color:#3B6D11;">+$391K · +15.0%</span></div>
   <div class="row"><span style="color:#666;">2026 YTD</span><span id="hist-ytd" style="font-weight:700;color:#3B6D11;">+$383K · +12.7%</span></div>
-  <div class="row"><span style="color:#666;">Base case assumption (7%)</span><span style="font-weight:700;">Conservative — reality running ahead</span></div>
+  <div class="row"><span style="color:#666;">Expected scenario (7%)</span><span style="font-weight:700;">Conservative — reality running ahead</span></div>
 </div>
 
 <div style="text-align:center;margin-top:16px;font-size:11px;color:#aaa;">MyMoney · Ray family · nray1122.github.io/mymoney</div>
@@ -122,9 +122,10 @@ var chart = null;
 var NICK_AGE = 43;
 var RETIRE_YEAR = 2026;
 var YEARS_TO_55 = 11.33;
+var YEARS_INT = 12; // integer for arrays/loops
 var WR = 0.035;
 var INFLATION = 0.03;
-var INFLATION_FACTOR = Math.pow(1 + INFLATION, YEARS_TO_55); // 1.397
+var INFLATION_FACTOR = Math.pow(1 + INFLATION, YEARS_TO_55);
 
 var START = 3000000;
 var historicalLabels = ['Dec 2024\n(Nick 41)', 'Dec 2025\n(Nick 43)', 'Jul 2026\n(Nick 43)'];
@@ -164,20 +165,20 @@ function updateAll() {
   document.getElementById('threshold-label').textContent = fmt(threshold);
   document.getElementById('spend-2037-label').textContent = '$'+spend2037+'K/yr';
 
-  var worstData = project(worst, contrib, YEARS_TO_55);
-  var baseData  = project(base,  contrib, YEARS_TO_55);
-  var bestData  = project(best,  contrib, YEARS_TO_55);
+  var worstData = project(worst, contrib, YEARS_INT);
+  var baseData  = project(base,  contrib, YEARS_INT);
+  var bestData  = project(best,  contrib, YEARS_INT);
 
   // Scenario cards
   var scenarios = [
-    {label:'Worst case', rate:worst, data:worstData, color:'#E24B4A', bg:'#FFF5F5', border:'#FCEBEB'},
-    {label:'Base case',  rate:base,  data:baseData,  color:'#378ADD', bg:'#F0F7FF', border:'#E6F1FB'},
-    {label:'Best case',  rate:best,  data:bestData,  color:'#639922', bg:'#F4FAEC', border:'#EAF3DE'}
+    {label:'Conservative', rate:worst, data:worstData, color:'#E24B4A', bg:'#FFF5F5', border:'#FCEBEB'},
+    {label:'Expected',  rate:base,  data:baseData,  color:'#378ADD', bg:'#F0F7FF', border:'#E6F1FB'},
+    {label:'Optimistic',  rate:best,  data:bestData,  color:'#639922', bg:'#F4FAEC', border:'#EAF3DE'}
   ];
 
   var cardsHTML = '';
   scenarios.forEach(function(s) {
-    var val55 = s.data[Math.round(YEARS_TO_55)];
+    var val55 = s.data[YEARS_INT];
     var funded = val55 >= threshold;
     var gap = val55 - threshold;
     var pct = Math.min(Math.round(val55/threshold*100), 100);
@@ -188,7 +189,7 @@ function updateAll() {
     cardsHTML += '<div class="scenario-card" style="background:'+s.bg+';border:1px solid '+s.border+';">';
     cardsHTML += '<div class="sc-header"><span class="sc-label" style="color:'+s.color+';">'+s.label+' ('+(s.rate*100).toFixed(1)+'%)</span><span class="sc-value">'+fmt(val55)+'</span></div>';
     cardsHTML += '<div class="sc-grid">';
-    cardsHTML += '<div><div class="sc-item-label">vs inflation-adjusted target ('+fmt(threshold)+')</div><div class="sc-item-value" style="color:'+gapColor+';">'+gapText+'</div></div>';
+    cardsHTML += '<div><div class="sc-item-label">vs what you need to retire in 2037 ('+fmt(threshold)+')</div><div class="sc-item-value" style="color:'+gapColor+';">'+gapText+'</div></div>';
     cardsHTML += '<div><div class="sc-item-label">Annual income this generates</div><div class="sc-item-value">$'+annualIncome+'K/yr · +$133K SS from age 70</div></div>';
     cardsHTML += '</div>';
     cardsHTML += '<div class="progress-wrap" style="border-top:0.5px solid '+s.border+';">';
@@ -201,14 +202,14 @@ function updateAll() {
 
   // Chart — historical + forward to Nick 55 only
   var fwdLabels = [];
-  for (var i=1; i<=YEARS_TO_55; i++) {
+  for (var i=1; i<=YEARS_INT; i++) {
     fwdLabels.push('Nick '+(NICK_AGE+i)+'\n('+(RETIRE_YEAR+i)+')');
   }
   var allLabels = historicalLabels.concat(fwdLabels);
   var HIST_LEN = historicalValues.length;
-  var RETIRE_IDX = HIST_LEN - 1 + YEARS_TO_55;
+  var RETIRE_IDX = HIST_LEN - 1 + YEARS_INT;
 
-  var actualLine = historicalValues.concat(new Array(YEARS_TO_55).fill(null));
+  var actualLine = historicalValues.concat(new Array(YEARS_INT).fill(null));
   var worstLine = new Array(HIST_LEN-1).fill(null).concat(worstData);
   var baseLine  = new Array(HIST_LEN-1).fill(null).concat(baseData);
   var bestLine  = new Array(HIST_LEN-1).fill(null).concat(bestData);
