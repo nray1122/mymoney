@@ -260,29 +260,29 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB
       snap[parts[0].trim()]=parts.slice(1).join(',').trim().replace(/^"|"$/g,'');
     });
     var nw=parseFloat(snap.nw);
-    var prevDec=parseFloat(snap.nw_prev_dec);
-    var dec2025=parseFloat(snap.nw_dec_2025);
     var nwDate=snap.nw_date||'Jul 2026';
     var invested=parseFloat(snap.invested)||nw;
+    var inv2024=parseFloat(snap.invested_dec_2024)||2100000;
+    var inv2025=parseFloat(snap.invested_dec_2025)||2600000;
 
-    if(nw && prevDec && dec2025){
+    if(invested){
       START=invested;
-      historicalValues=[2100000, 2600000, invested];
+      historicalValues=[inv2024, inv2025, invested];
       historicalLabels=['Dec 2024\n(Nick 41)','Dec 2025\n(Nick 43)',nwDate+'\n(Nick 43)'];
 
       // Update metric cards
-      document.getElementById('m-2024').textContent='$2.1M';
-      document.getElementById('m-2025').textContent='$2.6M';
-      var gain2025=2600000-2100000;
-      document.getElementById('m-2025-sub').textContent='↑ $0.5M · +24%';
-      document.getElementById('m-now').textContent='$'+(nw/1000000).toFixed(1)+'M';
+      document.getElementById('m-2024').textContent='$'+(inv2024/1000000).toFixed(1)+'M';
+      document.getElementById('m-2025').textContent='$'+(inv2025/1000000).toFixed(1)+'M';
+      var gain2025=inv2025-inv2024;
+      document.getElementById('m-2025-sub').textContent='↑ $'+(gain2025/1000000).toFixed(1)+'M · +'+(gain2025/inv2024*100).toFixed(0)+'%';
+      document.getElementById('m-now').textContent='$'+(invested/1000000).toFixed(1)+'M';
       document.getElementById('m-now-label').textContent=nwDate;
-      var gainYTD=invested-2600000;
+      var gainYTD=invested-inv2025;
       document.getElementById('m-now-sub').textContent='↑ $'+(gainYTD/1000000).toFixed(1)+'M YTD';
 
       // Update performance card
-      document.getElementById('hist-2025').textContent='+$'+(gain2025/1000).toFixed(0)+'K · +'+(gain2025/prevDec*100).toFixed(1)+'%';
-      document.getElementById('hist-ytd').textContent='+$'+(gainYTD/1000).toFixed(0)+'K · +'+(gainYTD/dec2025*100).toFixed(1)+'%';
+      document.getElementById('hist-2025').textContent='+$'+(gain2025/1000).toFixed(0)+'K · +'+(gain2025/inv2024*100).toFixed(1)+'%';
+      document.getElementById('hist-ytd').textContent='+$'+(gainYTD/1000).toFixed(0)+'K · +'+(gainYTD/inv2025*100).toFixed(1)+'%';
 
       updateAll();
     }
