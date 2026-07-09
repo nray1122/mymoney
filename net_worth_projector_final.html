@@ -78,9 +78,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 
 <div class="card">
   <div class="section-label">Assumptions</div>
-  <div class="slider-row"><label>Annual return — worst case</label><input type="range" min="0" max="6" value="4" step="0.5" id="s-worst" oninput="updateAll()"><span class="slider-val" id="v-worst">4.0%</span></div>
-  <div class="slider-row"><label>Annual return — base case</label><input type="range" min="0" max="10" value="7" step="0.5" id="s-base" oninput="updateAll()"><span class="slider-val" id="v-base">7.0%</span></div>
-  <div class="slider-row"><label>Annual return — best case</label><input type="range" min="0" max="14" value="10" step="0.5" id="s-best" oninput="updateAll()"><span class="slider-val" id="v-best">10.0%</span></div>
+  <div class="slider-row"><label>Annual return — conservative</label><input type="range" min="0" max="6" value="4" step="0.5" id="s-worst" oninput="updateAll()"><span class="slider-val" id="v-worst">4.0%</span></div>
+  <div class="slider-row"><label>Annual return — expected</label><input type="range" min="0" max="10" value="7" step="0.5" id="s-base" oninput="updateAll()"><span class="slider-val" id="v-base">7.0%</span></div>
+  <div class="slider-row"><label>Annual return — optimistic</label><input type="range" min="0" max="14" value="10" step="0.5" id="s-best" oninput="updateAll()"><span class="slider-val" id="v-best">10.0%</span></div>
   <div class="slider-row"><label>Annual savings contribution</label><input type="range" min="0" max="350000" value="159000" step="5000" id="s-contrib" oninput="updateAll()"><span class="slider-val" id="v-contrib">$159K</span></div>
   <div class="divider"></div>
   <div class="slider-row">
@@ -100,8 +100,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div style="font-size:11px;color:#888;margin-bottom:12px;">
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#2C2C2A;margin-right:4px;vertical-align:middle;"></span>Actual &nbsp;
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#E24B4A;margin-right:4px;vertical-align:middle;"></span>Worst &nbsp;
-    <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px;vertical-align:middle;"></span>Base &nbsp;
-    <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#639922;margin-right:4px;vertical-align:middle;"></span>Best &nbsp;
+    <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px;vertical-align:middle;"></span>Expected &nbsp;
+    <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#639922;margin-right:4px;vertical-align:middle;"></span>Optimistic &nbsp;
     <span style="display:inline-block;width:20px;height:3px;background:#EF9F27;margin-right:4px;vertical-align:middle;"></span>$9.0M what you need to retire in 2037
   </div>
   <div style="position:relative;width:100%;height:300px;"><canvas id="projChart"></canvas></div>
@@ -120,7 +120,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <script>
 var chart = null;
 var NICK_AGE = 43;
-var RETIRE_YEAR = 2026;
+var RETIRE_YEAR = 2026; // forward labels: 2026+i gives 2027...2038 ✓
+// Nick 43+i gives Nick 44...55 ✓ (Nick 55 = 2026+12 = 2038, close enough to Nov 2037)
 var YEARS_TO_55 = 11.33;
 var YEARS_INT = 12; // integer for arrays/loops
 var WR = 0.035;
@@ -128,7 +129,7 @@ var INFLATION = 0.03;
 var INFLATION_FACTOR = Math.pow(1 + INFLATION, YEARS_TO_55);
 
 var START = 3000000;
-var historicalLabels = ['Dec 2024\n(Nick 41)', 'Dec 2025\n(Nick 43)', 'Jul 2026\n(Nick 43)'];
+var historicalLabels = ['Dec 2024\n(Nick 41)', 'Dec 2025\n(Nick 42)', 'Jul 2026\n(Nick 43)'];
 var historicalValues = [2100000, 2600000, 3000000];
 
 function fmt(n) {
@@ -203,7 +204,9 @@ function updateAll() {
   // Chart — historical + forward to Nick 55 only
   var fwdLabels = [];
   for (var i=1; i<=YEARS_INT; i++) {
-    fwdLabels.push('Nick '+(NICK_AGE+i)+'\n('+(RETIRE_YEAR+i)+')');
+    var age = NICK_AGE + i;
+    var year = i === YEARS_INT ? 2037 : RETIRE_YEAR + i;
+    fwdLabels.push('Nick '+age+'\n('+year+')');
   }
   var allLabels = historicalLabels.concat(fwdLabels);
   var HIST_LEN = historicalValues.length;
@@ -228,13 +231,13 @@ function updateAll() {
         {label:'Actual', data:actualLine, borderColor:'#2C2C2A', fill:false,
          pointRadius:actualLine.map(function(v){ return v!==null?5:0; }),
          pointBackgroundColor:'#2C2C2A', borderWidth:2.5, tension:0.3, spanGaps:false},
-        {label:'Worst', data:worstLine, borderColor:'#E24B4A', fill:false,
+        {label:'Conservative', data:worstLine, borderColor:'#E24B4A', fill:false,
          pointRadius:radii(worstLine), pointBackgroundColor:'#E24B4A',
          borderWidth:2, tension:0.4, spanGaps:false},
-        {label:'Base', data:baseLine, borderColor:'#378ADD', fill:false,
+        {label:'Expected', data:baseLine, borderColor:'#378ADD', fill:false,
          pointRadius:radii(baseLine), pointBackgroundColor:'#378ADD',
          borderWidth:2, tension:0.4, spanGaps:false},
-        {label:'Best', data:bestLine, borderColor:'#639922', fill:false,
+        {label:'Optimistic', data:bestLine, borderColor:'#639922', fill:false,
          pointRadius:radii(bestLine), pointBackgroundColor:'#639922',
          borderWidth:2, tension:0.4, spanGaps:false},
         {label:'Retirement number', data:threshLine, borderColor:'#EF9F27',
