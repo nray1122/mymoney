@@ -243,11 +243,11 @@ Promise.all([
     '<div class="metric"><div class="metric-label">Personal net worth</div><div class="metric-value">' + fmt(nw) + '</div><div class="metric-sub" style="color:#3B6D11;">↑ ' + fmt(gain15mo) + ' since Dec \'24</div></div>' +
     '<div class="metric"><div class="metric-label">Total invested</div><div class="metric-value">' + fmt(invested) + '</div><div class="metric-sub">Retirement + brokerage</div></div>' +
     '<div class="metric"><div class="metric-label">Annual savings</div><div class="metric-value">' + fmt(inc.contrib_total) + '</div><div class="metric-sub" style="color:#3B6D11;">All vehicles maxed</div></div>' +
-    '<div class="metric"><div class="metric-label">Projected at 55</div><div class="metric-value">On track ✓</div><div class="metric-sub" style="color:#3B6D11;">Base case within $60K of $9.0M target</div></div>' +
+    '<div class="metric"><div class="metric-label">Projected at 55</div><div class="metric-value">On track ✓</div><div class="metric-sub" style="color:#3B6D11;">Base case at the line — average case comfortable</div></div>' +
     '</div>' +
     '<div class="grid-2">' +
-    '<div class="card"><div class="section-label">Investment progress to $9.0M inflation-adjusted target</div>' +
-    '<div style="margin-bottom:6px;"><div style="font-size:11px;color:#888;margin-bottom:4px;">' + fmt(invested) + ' invested of $9.0M inflation-adjusted target · ' + progressPct + '%</div>' +
+    '<div class="card"><div class="section-label">Investment progress to $9.0M what you need to retire in 2037</div>' +
+    '<div style="margin-bottom:6px;"><div style="font-size:11px;color:#888;margin-bottom:4px;">' + fmt(invested) + ' invested of $9.0M what you need to retire in 2037 · ' + progressPct + '%</div>' +
     '<div class="bar-wrap" style="height:12px;"><div class="bar" style="width:' + progressPct + '%;background:#378ADD;"></div></div>' +
     '<div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px;"><span style="color:#3B6D11;">' + fmt(invested) + ' today</span><span style="color:#888;">$9.0M target</span></div></div>' +
     '<div class="divider"></div>';
@@ -301,10 +301,23 @@ Promise.all([
     '<div style="font-size:11px;color:#888;text-align:right;margin-top:3px;">Excl. emergency fund · savings goals · kids accounts</div></div>';
 
   // Kids section
-  accountsHTML += '<div class="card"><div class="section-label">Kids accounts — tracked separately</div>';
-  kids.forEach(function(k) {
-    accountsHTML += '<div class="row"><span style="color:#666;">' + k.name + (k.start_year ? ' <span style="font-size:10px;color:#888;">(' + k.note + ')</span>' : '') + '</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>';
-  });
+  accountsHTML += '<div class="card"><div class="section-label">Kids accounts</div>';
+  
+  // Sammie
+  var sammie529 = kids.filter(k => k.type === '529' && k.name.toLowerCase().indexOf('sammie') >= 0);
+  var sammieUtma = kids.filter(k => k.type === 'utma' && k.name.toLowerCase().indexOf('sammie') >= 0);
+  accountsHTML += '<div class="row"><span style="color:#666;font-weight:600;">Sammie — college Fall 2030</span><span></span></div>';
+  sammie529.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">529</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
+  sammieUtma.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">UTMA</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
+
+  // Evan
+  var evan529 = kids.filter(k => k.type === '529' && k.name.toLowerCase().indexOf('evan') >= 0);
+  var evanUtma = kids.filter(k => k.type === 'utma' && k.name.toLowerCase().indexOf('evan') >= 0);
+  accountsHTML += '<div class="divider"></div>';
+  accountsHTML += '<div class="row"><span style="color:#666;font-weight:600;">Evan — college Fall 2033</span><span></span></div>';
+  evan529.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">529</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
+  evanUtma.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">UTMA</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
+  
   accountsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div></div>';
 
   // Retirement split section
