@@ -51,7 +51,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div class="metric"><div class="metric-label">Dec 31, 2024</div><div class="metric-value">$2.6M</div><div class="metric-sub">Actual baseline</div></div>
   <div class="metric"><div class="metric-label">Dec 31, 2025</div><div class="metric-value">$3.0M</div><div class="metric-sub" style="color:#3B6D11;">↑ $0.4M · +15.0%</div></div>
   <div class="metric"><div class="metric-label">Jul 8, 2026</div><div class="metric-value">$3.4M</div><div class="metric-sub" style="color:#3B6D11;">↑ $0.4M YTD · +13.1%</div></div>
-  <div class="metric"><div class="metric-label">Years to retirement</div><div class="metric-value">7 yrs</div><div class="metric-sub">Nick 50 · Nov 2033</div></div>
+  <div class="metric"><div class="metric-label">Years to retirement</div><div class="metric-value">12 yrs</div><div class="metric-sub">Nick 55 · Nov 2037</div></div>
 </div>
 
 <div class="card">
@@ -93,7 +93,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <span class="slider-val" id="v-expenses">$225K</span>
   </div>
   <div style="font-size:11px;color:#888;margin-top:2px;padding-left:210px;">
-    Fixed withdrawal rate: <strong>3.5%</strong> · Sustainability threshold = spend ÷ 3.5% = <strong id="threshold-label">$6.43M</strong>
+    Your retirement number = annual spend ÷ 3.5% = <strong id="threshold-label">$6.43M funds $225K/year forever</strong>
   </div>
 </div>
 
@@ -105,7 +105,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#E24B4A;margin-right:4px;vertical-align:middle;"></span>Worst &nbsp;
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px;vertical-align:middle;"></span>Base &nbsp;
     <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#639922;margin-right:4px;vertical-align:middle;"></span>Best &nbsp;
-    <span style="display:inline-block;width:20px;height:3px;background:#EF9F27;margin-right:4px;vertical-align:middle;"></span>3.5% sustainability threshold &nbsp;
+    <span style="display:inline-block;width:20px;height:3px;background:#EF9F27;margin-right:4px;vertical-align:middle;"></span>Retirement number &nbsp;
     <span style="font-size:10px;color:#534AB7;">● = Nick 55 retirement</span>
   </div>
   <div style="position:relative;width:100%;height:320px;"><canvas id="projChart"></canvas></div>
@@ -252,7 +252,7 @@ function updateAll() {
     {label:'$3.5M', val:3500000},
     {label:'$4.0M', val:4000000},
     {label:'$5.0M', val:5000000},
-    {label:fmt(threshold)+' threshold', val:threshold},
+    {label:fmt(threshold)+' — retirement number', val:threshold},
     {label:'$6.1M projection', val:6100000},
     {label:'$7.0M', val:7000000}
   ];
