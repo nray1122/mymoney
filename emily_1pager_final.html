@@ -310,6 +310,18 @@ fetch(csvUrl('607695056')).then(function(r){return r.text();}).then(function(tex
   var SAMMIE_TARGET = 289000;
   var EVAN_TARGET = 335000;
 
+  // Growth rates — blended accounting for glide path ramp-down
+  var SAMMIE_RATE = 0.055; // 4 years, ramping down now — blended ~5.5%
+  var EVAN_RATE = 0.065;   // 7 years, still aggressive — blended ~6.5%
+
+  // Annual contributions still being made
+  var SAMMIE_CONTRIB = 10000;
+  var EVAN_CONTRIB = 7500;
+
+  // Years to start
+  var SAMMIE_YEARS = 4;
+  var EVAN_YEARS = 7;
+
   // Get balances by name
   var sammie529=0, evan529=0, sammieUtma=0, evanUtma=0;
   kids.forEach(function(k){
@@ -321,40 +333,62 @@ fetch(csvUrl('607695056')).then(function(r){return r.text();}).then(function(tex
     if(name.indexOf('evan')>=0 && k.type==='utma') evanUtma=bal;
   });
 
-  var sammieTotal=sammie529+sammieUtma;
-  var evanTotal=evan529+evanUtma;
-  var sammiePct=Math.round(sammieTotal/SAMMIE_TARGET*100);
-  var evanPct=Math.round(evanTotal/EVAN_TARGET*100);
+  var sammieNow=sammie529+sammieUtma;
+  var evanNow=evan529+evanUtma;
+
+  // Project: current balance compounded + annual contributions (future value of annuity)
+  function project(balance, contrib, rate, years){
+    var fvBalance = balance * Math.pow(1+rate, years);
+    var fvContrib = contrib * ((Math.pow(1+rate, years) - 1) / rate);
+    return fvBalance + fvContrib;
+  }
+
+  var sammieProjected = Math.round(project(sammieNow, SAMMIE_CONTRIB, SAMMIE_RATE, SAMMIE_YEARS));
+  var evanProjected = Math.round(project(evanNow, EVAN_CONTRIB, EVAN_RATE, EVAN_YEARS));
+
+  var sammiePct = Math.round(sammieProjected / SAMMIE_TARGET * 100);
+  var evanPct = Math.round(evanProjected / EVAN_TARGET * 100);
+
+  var sammieGap = Math.max(0, SAMMIE_TARGET - sammieProjected);
+  var evanGap = Math.max(0, EVAN_TARGET - evanProjected);
 
   function fmtK(n){ if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'M'; if(n>=1000) return '$'+(n/1000).toFixed(0)+'K'; return '$0'; }
-  function barColor(pct){ return pct>=80?'#639922':pct>=60?'#EF9F27':'#E24B4A'; }
-  function statusBadge(pct){ 
-    if(pct>=80) return '<span class="badge bg-green">On track</span>';
-    if(pct>=60) return '<span class="badge bg-amber">Watch</span>';
+  function barColor(pct){ return pct>=90?'#639922':pct>=75?'#EF9F27':'#E24B4A'; }
+  function statusBadge(pct){
+    if(pct>=90) return '<span class="badge bg-green">On track</span>';
+    if(pct>=75) return '<span class="badge bg-amber">Watch</span>';
     return '<span class="badge bg-red">Behind</span>';
   }
 
-  function kidRow(label, starts, total, p529, pUtma, target, pct) {
-    return '<div style="margin-bottom:14px;">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">' +
-        '<span style="font-size:13px;font-weight:600;">' + label + ' — starts ' + starts + '</span>' +
+  function kidRow(label, starts, now529, nowUtma, nowTotal, projected, target, pct, gap, rate, years, contrib) {
+    var gapText = gap > 0 ? 'Projected gap: ' + fmtK(gap) : 'Fully funded ✓';
+    var gapColor = gap > 0 ? '#854F0B' : '#3B6D11';
+    return '<div style="margin-bottom:16px;">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">' +
+        '<span style="font-size:13px;font-weight:600;">' + label + ' — ' + starts + '</span>' +
         statusBadge(pct) +
       '</div>' +
-      '<div style="display:flex;justify-content:space-between;font-size:12px;color:#666;margin-bottom:5px;">' +
-        '<span>529: ' + fmtK(p529) + ' · UTMA: ' + fmtK(pUtma) + ' · Total: ' + fmtK(total) + '</span>' +
+      '<div style="font-size:12px;color:#666;margin-bottom:3px;">' +
+        '529: ' + fmtK(now529) + ' · UTMA: ' + fmtK(nowUtma) + ' · Today: ' + fmtK(nowTotal) +
+      '</div>' +
+      '<div style="font-size:12px;color:#666;margin-bottom:5px;">' +
+        '+' + fmtK(contrib) + '/yr contributions · ' + (rate*100).toFixed(1) + '% blended growth · ' + years + ' years' +
+      '</div>' +
+      '<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;">' +
+        '<span style="color:#666;">Projected at start: <strong style="color:#1a1a18;">' + fmtK(projected) + '</strong></span>' +
         '<span style="font-weight:600;color:#1a1a18;">' + pct + '% of ' + fmtK(target) + '</span>' +
       '</div>' +
-      '<div style="height:8px;background:#f1efe8;border-radius:4px;overflow:hidden;">' +
-        '<div style="height:100%;width:' + Math.min(pct,100) + '%;background:' + barColor(pct) + ';border-radius:4px;transition:width 0.4s;"></div>' +
+      '<div style="height:8px;background:#f1efe8;border-radius:4px;overflow:hidden;margin-bottom:4px;">' +
+        '<div style="height:100%;width:' + Math.min(pct,100) + '%;background:' + barColor(pct) + ';border-radius:4px;"></div>' +
       '</div>' +
-      '<div style="font-size:11px;color:#888;margin-top:3px;">Gap: ' + fmtK(Math.max(0,target-total)) + ' remaining</div>' +
+      '<div style="font-size:11px;font-weight:600;color:' + gapColor + ';">' + gapText + '</div>' +
     '</div>';
   }
 
-  var html = kidRow('Sammie', 'Fall 2030', sammieTotal, sammie529, sammieUtma, SAMMIE_TARGET, sammiePct);
+  var html = kidRow('Sammie', 'Fall 2030', sammie529, sammieUtma, sammieNow, sammieProjected, SAMMIE_TARGET, sammiePct, sammieGap, SAMMIE_RATE, SAMMIE_YEARS, SAMMIE_CONTRIB);
   html += '<div style="border-top:0.5px solid #e0e0d8;margin:4px 0 14px;"></div>';
-  html += kidRow('Evan', 'Fall 2033', evanTotal, evan529, evanUtma, EVAN_TARGET, evanPct);
-  html += '<div style="font-size:12px;color:#666;margin-top:4px;">Both done with college by 2037 — same year as retirement goal.</div>';
+  html += kidRow('Evan', 'Fall 2033', evan529, evanUtma, evanNow, evanProjected, EVAN_TARGET, evanPct, evanGap, EVAN_RATE, EVAN_YEARS, EVAN_CONTRIB);
+  html += '<div style="font-size:12px;color:#888;margin-top:6px;">Both done with college by 2037 — same year as retirement goal.</div>';
 
   var el=document.getElementById('ep-kids-tracker');
   if(el) el.innerHTML=html;
