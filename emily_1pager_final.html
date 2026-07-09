@@ -56,7 +56,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   </div>
   <div style="text-align:right;">
     <div style="font-size:28px;font-weight:700;">$3.1M</div>
-    <div style="font-size:12px;color:#3B6D11;margin-top:2px;">↑ $0.5M since Dec 2024 · +20.6%</div>
+    <div style="font-size:12px;color:#3B6D11;margin-top:2px;">↑ $0.4M since Dec 2025 · +12.7%</div>
   </div>
 </div>
 
@@ -96,17 +96,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
       <div style="font-size:11px;color:#888;margin-bottom:3px;">Total invested today</div>
       <div style="font-size:18px;font-weight:700;" id="ep-retire-invested">$2.7M</div>
       <div class="bar-wrap" style="margin-top:6px;"><div class="bar" id="ep-retire-bar" style="width:44%;background:#378ADD;"></div></div>
-      <div style="font-size:11px;margin-top:3px;color:#3B6D11;" id="ep-retire-pct">44% to $6.1M goal</div>
+      <div style="font-size:11px;margin-top:3px;color:#3B6D11;" id="ep-retire-pct">47% to $12M goal</div>
     </div>
     <div>
       <div style="font-size:11px;color:#888;margin-bottom:3px;">Retirement goal</div>
-      <div style="font-size:18px;font-weight:700;">$6.1M</div>
-      <div style="font-size:11px;color:#888;margin-top:9px;">Base case at Nick 55</div>
+      <div style="font-size:18px;font-weight:700;">$12M+</div>
+      <div style="font-size:11px;color:#888;margin-top:9px;">Average case at Nick 52 · Base case at Nick 55</div>
     </div>
     <div>
       <div style="font-size:11px;color:#888;margin-bottom:3px;">Target retirement</div>
       <div style="font-size:18px;font-weight:700;">Nick 55</div>
-      <div style="font-size:11px;color:#666;margin-top:9px;">Nov 2037 · Emily 54</div>
+      <div style="font-size:11px;color:#666;margin-top:9px;">Nov 2037 · Emily 56</div>
     </div>
   </div>
   <div style="border-top:0.5px solid #e0e0d8;padding-top:10px;">
@@ -132,7 +132,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2030</div><div class="tl-label">Sammie<br>college<br>starts</div></div>
     <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2033</div><div class="tl-label">Evan<br>college<br>starts</div></div>
     <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2034</div><div class="tl-label">Sammie<br>done</div></div>
-    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#E24B4A;"></div><div class="tl-year">2037</div><div class="tl-label">Nick 55<br>🎯 Retire<br>Evan done</div></div>
+    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#E24B4A;"></div><div class="tl-year">2033</div><div class="tl-label">Nick 55<br>🎯 Retire<br>Evan done</div></div>
     <div class="tl-item"><div class="tl-dot" style="background:#888;"></div><div class="tl-year">2044</div><div class="tl-label">Nick 62<br>Social<br>Security</div></div>
   </div>
 </div>
@@ -149,16 +149,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div><strong>Estate plan + beneficiary designations — complete ✓</strong> — reviewed all estate docs, verified and updated beneficiary designations at Fidelity, Vanguard, Lincoln Financial, and Banner Life. All accounts now correctly name you as primary and the applicable family trust as contingent.</div>
   </div>
   <div class="alert-row">
-    <div class="dot dot-red"></div>
-    <div><strong>✓ Roth allocations — complete July 2026</strong> — Nick's Roth → VTI. Emily's Roth → VGSLX (REIT, intentionally kept — best tax location for REIT dividends, grows tax-free in Roth). No action needed.</div>
-  </div>
-  <div class="alert-row">
     <div class="dot dot-blue"></div>
-    <div><strong>July — biannual rebalance + 529 updates</strong> — portfolio review and annual allocation updates for both Sammie and Evan's 529s. Nick will handle.</div>
+    <div><strong>July — annual rebalance + 529 updates</strong> — portfolio review and annual allocation updates for both Sammie and Evan's 529s. Nick will handle.</div>
   </div>
   <div class="alert-row">
     <div class="dot dot-green"></div>
-    <div><strong>Strong year — up $0.5M since Dec 2024</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $6.1M by Nick's 55.</div>
+    <div><strong>Strong year — up $0.4M since Dec 2025</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $12M+ by Nick's 55.</div>
   </div>
 </div>
 
@@ -212,12 +208,13 @@ function runUpdates(){
 
   var nw=parseFloat(snap.nw);
   var prevDec=parseFloat(snap.nw_prev_dec);
-  var gain=nw-prevDec;
-  var gainPct=((gain/prevDec)*100).toFixed(1);
+  var dec2025=parseFloat(snap.nw_dec_2025)||prevDec;
+  var gain=nw-dec2025;
+  var gainPct=((gain/dec2025)*100).toFixed(1);
 
   // Header NW
   var nwEl=document.querySelector('[style*="font-size:28px"]');
-  if(nwEl){ nwEl.textContent=fmtM(nw); nwEl.nextElementSibling.textContent='↑ '+fmtM(gain)+' since Dec 2024 · +'+gainPct+'%'; }
+  if(nwEl){ nwEl.textContent=fmtM(nw); nwEl.nextElementSibling.textContent='↑ '+fmtM(gain)+' since Dec 2025 · +'+gainPct+'%'; }
 
   // Metric cards
   var metrics=document.querySelectorAll('.metric-value');
@@ -228,13 +225,13 @@ function runUpdates(){
 
   // Retirement section invested total
   var invested=parseNum(snap.invested);
-  var pctToGoal=Math.round(invested/6100000*100);
+  var pctToGoal=Math.round(invested/12000000*100);
   var retEl=document.getElementById('ep-retire-invested');
   if(retEl) retEl.textContent=fmtM(invested);
   var barEl=document.getElementById('ep-retire-bar');
   if(barEl) barEl.style.width=pctToGoal+'%';
   var pctEl=document.getElementById('ep-retire-pct');
-  if(pctEl) pctEl.textContent=pctToGoal+'% to $6.1M goal';
+  if(pctEl) pctEl.textContent=pctToGoal+'% to $12M goal';
 
   // Income rows
   if(inc.emily_comp||inc.nick_comp){
@@ -252,9 +249,9 @@ function runUpdates(){
   }
 
   // Strong year note
-  var gain15mo=nw-prevDec;
+  var gain15mo=nw-dec2025;
   var greenDots=document.querySelectorAll('.dot-green');
-  if(greenDots[1]) greenDots[1].nextElementSibling.innerHTML='<strong>Strong year — up '+fmtM(gain15mo)+' since Dec 2024</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $6.1M by Nick\'s 55.';
+  if(greenDots[1]) greenDots[1].nextElementSibling.innerHTML='<strong>Strong year — up '+fmtM(gain15mo)+' since Dec 2025</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $12M+ by Nick\'s 55.';
 
   // Retirement grid — only if accounts loaded
   if(accounts.length===0) return;
@@ -312,7 +309,7 @@ fetch(csvUrl('607695056')).then(function(r){return r.text();}).then(function(tex
 
   // Growth rates — blended accounting for glide path ramp-down
   var SAMMIE_RATE = 0.055; // 4 years, ramping down now — blended ~5.5%
-  var EVAN_RATE = 0.065;   // 7 years, still aggressive — blended ~6.5%
+  var EVAN_RATE = 0.065;   // 12 years, still aggressive — blended ~6.5%
 
   // Annual contributions still being made
   var SAMMIE_CONTRIB = 10000;
@@ -387,7 +384,7 @@ fetch(csvUrl('607695056')).then(function(r){return r.text();}).then(function(tex
   var html = kidRow('Sammie', 'Fall 2030', sammie529, sammieUtma, sammieNow, sammieProjected, SAMMIE_TARGET, sammiePct, SAMMIE_RATE, SAMMIE_YEARS, SAMMIE_CONTRIB);
   html += '<div style="border-top:0.5px solid #e0e0d8;margin:4px 0 14px;"></div>';
   html += kidRow('Evan', 'Fall 2033', evan529, evanUtma, evanNow, evanProjected, EVAN_TARGET, evanPct, EVAN_RATE, EVAN_YEARS, EVAN_CONTRIB);
-  html += '<div style="font-size:12px;color:#888;margin-top:6px;">Both done with college by 2037 — same year as retirement goal.</div>';
+  html += '<div style="font-size:12px;color:#888;margin-top:6px;">Both done with college by 2037 — Evan finishes same year Nick retires.</div>';
 
   var el=document.getElementById('ep-kids-tracker');
   if(el) el.innerHTML=html;
