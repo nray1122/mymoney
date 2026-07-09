@@ -89,7 +89,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <span class="slider-val" id="v-expenses">$225K</span>
   </div>
   <div style="font-size:11px;color:#888;margin-top:2px;padding-left:170px;">
-    Your retirement number: <strong id="threshold-label">$6.43M</strong> — funds $225K/year forever at 3.5% withdrawal
+    Your retirement number: <strong id="threshold-label">$6.43M</strong> — funds <span id="spend-label">$225K</span>/year forever at 3.5% withdrawal
   </div>
 </div>
 
@@ -159,6 +159,7 @@ function updateAll() {
 
   var threshold = expenses / WR;
   document.getElementById('threshold-label').textContent = fmt(threshold);
+  document.getElementById('spend-label').textContent = '$'+Math.round(expenses/1000)+'K';
 
   var worstData = project(worst, contrib, YEARS_TO_55);
   var baseData  = project(base,  contrib, YEARS_TO_55);
