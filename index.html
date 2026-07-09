@@ -331,6 +331,8 @@ fetch(ACTIONS_URL)
 
     var openItems = items.filter(function(i){ return i.status === 'open'; });
     var doneItems = items.filter(function(i){ return i.status === 'done'; });
+    console.log('All items:', items.map(function(i){ return i.status + ' | ' + i.title; }));
+    console.log('Open:', openItems.length, 'Done:', doneItems.length);
     document.getElementById('actions-label').textContent = 'Open items (' + openItems.length + ')';
 
     var html = '';
