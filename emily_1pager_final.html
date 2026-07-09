@@ -100,7 +100,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     </div>
     <div>
       <div style="font-size:11px;color:#888;margin-bottom:3px;">Retirement goal</div>
-      <div style="font-size:18px;font-weight:700;">$12M+</div>
+      <div style="font-size:18px;font-weight:700;">$11M</div>
       <div style="font-size:11px;color:#888;margin-top:9px;">Average case at Nick 52 · Base case at Nick 55</div>
     </div>
     <div>
@@ -154,7 +154,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   </div>
   <div class="alert-row">
     <div class="dot dot-green"></div>
-    <div><strong>Strong year — up $0.4M since Dec 2025</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $12M+ by Nick's 55.</div>
+    <div><strong>Strong year — up $0.4M since Dec 2025</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $11M by Nick's 55.</div>
   </div>
 </div>
 
@@ -251,7 +251,7 @@ function runUpdates(){
   // Strong year note
   var gain15mo=nw-dec2025;
   var greenDots=document.querySelectorAll('.dot-green');
-  if(greenDots[1]) greenDots[1].nextElementSibling.innerHTML='<strong>Strong year — up '+fmtM(gain15mo)+' since Dec 2025</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $12M+ by Nick\'s 55.';
+  if(greenDots[1]) greenDots[1].nextElementSibling.innerHTML='<strong>Strong year — up '+fmtM(gain15mo)+' since Dec 2025</strong> — all savings vehicles maxed, tax withholding dialed in, kids college on track. Base case puts us at $11M by Nick\'s 55.';
 
   // Retirement grid — only if accounts loaded
   if(accounts.length===0) return;
@@ -385,6 +385,7 @@ fetch(csvUrl('607695056')).then(function(r){return r.text();}).then(function(tex
   html += '<div style="border-top:0.5px solid #e0e0d8;margin:4px 0 14px;"></div>';
   html += kidRow('Evan', 'Fall 2033', evan529, evanUtma, evanNow, evanProjected, EVAN_TARGET, evanPct, EVAN_RATE, EVAN_YEARS, EVAN_CONTRIB);
   html += '<div style="font-size:12px;color:#888;margin-top:6px;">Both done with college by 2037 — Evan finishes same year Nick retires.</div>';
+  html += '<div style="font-size:12px;color:#666;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;"><strong>529 glide path:</strong> Sammie 70/30 equity/bonds ✓ — shift to 60/40 July 2027. Evan 91/9 ✓ — stays aggressive until 2028. UTMA (both VTI) used as buffer first if markets are down at college start.</div>';
 
   var el=document.getElementById('ep-kids-tracker');
   if(el) el.innerHTML=html;
