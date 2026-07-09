@@ -171,29 +171,28 @@ Promise.all([
   var snap = parseKV(snapRows);
   var inc = parseKV(incomeRows);
 
-  // Render actions tab
-  var BADGE_CLASS = { red:'bg-red', amber:'bg-amber', blue:'bg-blue', green:'bg-green' };
-  var DOT_CLASS = { red:'dot-red', amber:'dot-amber', blue:'dot-blue', green:'dot-green' };
-  var openCount = actionItems.filter(function(i){ return i.status === 'open'; }).length;
-  var order = { red:0, amber:1, blue:2, green:3 };
-  actionItems.sort(function(a,b){
-    if(a.status==='done'&&b.status!=='done') return 1;
-    if(b.status==='done'&&a.status!=='done') return -1;
-    return (order[a.priority]||9)-(order[b.priority]||9);
-  });
-  var actHTML = '<div class="section-label">Open items (' + openCount + ')</div>';
+  // Render actions tab — two states only: open (red dot) or done (gray faded)
+  var openItems = actionItems.filter(function(i){ return i.status === 'open'; });
+  var doneItems = actionItems.filter(function(i){ return i.status === 'done'; });
+  var actHTML = '<div class="section-label">Open items (' + openItems.length + ')</div>';
   actHTML += '<div class="card">';
-  actionItems.forEach(function(item){
-    var dot = DOT_CLASS[item.priority]||'dot-blue';
-    var badge = BADGE_CLASS[item.priority]||'bg-blue';
-    var title = item.status==='done' ? '✓ '+item.title : item.title;
-    var opacity = item.status==='done' ? 'opacity:0.6;' : '';
-    actHTML += '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:13px;'+opacity+'">' +
-      '<div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;" class="'+dot+'"></div>' +
-      '<div style="flex:1;"><strong>'+title+'</strong>'+(item.description?' — '+item.description:'')+'</div>' +
-      '<span class="badge '+badge+'" style="margin-left:8px;flex-shrink:0;">'+item.badge+'</span>' +
+  openItems.forEach(function(item){
+    actHTML += '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:13px;">' +
+      '<div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;background:#E24B4A;"></div>' +
+      '<div style="flex:1;"><strong>'+item.title+'</strong>'+(item.description?' — '+item.description:'')+'</div>' +
+      '<span style="margin-left:8px;flex-shrink:0;font-size:11px;padding:2px 8px;border-radius:6px;background:#f1efe8;color:#666;font-weight:600;">'+item.badge+'</span>' +
       '</div>';
   });
+  if (doneItems.length > 0) {
+    actHTML += '<div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aaa;margin:12px 0 6px;">Completed</div>';
+    doneItems.forEach(function(item){
+      actHTML += '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:13px;opacity:0.4;">' +
+        '<div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;background:#ccc;"></div>' +
+        '<div style="flex:1;"><strong>✓ '+item.title+'</strong></div>' +
+        '<span style="margin-left:8px;flex-shrink:0;font-size:11px;color:#aaa;">Done</span>' +
+        '</div>';
+    });
+  }
   actHTML += '</div>';
   document.getElementById('tab-actions').innerHTML = actHTML;
 
