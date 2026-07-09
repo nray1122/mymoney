@@ -54,15 +54,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <a href="index.html" class="back-btn">← Back to MyMoney</a>
 <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
 <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-  <div><div style="font-size:20px;font-weight:700;">Retirement tracker</div><div style="font-size:13px;color:#666;margin-top:2px;">Nick 43 · Target: Nick 55 · Nov 2037 · 12 years away</div></div>
+  <div><div style="font-size:20px;font-weight:700;">Retirement tracker</div><div style="font-size:13px;color:#666;margin-top:2px;">Nick 43 · Target: Nick 55 · Nov 2037</div></div>
   <span class="badge bg-green">Invested balance · 3 data points</span>
 </div>
 
 <div class="grid-4">
-  <div class="metric"><div class="metric-label">Dec 31, 2024</div><div class="metric-value" id="m-2024">$2.6M</div><div class="metric-sub">Actual baseline</div></div>
+  <div class="metric"><div class="metric-label">Dec 31, 2024</div><div class="metric-value" id="m-2024">$2.1M</div><div class="metric-sub">Nick 42 · invested baseline</div></div>
   <div class="metric"><div class="metric-label">Dec 31, 2025</div><div class="metric-value" id="m-2025">$3.0M</div><div class="metric-sub" style="color:#3B6D11;" id="m-2025-sub">↑ $0.4M · +15%</div></div>
   <div class="metric"><div class="metric-label" id="m-now-label">Jul 2026</div><div class="metric-value" id="m-now">$3.4M</div><div class="metric-sub" style="color:#3B6D11;" id="m-now-sub">↑ $0.4M YTD</div></div>
-  <div class="metric"><div class="metric-label">Years to retirement</div><div class="metric-value">12 yrs</div><div class="metric-sub">Nick 55 · Nov 2037</div></div>
+  <div class="metric"><div class="metric-label">Years to retirement</div><div class="metric-value">11 yrs</div><div class="metric-sub">Nov 2037 · $9.0M goal</div></div>
 </div>
 
 <div class="card">
@@ -129,7 +129,7 @@ var INFLATION = 0.03;
 var INFLATION_FACTOR = Math.pow(1 + INFLATION, YEARS_TO_55);
 
 var START = 3000000;
-var historicalLabels = ['Dec 2024\n(Nick 41)', 'Dec 2025\n(Nick 42)', 'Jul 2026\n(Nick 43)'];
+var historicalLabels = ['Dec 2024\n(Nick 42)', 'Dec 2025\n(Nick 43)', 'Jul 2026\n(Nick 43)'];
 var historicalValues = [2100000, 2600000, 3000000];
 
 function fmt(n) {
@@ -191,7 +191,7 @@ function updateAll() {
     cardsHTML += '<div class="sc-header"><span class="sc-label" style="color:'+s.color+';">'+s.label+' ('+(s.rate*100).toFixed(1)+'%)</span><span class="sc-value">'+fmt(val55)+'</span></div>';
     cardsHTML += '<div class="sc-grid">';
     cardsHTML += '<div><div class="sc-item-label">vs what you need to retire in 2037 ('+fmt(threshold)+')</div><div class="sc-item-value" style="color:'+gapColor+';">'+gapText+'</div></div>';
-    cardsHTML += '<div><div class="sc-item-label">Annual income this generates</div><div class="sc-item-value">$'+annualIncome+'K/yr · +$133K SS from age 70</div></div>';
+    cardsHTML += '<div><div class="sc-item-label">Annual income this generates</div><div class="sc-item-value">$'+annualIncome+'K/year at 3.5% withdrawal</div></div>';
     cardsHTML += '</div>';
     cardsHTML += '<div class="progress-wrap" style="border-top:0.5px solid '+s.border+';">';
     cardsHTML += '<div class="progress-label"><span>$0</span><span style="color:'+s.color+';font-weight:600;">'+pct+'% to '+fmt(threshold)+' target</span><span>'+fmt(threshold)+'</span></div>';
