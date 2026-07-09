@@ -55,7 +55,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
 <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
   <div><div style="font-size:20px;font-weight:700;">Retirement tracker</div><div style="font-size:13px;color:#666;margin-top:2px;">Nick 43 · Target: Nick 55 · Nov 2037 · 12 years away</div></div>
-  <span class="badge bg-green">3 actual data points</span>
+  <span class="badge bg-green">Invested balance · 3 data points</span>
 </div>
 
 <div class="grid-4">
@@ -124,9 +124,9 @@ var RETIRE_YEAR = 2026;
 var YEARS_TO_55 = 12;
 var WR = 0.035;
 
-var START = 3385000;
+var START = 3000000;
 var historicalLabels = ['Dec 2024\n(Nick 41)', 'Dec 2025\n(Nick 43)', 'Jul 2026\n(Nick 43)'];
-var historicalValues = [2611000, 3002000, 3385000];
+var historicalValues = [2100000, 2600000, 3000000];
 
 function fmt(n) {
   if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
@@ -267,17 +267,17 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB
 
     if(nw && prevDec && dec2025){
       START=invested;
-      historicalValues=[prevDec,dec2025,nw];
+      historicalValues=[2100000, 2600000, invested];
       historicalLabels=['Dec 2024\n(Nick 41)','Dec 2025\n(Nick 43)',nwDate+'\n(Nick 43)'];
 
       // Update metric cards
-      document.getElementById('m-2024').textContent='$'+(prevDec/1000000).toFixed(1)+'M';
-      document.getElementById('m-2025').textContent='$'+(dec2025/1000000).toFixed(1)+'M';
-      var gain2025=dec2025-prevDec;
-      document.getElementById('m-2025-sub').textContent='↑ $'+(gain2025/1000000).toFixed(1)+'M · +'+(gain2025/prevDec*100).toFixed(0)+'%';
+      document.getElementById('m-2024').textContent='$2.1M';
+      document.getElementById('m-2025').textContent='$2.6M';
+      var gain2025=2600000-2100000;
+      document.getElementById('m-2025-sub').textContent='↑ $0.5M · +24%';
       document.getElementById('m-now').textContent='$'+(nw/1000000).toFixed(1)+'M';
       document.getElementById('m-now-label').textContent=nwDate;
-      var gainYTD=nw-dec2025;
+      var gainYTD=invested-2600000;
       document.getElementById('m-now-sub').textContent='↑ $'+(gainYTD/1000000).toFixed(1)+'M YTD';
 
       // Update performance card
