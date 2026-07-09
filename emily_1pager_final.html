@@ -349,9 +349,6 @@ fetch(csvUrl('607695056')).then(function(r){return r.text();}).then(function(tex
   var sammiePct = Math.round(sammieProjected / SAMMIE_TARGET * 100);
   var evanPct = Math.round(evanProjected / EVAN_TARGET * 100);
 
-  var sammieGap = Math.max(0, SAMMIE_TARGET - sammieProjected);
-  var evanGap = Math.max(0, EVAN_TARGET - evanProjected);
-
   function fmtK(n){ if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'M'; if(n>=1000) return '$'+(n/1000).toFixed(0)+'K'; return '$0'; }
   function barColor(pct){ return pct>=90?'#639922':pct>=75?'#EF9F27':'#E24B4A'; }
   function statusBadge(pct){
@@ -360,9 +357,11 @@ fetch(csvUrl('607695056')).then(function(r){return r.text();}).then(function(tex
     return '<span class="badge bg-red">Behind</span>';
   }
 
-  function kidRow(label, starts, now529, nowUtma, nowTotal, projected, target, pct, gap, rate, years, contrib) {
-    var gapText = gap > 0 ? 'Projected gap: ' + fmtK(gap) : 'Fully funded ✓';
-    var gapColor = gap > 0 ? '#854F0B' : '#3B6D11';
+  function kidRow(label, starts, now529, nowUtma, nowTotal, projected, target, pct, rate, years, contrib) {
+    var overage = projected - target;
+    var gapText = overage >= 0 ? 'Overfunded by ' + fmtK(overage) + ' ✓' : 'Projected gap: ' + fmtK(Math.abs(overage));
+    var gapColor = overage >= 0 ? '#3B6D11' : '#854F0B';
+    var displayPct = Math.min(pct, 100);
     return '<div style="margin-bottom:16px;">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">' +
         '<span style="font-size:13px;font-weight:600;">' + label + ' — ' + starts + '</span>' +
@@ -376,18 +375,18 @@ fetch(csvUrl('607695056')).then(function(r){return r.text();}).then(function(tex
       '</div>' +
       '<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;">' +
         '<span style="color:#666;">Projected at start: <strong style="color:#1a1a18;">' + fmtK(projected) + '</strong></span>' +
-        '<span style="font-weight:600;color:#1a1a18;">' + pct + '% of ' + fmtK(target) + '</span>' +
+        '<span style="font-weight:600;color:#1a1a18;">' + displayPct + '% of ' + fmtK(target) + (pct>100?' ('+pct+'%)':'') + '</span>' +
       '</div>' +
       '<div style="height:8px;background:#f1efe8;border-radius:4px;overflow:hidden;margin-bottom:4px;">' +
-        '<div style="height:100%;width:' + Math.min(pct,100) + '%;background:' + barColor(pct) + ';border-radius:4px;"></div>' +
+        '<div style="height:100%;width:' + displayPct + '%;background:' + barColor(pct) + ';border-radius:4px;"></div>' +
       '</div>' +
       '<div style="font-size:11px;font-weight:600;color:' + gapColor + ';">' + gapText + '</div>' +
     '</div>';
   }
 
-  var html = kidRow('Sammie', 'Fall 2030', sammie529, sammieUtma, sammieNow, sammieProjected, SAMMIE_TARGET, sammiePct, sammieGap, SAMMIE_RATE, SAMMIE_YEARS, SAMMIE_CONTRIB);
+  var html = kidRow('Sammie', 'Fall 2030', sammie529, sammieUtma, sammieNow, sammieProjected, SAMMIE_TARGET, sammiePct, SAMMIE_RATE, SAMMIE_YEARS, SAMMIE_CONTRIB);
   html += '<div style="border-top:0.5px solid #e0e0d8;margin:4px 0 14px;"></div>';
-  html += kidRow('Evan', 'Fall 2033', evan529, evanUtma, evanNow, evanProjected, EVAN_TARGET, evanPct, evanGap, EVAN_RATE, EVAN_YEARS, EVAN_CONTRIB);
+  html += kidRow('Evan', 'Fall 2033', evan529, evanUtma, evanNow, evanProjected, EVAN_TARGET, evanPct, EVAN_RATE, EVAN_YEARS, EVAN_CONTRIB);
   html += '<div style="font-size:12px;color:#888;margin-top:6px;">Both done with college by 2037 — same year as retirement goal.</div>';
 
   var el=document.getElementById('ep-kids-tracker');
