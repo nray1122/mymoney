@@ -180,7 +180,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div class="fund-header"><span>Account / asset</span><span style="text-align:right;">Current</span><span style="text-align:right;">Target</span><span style="text-align:right;">Action</span></div>
     <div class="fund-row"><span>Nick Roth (···2134) — VTI</span><span style="text-align:right;">100%</span><span style="text-align:right;">100%</span><span style="text-align:right;"><span class="badge bg-green">✓ Done</span></span></div>
     <div class="fund-row"><span>Emily Roth (···2972) — VGSLX (REIT)</span><span style="text-align:right;">100%</span><span style="text-align:right;">100%</span><span style="text-align:right;"><span class="badge bg-green">✓ Done</span></span></div>
-    <div style="font-size:11px;color:#888;margin-top:8px;">Note: Emily's REIT contributes to overall real estate allocation — currently at 7% vs 5% target. Monitor at rebalance.</div>
+    <div style="font-size:11px;color:#888;margin-top:8px;">Note: Emily's VGSLX in Roth is intentional tax location — REIT dividends sheltered tax-free. Real estate target updated to 6.5% to reflect this. No action needed.</div>
   </div>
 
   <div class="card">
@@ -225,7 +225,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
     <div class="action-row">
       <div style="flex:1;">
         <div style="font-weight:700;font-size:13px;margin-bottom:3px;">Trim int'l, add to large cap</div>
-        <div style="font-size:12px;color:#666;line-height:1.6;">Int'l at 18.5% vs 17% target (+1.5%). Large cap at 37.3% vs 40% target (-2.7%). At rebalance trim VEA/VXUS in Vanguard brokerage, add to VTSAX. Check cost basis for tax-loss opportunities first.</div>
+        <div style="font-size:12px;color:#666;line-height:1.6;">Int'l at 18.8% vs 15% target (-3.8% — over threshold). Execute inside 401k — trim international index fund ~$114K, add to bonds ~$69K and large cap ~$42K. No tax consequence. Aligns with strong USD tactical tilt.</div>
       </div>
       <span class="badge bg-amber" style="margin-left:12px;flex-shrink:0;">July</span>
     </div>
@@ -269,28 +269,27 @@ var goalAlloc = {
   'Bonds':        14.0,
   'Mid cap':      10.0,
   'Small cap':     8.0,
-  'Real estate':   6.0,
-  'Gold/metals':   2.0,
-  'Crypto':        1.0,
-  'Cash/MM':       2.0
-};
-// Total: 100% ✓
-
-// YOUR ACTUAL CURRENT ALLOCATIONS from Empower Mar 2026
-var current = {
-  'Large cap':    37.3,
-  "Int'l stocks": 18.5,
-  'Bonds':        14.8,
-  'Mid cap':      11.6,
-  'Small cap':     9.0,
   'Real estate':   6.5,
   'Gold/metals':   0.0,
-  'Crypto':        0.5,
-  'Cash/MM':       1.7
+  'Crypto':        0.0,
+  'Cash/MM':       2.0
 };
-// Based on: $1,003K large cap / $498K int'l / $398K bonds / $313K mid / $241K small / $176K real estate / $14K crypto / $45K cash = $2,688K
+// Total: 100% — Gold/metals removed (skipping), Crypto set to 0% (holding FBTC but not targeting), Real estate 6.5% reflects intentional VGSLX position in Emily's Roth
 
-var PORTFOLIO = 2688000;
+// YOUR ACTUAL CURRENT ALLOCATIONS — July 2026
+var current = {
+  'Large cap':    38.6,
+  "Int'l stocks": 18.8,
+  'Bonds':        13.7,
+  'Mid cap':      11.0,
+  'Small cap':     8.6,
+  'Real estate':   6.6,
+  'Gold/metals':   0.0,
+  'Crypto':        0.4,
+  'Cash/MM':       2.2
+};
+
+var PORTFOLIO = 3000000;
 var THRESHOLD = 3.0;
 
 var colors = {
