@@ -385,7 +385,7 @@ fetch(csvUrl('607695056')).then(function(r){return r.text();}).then(function(tex
   html += '<div style="border-top:0.5px solid #e0e0d8;margin:4px 0 14px;"></div>';
   html += kidRow('Evan', 'Fall 2033', evan529, evanUtma, evanNow, evanProjected, EVAN_TARGET, evanPct, EVAN_RATE, EVAN_YEARS, EVAN_CONTRIB);
   html += '<div style="font-size:12px;color:#888;margin-top:6px;">Both done with college by 2037 — Evan finishes same year Nick retires.</div>';
-  html += '<div style="font-size:12px;color:#666;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;"><strong>529 glide path:</strong> Sammie 70/30 equity/bonds ✓ — shift to 60/40 July 2027. Evan 91/9 ✓ — stays aggressive until 2028. UTMA (both VTI) used as buffer first if markets are down at college start.</div>';
+  html += '<div style="font-size:12px;color:#666;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;"><strong>529 glide path:</strong> Sammie 529 currently 70/30 (77% blended with UTMA) — shift 529 to 60/40 July 2027, then ~10%/year. Evan 529 currently 90/10 (92% blended with UTMA) — start glide path July 2028. Both UTMAs stay in VTI.</div>';
 
   var el=document.getElementById('ep-kids-tracker');
   if(el) el.innerHTML=html;
