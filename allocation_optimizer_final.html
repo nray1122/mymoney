@@ -298,6 +298,7 @@ function renderOverview() {
   assets.forEach(function(asset) {
     var cur = current[asset];
     var tgt = targets[asset];
+    if (tgt === undefined || cur === undefined) return; // skip mismatched assets
     var drift = cur - tgt;
     var gapDollars = Math.round((drift / 100) * PORTFOLIO);
     var isMaterial = Math.abs(drift) >= THRESHOLD;
