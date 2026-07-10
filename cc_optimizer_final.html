@@ -61,7 +61,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div class="grid-3">
   <div class="metric"><div class="metric-label">Est. annual points value</div><div class="metric-value" id="total-pts">—</div><div class="metric-sub">At current spend</div></div>
   <div class="metric"><div class="metric-label">Cards active</div><div class="metric-value">6</div><div class="metric-sub">Platinum · Gold · Reserve · Unlimited · Freedom · Companion</div></div>
-  <div class="metric"><div class="metric-label">Q3 bonus categories</div><div class="metric-value" style="color:#534AB7;">5x</div><div class="metric-sub">Check Chase app — activate now</div></div>
+  <div class="metric"><div class="metric-label">Q3 bonus categories (5x)</div><div class="metric-value" style="font-size:13px;color:#534AB7;line-height:1.4;">Gas · EV charging · Transit · Live entertainment · United Way</div><div class="metric-sub">Activate at chase.com/freedom</div></div>
 </div>
 
 <div class="card">
@@ -89,100 +89,71 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
   <div class="spend-row"><span>Groceries</span><span style="text-align:right;" id="d-grocery">$15,000</span><span style="text-align:center;"><span class="card-chip amex">Amex Gold 4x</span></span><span style="text-align:right;color:#3B6D11;" id="v-grocery">—</span></div>
   <div class="spend-row"><span>Restaurants</span><span style="text-align:right;" id="d-dining">$10,000</span><span style="text-align:center;"><span class="card-chip amex">Amex Gold 4x</span></span><span style="text-align:right;color:#3B6D11;" id="v-dining">—</span></div>
   <div class="spend-row"><span>Cash hotels (FHR)</span><span style="text-align:right;" id="d-travel">$5,000</span><span style="text-align:center;"><span class="card-chip amex">Amex Platinum FHR</span></span><span style="text-align:right;color:#3B6D11;" id="v-travel">—</span></div>
-  <div class="spend-row"><span>Amazon</span><span style="text-align:right;" id="d-amazon">$8,400</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-amazon">—</span></div>
-  <div class="spend-row"><span>Costco</span><span style="text-align:right;" id="d-gas">$7,200</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited (Visa only)</span></span><span style="text-align:right;color:#3B6D11;" id="v-gas">—</span></div>
-  <div class="spend-row"><span>Home improvement</span><span style="text-align:right;" id="d-home">$30,000</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-home">—</span></div>
-  <div class="spend-row"><span>Charitable giving</span><span style="text-align:right;" id="d-charity">$600</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-charity">—</span></div>
-  <div class="spend-row"><span>Everything else</span><span style="text-align:right;" id="d-other">$20,000</span><span style="text-align:center;"><span class="card-chip chase-free">Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-other">—</span></div>
+  <div class="spend-row"><span>Amazon</span><span style="text-align:right;" id="d-amazon">$8,400</span><span style="text-align:center;"><span class="card-chip chase-free">Chase Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-amazon">—</span></div>
+  <div class="spend-row"><span>Costco</span><span style="text-align:right;" id="d-gas">$7,200</span><span style="text-align:center;"><span class="card-chip chase-free">Chase Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-gas">—</span></div>
+  <div class="spend-row"><span>Home improvement</span><span style="text-align:right;" id="d-home">$30,000</span><span style="text-align:center;"><span class="card-chip chase-free">Chase Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-home">—</span></div>
+  <div class="spend-row"><span>Charitable giving</span><span style="text-align:right;" id="d-charity">$600</span><span style="text-align:center;"><span class="card-chip chase-free">Chase Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-charity">—</span></div>
+  <div class="spend-row"><span>Everything else</span><span style="text-align:right;" id="d-other">$20,000</span><span style="text-align:center;"><span class="card-chip chase-free">Chase Unlimited 1.5x</span></span><span style="text-align:right;color:#3B6D11;" id="v-other">—</span></div>
   <div class="spend-row" style="border-top:0.5px solid #e0e0d8;margin-top:4px;padding-top:10px;"><span style="font-weight:700;">Total estimated value</span><span></span><span></span><span style="text-align:right;font-weight:700;color:#3B6D11;font-size:14px;" id="v-total">—</span></div>
 </div>
 
 <div class="card">
-  <div class="section-label">Chase Freedom — quarterly rotation (5x) · activate each quarter</div>
-  <div style="font-size:12px;color:#888;margin-bottom:10px;">Activate at chase.com/freedom each quarter — easy to forget and costs you 4x if missed.</div>
-  <div class="rot-grid">
-    <div class="rot-card">
-      <div class="rot-quarter">Q1 · Jan-Mar</div>
-      <div class="rot-cats">[Check Chase app<br>for Q1 categories]</div>
-    </div>
-    <div class="rot-card">
-      <div class="rot-quarter">Q2 · Apr-Jun</div>
-      <div class="rot-cats">Amazon.com<br>Chase Travel℠<br>Feeding America®</div>
-    </div>
-    <div class="rot-card" style="border:2px solid #534AB7;background:#FAFAFF;">
-      <div class="rot-quarter" style="color:#534AB7;">Q3 · Jul-Sep ← NOW</div>
-      <div class="rot-cats">Gas stations<br>EV charging<br>Public transit<br>Live entertainment<br>United Way donations</div>
-    </div>
-    <div class="rot-card">
-      <div class="rot-quarter">Q4 · Oct-Dec</div>
-      <div class="rot-cats">[Chase announces<br>~Sept — check app]</div>
-    </div>
-  </div>
-  <div style="font-size:11px;color:#888;margin-top:10px;">⚠ Q1/Q3/Q4 categories left blank — update each quarter when Chase announces. Check chase.com/freedom or the Chase app.</div>
-</div>
-
-<div class="card">
   <div class="section-label">Card quick reference — July 2026</div>
-  <div class="row"><span style="font-weight:700;color:#185FA5;">Emily — Amex Platinum</span><span style="font-size:12px;">5x flights · FHR hotels · Centurion Lounge · $929 credits · $895 AF</span></div>
-  <div class="row"><span style="font-weight:700;color:#185FA5;">Emily — Amex Gold</span><span style="font-size:12px;">4x dining + grocery · $120 dining credit · $120 Uber Cash · $250 AF</span></div>
-  <div class="row"><span style="font-weight:700;color:#854F0B;">Emily — Freedom Unlimited</span><span style="font-size:12px;">1.5x everything · Costco + Amazon · No AF · Emily's catch-all</span></div>
-  <div class="row"><span style="font-weight:700;color:#3B6D11;">Nick — Chase Sapphire Reserve</span><span style="font-size:12px;">Hyatt transfer 1:1 · $300 travel · $300 DoorDash · $500 Edit · $795 AF</span></div>
-  <div class="row"><span style="font-weight:700;color:#534AB7;">Nick — Chase Freedom</span><span style="font-size:12px;">5x quarterly rotating · No AF · Must activate each quarter</span></div>
-  <div class="row"><span style="font-weight:700;color:#534AB7;">Nick — AU on Emily's Gold</span><span style="font-size:12px;">4x dining + grocery when Nick pays · $35 AF</span></div>
-  <div class="row"><span style="font-weight:700;color:#185FA5;">Nick — Companion Platinum</span><span style="font-size:12px;">Helps hit $12K spend bonus · TSA/Global Entry credit · No lounge · $0 AF</span></div>
+  <div style="display:grid;grid-template-columns:1.3fr 1.1fr 1.8fr 55px;gap:8px;padding:0 0 6px;border-bottom:0.5px solid #e0e0d8;font-size:10px;color:#888;letter-spacing:0.06em;text-transform:uppercase;">
+    <span>Card</span><span>Best for</span><span>Benefits summary</span><span style="text-align:right;">Annual fee</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1.3fr 1.1fr 1.8fr 55px;gap:8px;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;align-items:center;">
+    <span style="font-weight:700;color:#185FA5;">Emily · Amex Platinum</span>
+    <span style="color:#666;">Flights · cash hotels</span>
+    <span style="color:#666;">5x flights · FHR · Centurion Lounge · $929 credits</span>
+    <span style="text-align:right;color:#666;">$895</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1.3fr 1.1fr 1.8fr 55px;gap:8px;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;align-items:center;">
+    <span style="font-weight:700;color:#185FA5;">Emily · Amex Gold</span>
+    <span style="color:#666;">Dining · groceries</span>
+    <span style="color:#666;">4x dining + grocery · $120 dining + $120 Uber credits</span>
+    <span style="text-align:right;color:#666;">$250</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1.3fr 1.1fr 1.8fr 55px;gap:8px;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;align-items:center;">
+    <span style="font-weight:700;color:#854F0B;">Emily · Chase Freedom Unlimited</span>
+    <span style="color:#666;">Costco · Amazon · other</span>
+    <span style="color:#666;">1.5x everything · catch-all</span>
+    <span style="text-align:right;color:#666;">$0</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1.3fr 1.1fr 1.8fr 55px;gap:8px;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;align-items:center;">
+    <span style="font-weight:700;color:#3B6D11;">Nick · Chase Sapphire Reserve</span>
+    <span style="color:#666;">Hyatt transfers</span>
+    <span style="color:#666;">Hyatt 1:1 · $300 travel · $300 DoorDash · $500 Edit</span>
+    <span style="text-align:right;color:#666;">$795</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1.3fr 1.1fr 1.8fr 55px;gap:8px;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;align-items:center;">
+    <span style="font-weight:700;color:#534AB7;">Nick · Chase Freedom</span>
+    <span style="color:#666;">Q3 5x categories</span>
+    <span style="color:#666;">5x rotating quarterly · Activate each Q</span>
+    <span style="text-align:right;color:#666;">$0</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1.3fr 1.1fr 1.8fr 55px;gap:8px;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;align-items:center;">
+    <span style="font-weight:700;color:#534AB7;">Nick · AU on Emily's Gold</span>
+    <span style="color:#666;">Dining · groceries</span>
+    <span style="color:#666;">4x dining + grocery when Nick pays</span>
+    <span style="text-align:right;color:#666;">$35</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1.3fr 1.1fr 1.8fr 55px;gap:8px;padding:8px 0;font-size:12px;align-items:center;">
+    <span style="font-weight:700;color:#185FA5;">Nick · Companion Platinum</span>
+    <span style="color:#666;">Hitting Platinum bonus</span>
+    <span style="color:#666;">TSA/GE credit · No lounge</span>
+    <span style="text-align:right;color:#666;">$0</span>
+  </div>
   <div class="divider"></div>
-  <div class="row"><span style="color:#666;">Points redemption tip</span><span style="font-size:12px;">Chase → Hyatt for Tokyo/Bali/Portugal hotels · Amex → ANA via Virgin Atlantic for business class Asia</span></div>
-  <div class="row"><span style="color:#666;">Annual fee total</span><span style="font-size:12px;">$1,975/yr · Credits worth $2,899/yr · Net +$924 before points</span></div>
-  <div class="row"><span style="color:#666;">⚠️ Platinum spend bonus</span><span style="font-size:12px;">Hit $12,000 in 6 months → unlock 175,000 Amex points · Put everything on Platinum until hit</span></div>
+  <div style="font-size:12px;color:#666;line-height:1.6;"><strong>Points redemption:</strong> Chase → Hyatt for Tokyo/Bali/Portugal hotels. Amex → ANA via Virgin Atlantic for business class Asia.</div>
 </div>
 
 <div class="card">
-  <div class="section-label">Card setup — current as of July 2026</div>
-  <div style="font-size:12px;color:#888;margin-bottom:12px;">Emily got Amex Platinum — 175,000 point bonus active. Hit $12K spend to unlock.</div>
-
-  <div class="rec-row">
-    <div class="rec-dot" style="background:#639922;"></div>
-    <div><div style="font-weight:700;margin-bottom:2px;">Emily — Amex Platinum ✓ NEW <span class="badge bg-green" style="margin-left:6px;">Active</span></div>
-    <div style="font-size:12px;color:#666;">175,000 point bonus pending — hit $12K in 6 months. $929 in annual credits nearly covers $895 fee. Centurion Lounge for both. 5x on flights. FHR on cash hotel bookings. Best card addition to the setup.</div></div>
-  </div>
-
-  <div class="rec-row">
-    <div class="rec-dot" style="background:#639922;"></div>
-    <div><div style="font-weight:700;margin-bottom:2px;">Emily — Amex Gold <span class="badge bg-green" style="margin-left:6px;">Keep</span></div>
-    <div style="font-size:12px;color:#666;">4x dining + groceries. $120 dining + $120 Uber credits offset most of $250 AF. Net cost ~$10/yr. Essential for food spend.</div></div>
-  </div>
-
-  <div class="rec-row">
-    <div class="rec-dot" style="background:#639922;"></div>
-    <div><div style="font-weight:700;margin-bottom:2px;">Nick — Chase Sapphire Reserve <span class="badge bg-green" style="margin-left:6px;">Keep</span></div>
-    <div style="font-size:12px;color:#666;">Essential for Chase → Hyatt transfers for Portugal + Tokyo + Bali hotels. $300 travel + $300 DoorDash + $500 Edit + $250 Apple TV+ credits more than cover the $795 AF.</div></div>
-  </div>
-
-  <div class="rec-row">
-    <div class="rec-dot" style="background:#639922;"></div>
-    <div><div style="font-weight:700;margin-bottom:2px;">Emily — Freedom Unlimited <span class="badge bg-green" style="margin-left:6px;">Keep</span></div>
-    <div style="font-size:12px;color:#666;">No AF. 1.5x on everything — Costco, Amazon, catch-all. Earns Chase points that pool with CSR for Hyatt transfers. Free to hold.</div></div>
-  </div>
-
-  <div class="rec-row">
-    <div class="rec-dot" style="background:#639922;"></div>
-    <div><div style="font-weight:700;margin-bottom:2px;">Nick — Chase Freedom <span class="badge bg-green" style="margin-left:6px;">Keep</span></div>
-    <div style="font-size:12px;color:#666;">No AF. 5x rotating — activate Q3 now. Free money every quarter.</div></div>
-  </div>
-
-  <div class="divider"></div>
-  <div style="font-size:11px;color:#888;margin-bottom:10px;">Watch list</div>
-
+  <div class="section-label">Watch list</div>
   <div class="rec-row">
     <div class="rec-dot" style="background:#EF9F27;"></div>
     <div><div style="font-weight:700;margin-bottom:2px;">Nick — Amex Gold <span class="badge bg-amber" style="margin-left:6px;">When offer appears</span></div>
     <div style="font-size:12px;color:#666;">Wait for 75,000+ point bonus offer. Check doctorofcredit.com weekly. Don't apply without strong bonus. Will give Nick his own Amex ecosystem and dining/grocery points independently.</div></div>
-  </div>
-
-  <div class="rec-row">
-    <div class="rec-dot" style="background:#EF9F27;"></div>
-    <div><div style="font-weight:700;margin-bottom:2px;">Centurion Lounge guest fee <span class="badge bg-amber" style="margin-left:6px;">Decision needed</span></div>
-    <div style="font-size:12px;color:#666;">Guests now $50/visit unless $75K annual spend on Platinum. At 7-8 flights/year together = $350-400/year in guest fees. vs $195/year for Nick's own paid AU card with unlimited access. Consider if flying together often.</div></div>
   </div>
 </div>
 </div>
