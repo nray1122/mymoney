@@ -200,16 +200,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <script>
 // YOUR ACTUAL GOAL ALLOCATIONS from Empower — sum to 100%
 var goalAlloc = {
-  'Large cap':    40.0,
+  'Large cap':    41.5,
   "Int'l stocks": 17.0,
   'Bonds':        14.0,
-  'Mid cap':      10.0,
+  'Mid cap':      11.0,
   'Small cap':     8.0,
   'Real estate':   6.5,
   'Crypto':        0.0,
   'Cash/MM':       2.0
 };
-// Total: 100% — Gold/metals removed (skipping), Crypto set to 0% (holding FBTC but not targeting), Real estate 6.5% reflects intentional VGSLX position in Emily's Roth
+// Total: 100% ✓
 
 // YOUR ACTUAL CURRENT ALLOCATIONS — July 2026
 var current = {
@@ -254,15 +254,15 @@ function computeTargets() {
   }
 
   if (g === 'recession') {
-    adj['Bonds'] += 2; adj['Cash/MM'] += 1; adj['Gold/metals'] += 1;
-    adj['Mid cap'] -= 2; adj['Small cap'] -= 1; adj['Large cap'] -= 1;
+    adj['Bonds'] += 2; adj['Cash/MM'] += 1;
+    adj['Mid cap'] -= 2; adj['Small cap'] -= 1;
   } else if (g === 'strong') {
     adj['Large cap'] += 2; adj['Mid cap'] += 1;
     adj['Bonds'] -= 2; adj['Cash/MM'] -= 1;
   }
 
   if (fx === 'weak-usd') {
-    adj["Int'l stocks"] += 2; adj['Large cap'] -= 1; adj['Gold/metals'] += 1;
+    adj["Int'l stocks"] += 2; adj['Large cap'] -= 2;
   } else if (fx === 'strong-usd') {
     adj["Int'l stocks"] -= 2; adj['Large cap'] += 2;
   }
@@ -370,9 +370,6 @@ function setMarket(type, val, el) {
   document.querySelectorAll('[id^="' + prefix + '"]').forEach(function(e){ e.classList.remove('selected'); });
   el.classList.add('selected');
   marketState[type] = val;
-  console.log('setMarket:', type, val, 'state:', JSON.stringify(marketState));
-  var t = computeTargets();
-  console.log('New Int\'l target:', t["Int'l stocks"], 'Large cap:', t['Large cap']);
   renderOverview();
   renderMarket();
 }
