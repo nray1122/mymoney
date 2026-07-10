@@ -367,9 +367,12 @@ function renderMarket() {
 
 function setMarket(type, val, el) {
   var prefix = type + '-';
-  document.querySelectorAll('[id^="' + prefix + '"]').forEach(e => e.classList.remove('selected'));
+  document.querySelectorAll('[id^="' + prefix + '"]').forEach(function(e){ e.classList.remove('selected'); });
   el.classList.add('selected');
   marketState[type] = val;
+  console.log('setMarket:', type, val, 'state:', JSON.stringify(marketState));
+  var t = computeTargets();
+  console.log('New Int\'l target:', t["Int'l stocks"], 'Large cap:', t['Large cap']);
   renderOverview();
   renderMarket();
 }
