@@ -50,114 +50,114 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <a href="index.html" class="back-btn">← Back to MyMoney</a>
 <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
 <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px;">
-  <div><div style="font-size:20px;font-weight:700;">Allocation optimizer</div><div style="font-size:13px;color:#666;margin-top:2px;">Biannual review · Investment accounts only · <span id="ao-updated-date">Jul 2026</span></div></div>
-  <span class="badge bg-amber" id="ao-updated-badge">Jul 2026</span>
+ <div><div style="font-size:20px;font-weight:700;">Allocation Optimizer</div><div style="font-size:13px;color:#666;margin-top:2px;">Biannual review · Investment accounts only · <span id="ao-updated-date">Jul 2026</span></div></div>
+ <span class="badge bg-amber" id="ao-updated-badge">Jul 2026</span>
 </div>
 
 <div class="tab-bar">
-  <button class="tab-btn active" onclick="showTab('overview')">Portfolio overview</button>
-  <button class="tab-btn" onclick="showTab('market')">Market conditions</button>
-  <button class="tab-btn" onclick="showTab('retvsbrok')">Tax location</button>
+ <button class="tab-btn active" onclick="showTab('overview')">Portfolio overview</button>
+ <button class="tab-btn" onclick="showTab('market')">Market conditions</button>
+ <button class="tab-btn" onclick="showTab('retvsbrok')">Tax location</button>
 
 </div>
 
 <!-- TAB 1: PORTFOLIO OVERVIEW -->
 <div id="tab-overview" class="panel active">
-  <div class="grid-4">
-    <div class="metric"><div class="metric-label">Total invested</div><div class="metric-value" id="ao-total">$2.7M</div><div class="metric-sub" id="ao-total-sub">Per Empower Apr 2026</div></div>
-    <div class="metric"><div class="metric-label">Retirement (401k+Roth)</div><div class="metric-value" id="ao-retirement">$1.6M</div><div class="metric-sub" id="ao-retire-sub">58% of portfolio</div></div>
-    <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value" id="ao-taxable">$928K</div><div class="metric-sub" id="ao-taxable-sub">35% of portfolio</div></div>
-    <div class="metric"><div class="metric-label">Drift threshold</div><div class="metric-value">±3%</div><div class="metric-sub" id="ao-drift-sub">~$81K at current size</div></div>
-  </div>
+ <div class="grid-4">
+ <div class="metric"><div class="metric-label">Total invested</div><div class="metric-value" id="ao-total">$2.7M</div><div class="metric-sub" id="ao-total-sub">Per Empower Apr 2026</div></div>
+ <div class="metric"><div class="metric-label">Retirement (401k+Roth)</div><div class="metric-value" id="ao-retirement">$1.6M</div><div class="metric-sub" id="ao-retire-sub">58% of portfolio</div></div>
+ <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value" id="ao-taxable">$928K</div><div class="metric-sub" id="ao-taxable-sub">35% of portfolio</div></div>
+ <div class="metric"><div class="metric-label">Drift threshold</div><div class="metric-value">±3%</div><div class="metric-sub" id="ao-drift-sub">~$81K at current size</div></div>
+ </div>
 
-  <div class="card">
-    <div class="section-label">Current vs target allocation</div>
-    <div style="font-size:11px;color:#888;margin-bottom:12px;">Current Allocation (via Empower) vs Target Allocation based on current market conditions. Flags at 3% drift.</div>
-    <div id="overview-table"></div>
-    <div id="overview-flags" style="font-size:11px;margin-top:12px;padding-top:10px;border-top:0.5px solid #e0e0d8;"></div>
-  </div>
+ <div class="card">
+ <div class="section-label">Current vs target allocation</div>
+ <div style="font-size:11px;color:#888;margin-bottom:12px;">Current Allocation (via Empower) vs Target Allocation based on current market conditions. Flags at 3% drift.</div>
+ <div id="overview-table"></div>
+ <div id="overview-flags" style="font-size:11px;margin-top:12px;padding-top:10px;border-top:0.5px solid #e0e0d8;"></div>
+ </div>
 </div>
 
 <!-- TAB 2: MARKET CONDITIONS -->
 <div id="tab-market" class="panel">
-  <div class="card" style="margin-bottom:14px;">
-    <div class="section-label">Current market environment — update quarterly</div>
-    <div style="font-size:12px;color:#666;margin-bottom:14px;">Selections apply tactical tilts to your goal allocation. Defaults reflect <span id="ao-defaults-date">Jul 2026</span> view.</div>
+ <div class="card" style="margin-bottom:14px;">
+ <div class="section-label">Current market environment — update quarterly</div>
+ <div style="font-size:12px;color:#666;margin-bottom:14px;">Selections apply tactical tilts to your goal allocation. Defaults reflect <span id="ao-defaults-date">Jul 2026</span> view.</div>
 
-    <div style="margin-bottom:16px;">
-      <div class="section-label" style="margin-bottom:8px;">Interest rate environment</div>
-      <div class="market-grid">
-        <div class="market-card" id="rate-high" onclick="setMarket('rate','high',this)"><div class="market-card-title">High & rising</div><div class="market-card-sub">Favors bonds, value, cash</div></div>
-        <div class="market-card selected" id="rate-high-falling" onclick="setMarket('rate','high-falling',this)"><div class="market-card-title">High & falling</div><div class="market-card-sub">Favors bonds, mid/small, REIT</div></div>
-        <div class="market-card" id="rate-low" onclick="setMarket('rate','low',this)"><div class="market-card-title">Low & stable</div><div class="market-card-sub">Favors growth, large cap</div></div>
-      </div>
-    </div>
+ <div style="margin-bottom:16px;">
+ <div class="section-label" style="margin-bottom:8px;">Interest rate environment</div>
+ <div class="market-grid">
+ <div class="market-card" id="rate-high" onclick="setMarket('rate','high',this)"><div class="market-card-title">High & rising</div><div class="market-card-sub">Favors bonds, value, cash</div></div>
+ <div class="market-card selected" id="rate-high-falling" onclick="setMarket('rate','high-falling',this)"><div class="market-card-title">High & falling</div><div class="market-card-sub">Favors bonds, mid/small, REIT</div></div>
+ <div class="market-card" id="rate-low" onclick="setMarket('rate','low',this)"><div class="market-card-title">Low & stable</div><div class="market-card-sub">Favors growth, large cap</div></div>
+ </div>
+ </div>
 
-    <div style="margin-bottom:16px;">
-      <div class="section-label" style="margin-bottom:8px;">Growth outlook</div>
-      <div class="market-grid">
-        <div class="market-card" id="growth-strong" onclick="setMarket('growth','strong',this)"><div class="market-card-title">Strong growth</div><div class="market-card-sub">Favor equities, reduce bonds</div></div>
-        <div class="market-card selected" id="growth-moderate" onclick="setMarket('growth','moderate',this)"><div class="market-card-title">Moderate growth</div><div class="market-card-sub">Balanced approach</div></div>
-        <div class="market-card" id="growth-recession" onclick="setMarket('growth','recession',this)"><div class="market-card-title">Recession risk</div><div class="market-card-sub">Increase bonds, cash, defensives</div></div>
-      </div>
-    </div>
+ <div style="margin-bottom:16px;">
+ <div class="section-label" style="margin-bottom:8px;">Growth outlook</div>
+ <div class="market-grid">
+ <div class="market-card" id="growth-strong" onclick="setMarket('growth','strong',this)"><div class="market-card-title">Strong growth</div><div class="market-card-sub">Favor equities, reduce bonds</div></div>
+ <div class="market-card selected" id="growth-moderate" onclick="setMarket('growth','moderate',this)"><div class="market-card-title">Moderate growth</div><div class="market-card-sub">Balanced approach</div></div>
+ <div class="market-card" id="growth-recession" onclick="setMarket('growth','recession',this)"><div class="market-card-title">Recession risk</div><div class="market-card-sub">Increase bonds, cash, defensives</div></div>
+ </div>
+ </div>
 
-    <div>
-      <div class="section-label" style="margin-bottom:8px;">USD / international outlook</div>
-      <div class="market-grid">
-        <div class="market-card selected" id="fx-strong-usd" onclick="setMarket('fx','strong-usd',this)"><div class="market-card-title">Strong USD</div><div class="market-card-sub">Reduce int'l allocation</div></div>
-        <div class="market-card" id="fx-neutral" onclick="setMarket('fx','neutral',this)"><div class="market-card-title">Neutral</div><div class="market-card-sub">Hold int'l at target</div></div>
-        <div class="market-card" id="fx-weak-usd" onclick="setMarket('fx','weak-usd',this)"><div class="market-card-title">Weak USD</div><div class="market-card-sub">Increase int'l, favor gold</div></div>
-      </div>
-    </div>
-  </div>
+ <div>
+ <div class="section-label" style="margin-bottom:8px;">USD / international outlook</div>
+ <div class="market-grid">
+ <div class="market-card selected" id="fx-strong-usd" onclick="setMarket('fx','strong-usd',this)"><div class="market-card-title">Strong USD</div><div class="market-card-sub">Reduce int'l allocation</div></div>
+ <div class="market-card" id="fx-neutral" onclick="setMarket('fx','neutral',this)"><div class="market-card-title">Neutral</div><div class="market-card-sub">Hold int'l at target</div></div>
+ <div class="market-card" id="fx-weak-usd" onclick="setMarket('fx','weak-usd',this)"><div class="market-card-title">Weak USD</div><div class="market-card-sub">Increase int'l, favor gold</div></div>
+ </div>
+ </div>
+ </div>
 
-  <div class="card">
-    <div class="section-label">Adjusted target allocations — sum to 100%</div>
-    <div style="font-size:11px;color:#666;margin-bottom:10px;">Goal allocation + market tilts. These are your active targets and flow into Portfolio Overview.</div>
-    <div id="market-table"></div>
-    <div id="market-total" style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;"></div>
-  </div>
+ <div class="card">
+ <div class="section-label">Adjusted target allocations — sum to 100%</div>
+ <div style="font-size:11px;color:#666;margin-bottom:10px;">Goal allocation + market tilts. These are your active targets and flow into Portfolio Overview.</div>
+ <div id="market-table"></div>
+ <div id="market-total" style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;"></div>
+ </div>
 </div>
 
 <!-- TAB 3: TAX LOCATION -->
 <div id="tab-retvsbrok" class="panel">
-  <div class="grid-3" style="margin-bottom:14px;">
-    <div class="metric"><div class="metric-label">401k (Nick + Emily)</div><div class="metric-value">$1.6M</div><div class="metric-sub">Pretax + Roth</div></div>
-    <div class="metric"><div class="metric-label">Roth IRAs</div><div class="metric-value" id="ao-roth">—</div><div class="metric-sub">Nick VTI · Emily VGSLX</div></div>
-    <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value">$928K</div><div class="metric-sub">Vanguard joint accounts</div></div>
-  </div>
+ <div class="grid-3" style="margin-bottom:14px;">
+ <div class="metric"><div class="metric-label">401k (Nick + Emily)</div><div class="metric-value">$1.6M</div><div class="metric-sub">Pretax + Roth</div></div>
+ <div class="metric"><div class="metric-label">Roth IRAs</div><div class="metric-value" id="ao-roth">—</div><div class="metric-sub">Nick VTI · Emily VGSLX</div></div>
+ <div class="metric"><div class="metric-label">Taxable brokerage</div><div class="metric-value">$928K</div><div class="metric-sub">Vanguard joint accounts</div></div>
+ </div>
 
-  <div class="card" style="margin-bottom:12px;">
-    <div class="section-label">Ideal asset location — three bucket strategy</div>
-    <div style="font-size:12px;color:#666;margin-bottom:14px;">Match each asset to the account where its tax characteristics are least penalized. Reference only.</div>
-    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;">
-      <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
-        <div style="font-size:11px;font-weight:700;color:#185FA5;margin-bottom:6px;">PRETAX 401K</div>
-        <div style="font-size:12px;line-height:1.9;color:#666;">Bonds<br>Total bond index<br>TIPS<br>High-yield / dividends</div>
-        <div style="font-size:11px;color:#888;margin-top:8px;padding-top:8px;border-top:0.5px solid #e0e0d8;">Interest taxed as ordinary income — hide here to defer 32%+ tax hit</div>
-      </div>
-      <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
-        <div style="font-size:11px;font-weight:700;color:#3B6D11;margin-bottom:6px;">ROTH</div>
-        <div style="font-size:12px;line-height:1.9;color:#666;">Highest growth assets<br>Total market (VTI)<br>Small cap growth<br>REITs (dividends tax-free)</div>
-        <div style="font-size:11px;color:#888;margin-top:8px;padding-top:8px;border-top:0.5px solid #e0e0d8;">Tax-free forever — put your best compounders here</div>
-      </div>
-      <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
-        <div style="font-size:11px;font-weight:700;color:#854F0B;margin-bottom:6px;">TAXABLE BROKERAGE</div>
-        <div style="font-size:12px;line-height:1.9;color:#666;">Total market index (VTSAX)<br>Int'l index (foreign tax credit)<br>Individual stocks (timing control)<br>Municipal bonds</div>
-        <div style="font-size:11px;color:#888;margin-top:8px;padding-top:8px;border-top:0.5px solid #e0e0d8;">Long-term cap gains rate (15%) — tax-efficient assets only</div>
-      </div>
-    </div>
-  </div>
+ <div class="card" style="margin-bottom:12px;">
+ <div class="section-label">Ideal asset location — three bucket strategy</div>
+ <div style="font-size:12px;color:#666;margin-bottom:14px;">Match each asset to the account where its tax characteristics are least penalized. Reference only.</div>
+ <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;">
+ <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
+ <div style="font-size:11px;font-weight:700;color:#185FA5;margin-bottom:6px;">PRETAX 401K</div>
+ <div style="font-size:12px;line-height:1.9;color:#666;">Bonds<br>Total bond index<br>TIPS<br>High-yield / dividends</div>
+ <div style="font-size:11px;color:#888;margin-top:8px;padding-top:8px;border-top:0.5px solid #e0e0d8;">Interest taxed as ordinary income — hide here to defer 32%+ tax hit</div>
+ </div>
+ <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
+ <div style="font-size:11px;font-weight:700;color:#3B6D11;margin-bottom:6px;">ROTH</div>
+ <div style="font-size:12px;line-height:1.9;color:#666;">Highest growth assets<br>Total market (VTI)<br>Small cap growth<br>REITs (dividends tax-free)</div>
+ <div style="font-size:11px;color:#888;margin-top:8px;padding-top:8px;border-top:0.5px solid #e0e0d8;">Tax-free forever — put your best compounders here</div>
+ </div>
+ <div style="border:0.5px solid #e0e0d8;border-radius:8px;padding:10px 12px;">
+ <div style="font-size:11px;font-weight:700;color:#854F0B;margin-bottom:6px;">TAXABLE BROKERAGE</div>
+ <div style="font-size:12px;line-height:1.9;color:#666;">Total market index (VTSAX)<br>Int'l index (foreign tax credit)<br>Individual stocks (timing control)<br>Municipal bonds</div>
+ <div style="font-size:11px;color:#888;margin-top:8px;padding-top:8px;border-top:0.5px solid #e0e0d8;">Long-term cap gains rate (15%) — tax-efficient assets only</div>
+ </div>
+ </div>
+ </div>
 
-  <div class="card">
-    <div class="section-label">Current setup — reference</div>
-    <div class="row"><span style="color:#666;">Nick Roth (···2134)</span><span style="font-weight:700;">100% VTI</span></div>
-    <div class="row"><span style="color:#666;">Emily Roth (···2972)</span><span style="font-weight:700;">100% VGSLX (REIT)</span></div>
-    <div class="row"><span style="color:#666;">Nick 401k / BrokerageLink</span><span style="font-weight:700;">Bonds · Int'l · Large cap</span></div>
-    <div class="row"><span style="color:#666;">Emily 401k</span><span style="font-weight:700;">Bonds · Mid · Small · Large</span></div>
-    <div class="row"><span style="color:#666;">Taxable brokerage</span><span style="font-weight:700;">VTSAX · Individual stocks</span></div>
-  </div>
+ <div class="card">
+ <div class="section-label">Current setup — reference</div>
+ <div class="row"><span style="color:#666;">Nick Roth (···2134)</span><span style="font-weight:700;">100% VTI</span></div>
+ <div class="row"><span style="color:#666;">Emily Roth (···2972)</span><span style="font-weight:700;">100% VGSLX (REIT)</span></div>
+ <div class="row"><span style="color:#666;">Nick 401k / BrokerageLink</span><span style="font-weight:700;">Bonds · Int'l · Large cap</span></div>
+ <div class="row"><span style="color:#666;">Emily 401k</span><span style="font-weight:700;">Bonds · Mid · Small · Large</span></div>
+ <div class="row"><span style="color:#666;">Taxable brokerage</span><span style="font-weight:700;">VTSAX · Individual stocks</span></div>
+ </div>
 </div>
 
 
@@ -167,187 +167,187 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <script>
 // YOUR ACTUAL GOAL ALLOCATIONS from Empower — sum to 100%
 var goalAlloc = {
-  'Large cap':    41.5,
-  "Int'l stocks": 17.0,
-  'Bonds':        14.0,
-  'Mid cap':      11.0,
-  'Small cap':     8.0,
-  'Real estate':   6.5,
-  'Crypto':        0.0,
-  'Cash/MM':       2.0
+ 'Large cap': 41.5,
+ "Int'l stocks": 17.0,
+ 'Bonds': 14.0,
+ 'Mid cap': 11.0,
+ 'Small cap': 8.0,
+ 'Real estate': 6.5,
+ 'Crypto': 0.0,
+ 'Cash/MM': 2.0
 };
 // Total: 100% ✓
 
-// YOUR ACTUAL CURRENT ALLOCATIONS — July 2026
+// YOUR ACTUAL CURRENT ALLOCATIONS — Jul 2026
 var current = {
-  'Large cap':    38.6,
-  "Int'l stocks": 18.8,
-  'Bonds':        13.7,
-  'Mid cap':      11.0,
-  'Small cap':     8.6,
-  'Real estate':   6.6,
-  'Crypto':        0.4,
-  'Cash/MM':       2.2
+ 'Large cap': 38.6,
+ "Int'l stocks": 18.8,
+ 'Bonds': 13.7,
+ 'Mid cap': 11.0,
+ 'Small cap': 8.6,
+ 'Real estate': 6.6,
+ 'Crypto': 0.4,
+ 'Cash/MM': 2.2
 };
 
 var PORTFOLIO = 3000000;
 var THRESHOLD = 3.0;
 
 var colors = {
-  'Large cap':'#378ADD',"Int'l stocks":'#1D9E75','Bonds':'#BA7517',
-  'Mid cap':'#EF9F27','Small cap':'#7F77DD','Real estate':'#D85A30',
-  'Crypto':'#534AB7','Cash/MM':'#888'
+ 'Large cap':'#378ADD',"Int'l stocks":'#1D9E75','Bonds':'#BA7517',
+ 'Mid cap':'#EF9F27','Small cap':'#7F77DD','Real estate':'#D85A30',
+ 'Crypto':'#534AB7','Cash/MM':'#888'
 };
 
 var marketState = {rate:'high-falling', growth:'moderate', fx:'strong-usd'};
 
 function computeTargets() {
-  // Start from your goal allocation
-  var adj = {};
-  Object.keys(goalAlloc).forEach(k => adj[k] = goalAlloc[k]);
+ // Start from your goal allocation
+ var adj = {};
+ Object.keys(goalAlloc).forEach(k => adj[k] = goalAlloc[k]);
 
-  var r = marketState.rate, g = marketState.growth, fx = marketState.fx;
+ var r = marketState.rate, g = marketState.growth, fx = marketState.fx;
 
-  // Apply market tilts (max ±2% per asset to stay close to your goals)
-  if (r === 'high-falling') {
-    adj['Bonds'] += 2; adj['Mid cap'] += 1; adj['Small cap'] += 1;
-    adj['Large cap'] -= 2; adj['Cash/MM'] -= 1; adj['Real estate'] -= 1;
-  } else if (r === 'high') {
-    adj['Bonds'] += 2; adj['Cash/MM'] += 2;
-    adj['Small cap'] -= 2; adj['Mid cap'] -= 1; adj['Real estate'] -= 1;
-  } else {
-    adj['Large cap'] += 2; adj['Real estate'] += 1;
-    adj['Bonds'] -= 2; adj['Cash/MM'] -= 1;
-  }
+ // Apply market tilts (max ±2% per asset to stay close to your goals)
+ if (r === 'high-falling') {
+ adj['Bonds'] += 2; adj['Mid cap'] += 1; adj['Small cap'] += 1;
+ adj['Large cap'] -= 2; adj['Cash/MM'] -= 1; adj['Real estate'] -= 1;
+ } else if (r === 'high') {
+ adj['Bonds'] += 2; adj['Cash/MM'] += 2;
+ adj['Small cap'] -= 2; adj['Mid cap'] -= 1; adj['Real estate'] -= 1;
+ } else {
+ adj['Large cap'] += 2; adj['Real estate'] += 1;
+ adj['Bonds'] -= 2; adj['Cash/MM'] -= 1;
+ }
 
-  if (g === 'recession') {
-    adj['Bonds'] += 2; adj['Cash/MM'] += 1;
-    adj['Mid cap'] -= 2; adj['Small cap'] -= 1;
-  } else if (g === 'strong') {
-    adj['Large cap'] += 2; adj['Mid cap'] += 1;
-    adj['Bonds'] -= 2; adj['Cash/MM'] -= 1;
-  }
+ if (g === 'recession') {
+ adj['Bonds'] += 2; adj['Cash/MM'] += 1;
+ adj['Mid cap'] -= 2; adj['Small cap'] -= 1;
+ } else if (g === 'strong') {
+ adj['Large cap'] += 2; adj['Mid cap'] += 1;
+ adj['Bonds'] -= 2; adj['Cash/MM'] -= 1;
+ }
 
-  if (fx === 'weak-usd') {
-    adj["Int'l stocks"] += 2; adj['Large cap'] -= 2;
-  } else if (fx === 'strong-usd') {
-    adj["Int'l stocks"] -= 2; adj['Large cap'] += 2;
-  }
+ if (fx === 'weak-usd') {
+ adj["Int'l stocks"] += 2; adj['Large cap'] -= 2;
+ } else if (fx === 'strong-usd') {
+ adj["Int'l stocks"] -= 2; adj['Large cap'] += 2;
+ }
 
-  // Clamp to 0 minimum
-  Object.keys(adj).forEach(k => { if (adj[k] < 0) adj[k] = 0; });
+ // Clamp to 0 minimum
+ Object.keys(adj).forEach(k => { if (adj[k] < 0) adj[k] = 0; });
 
-  // Normalize to exactly 100%
-  var total = Object.values(adj).reduce((a, b) => a + b, 0);
-  var normalized = {};
-  var keys = Object.keys(adj);
-  keys.forEach(k => { normalized[k] = parseFloat((adj[k] / total * 100).toFixed(1)); });
+ // Normalize to exactly 100%
+ var total = Object.values(adj).reduce((a, b) => a + b, 0);
+ var normalized = {};
+ var keys = Object.keys(adj);
+ keys.forEach(k => { normalized[k] = parseFloat((adj[k] / total * 100).toFixed(1)); });
 
-  // Fix rounding error
-  var sum = Object.values(normalized).reduce((a, b) => a + b, 0);
-  var diff = parseFloat((100 - sum).toFixed(1));
-  if (diff !== 0) {
-    var largest = keys.reduce((a, b) => normalized[a] > normalized[b] ? a : b);
-    normalized[largest] = parseFloat((normalized[largest] + diff).toFixed(1));
-  }
+ // Fix rounding error
+ var sum = Object.values(normalized).reduce((a, b) => a + b, 0);
+ var diff = parseFloat((100 - sum).toFixed(1));
+ if (diff !== 0) {
+ var largest = keys.reduce((a, b) => normalized[a] > normalized[b] ? a : b);
+ normalized[largest] = parseFloat((normalized[largest] + diff).toFixed(1));
+ }
 
-  return normalized;
+ return normalized;
 }
 
 function renderOverview() {
-  var targets = computeTargets();
-  var assets = Object.keys(current);
-  var flags = [];
+ var targets = computeTargets();
+ var assets = Object.keys(current);
+ var flags = [];
 
-  var html = '<div style="display:grid;grid-template-columns:110px 1fr 52px 52px 95px;gap:8px;align-items:center;padding:0 0 6px;border-bottom:0.5px solid #e0e0d8;font-size:10px;color:#888;letter-spacing:0.06em;text-transform:uppercase;">';
-  html += '<span>Asset</span><span></span><span style="text-align:right;">Current</span><span style="text-align:right;">Target</span><span style="text-align:right;">$ Gap</span></div>';
+ var html = '<div style="display:grid;grid-template-columns:110px 1fr 52px 52px 95px;gap:8px;align-items:center;padding:0 0 6px;border-bottom:0.5px solid #e0e0d8;font-size:10px;color:#888;letter-spacing:0.06em;text-transform:uppercase;">';
+ html += '<span>Asset</span><span></span><span style="text-align:right;">Current</span><span style="text-align:right;">Target</span><span style="text-align:right;">$ Gap</span></div>';
 
-  assets.forEach(function(asset) {
-    var cur = current[asset];
-    var tgt = targets[asset];
-    if (tgt === undefined || cur === undefined) return; // skip mismatched assets
-    var drift = cur - tgt;
-    var gapDollars = Math.round((drift / 100) * PORTFOLIO);
-    var isMaterial = Math.abs(drift) >= THRESHOLD;
-    var color = isMaterial ? (drift > 0 ? '#A32D2D' : '#185FA5') : '#888';
-    var sign = gapDollars >= 0 ? '+' : '';
-    var flagLabel = isMaterial
-      ? (drift > 0
-        ? ' <span style="background:#FCEBEB;color:#A32D2D;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;">▼ Over</span>'
-        : ' <span style="background:#E6F1FB;color:#185FA5;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;">▲ Under</span>')
-      : '';
+ assets.forEach(function(asset) {
+ var cur = current[asset];
+ var tgt = targets[asset];
+ if (tgt === undefined || cur === undefined) return; // skip mismatched assets
+ var drift = cur - tgt;
+ var gapDollars = Math.round((drift / 100) * PORTFOLIO);
+ var isMaterial = Math.abs(drift) >= THRESHOLD;
+ var color = isMaterial ? (drift > 0 ? '#A32D2D' : '#185FA5') : '#888';
+ var sign = gapDollars >= 0 ? '+' : '';
+ var flagLabel = isMaterial
+ ? (drift > 0
+ ? ' <span style="background:#FCEBEB;color:#A32D2D;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;">▼ Over</span>'
+ : ' <span style="background:#E6F1FB;color:#185FA5;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;">▲ Under</span>')
+ : '';
 
-    if (isMaterial) flags.push({asset: asset, drift: drift, gap: gapDollars});
+ if (isMaterial) flags.push({asset: asset, drift: drift, gap: gapDollars});
 
-    var barPct = Math.round(cur / 0.5);
-    html += '<div style="display:grid;grid-template-columns:110px 1fr 52px 52px 95px;gap:8px;align-items:center;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;">';
-    html += '<span>' + asset + '</span>';
-    html += '<div><div style="height:6px;background:#f1efe8;border-radius:3px;overflow:hidden;"><div style="height:100%;border-radius:3px;background:' + (colors[asset] || '#888') + ';width:' + Math.min(100, barPct) + '%;"></div></div></div>';
-    html += '<span style="text-align:right;">' + cur.toFixed(1) + '%</span>';
-    html += '<span style="text-align:right;">' + tgt.toFixed(1) + '%</span>';
-    html += '<span style="text-align:right;color:' + color + ';">' + sign + '$' + Math.abs(Math.round(gapDollars / 1000)) + 'K' + flagLabel + '</span>';
-    html += '</div>';
-  });
+ var barPct = Math.round(cur / 0.5);
+ html += '<div style="display:grid;grid-template-columns:110px 1fr 52px 52px 95px;gap:8px;align-items:center;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;">';
+ html += '<span>' + asset + '</span>';
+ html += '<div><div style="height:6px;background:#f1efe8;border-radius:3px;overflow:hidden;"><div style="height:100%;border-radius:3px;background:' + (colors[asset] || '#888') + ';width:' + Math.min(100, barPct) + '%;"></div></div></div>';
+ html += '<span style="text-align:right;">' + cur.toFixed(1) + '%</span>';
+ html += '<span style="text-align:right;">' + tgt.toFixed(1) + '%</span>';
+ html += '<span style="text-align:right;color:' + color + ';">' + sign + '$' + Math.abs(Math.round(gapDollars / 1000)) + 'K' + flagLabel + '</span>';
+ html += '</div>';
+ });
 
-  document.getElementById('overview-table').innerHTML = html;
+ document.getElementById('overview-table').innerHTML = html;
 
-  var flagHTML = '';
-  if (flags.length === 0) {
-    flagHTML = '<span style="color:#3B6D11;">✓ All allocations within ±3% of target. No rebalancing needed.</span>';
-  } else {
-    flagHTML = '⚑ ' + flags.length + ' material flag' + (flags.length > 1 ? 's' : '') + ': ';
-    flagHTML += flags.map(f => {
-      var dir = f.drift > 0 ? 'over' : 'under';
-      return f.asset + ' ' + dir + ' by ' + Math.abs(f.drift).toFixed(1) + '% ($' + Math.abs(Math.round(f.gap / 1000)) + 'K)';
-    }).join(' · ');
-    flagHTML += '. Address at next rebalance.';
-  }
-  document.getElementById('overview-flags').innerHTML = '<span style="color:' + (flags.length > 0 ? '#854F0B' : '#3B6D11') + ';">' + flagHTML + '</span>';
+ var flagHTML = '';
+ if (flags.length === 0) {
+ flagHTML = '<span style="color:#3B6D11;">✓ All allocations within ±3% of target. No rebalancing needed.</span>';
+ } else {
+ flagHTML = '⚑ ' + flags.length + ' material flag' + (flags.length > 1 ? 's' : '') + ': ';
+ flagHTML += flags.map(f => {
+ var dir = f.drift > 0 ? 'over' : 'under';
+ return f.asset + ' ' + dir + ' by ' + Math.abs(f.drift).toFixed(1) + '% ($' + Math.abs(Math.round(f.gap / 1000)) + 'K)';
+ }).join(' · ');
+ flagHTML += '. Address at next rebalance.';
+ }
+ document.getElementById('overview-flags').innerHTML = '<span style="color:' + (flags.length > 0 ? '#854F0B' : '#3B6D11') + ';">' + flagHTML + '</span>';
 
-  if (document.getElementById('action-flag-count')) {
-    document.getElementById('action-flag-count').textContent = flags.length;
-    document.getElementById('action-flag-desc').textContent = flags.length > 0 ? flags.map(f => f.asset).join(' · ') : 'All within target';
-  }
+ if (document.getElementById('action-flag-count')) {
+ document.getElementById('action-flag-count').textContent = flags.length;
+ document.getElementById('action-flag-desc').textContent = flags.length > 0 ? flags.map(f => f.asset).join(' · ') : 'All within target';
+ }
 }
 
 function renderMarket() {
-  var targets = computeTargets();
-  var html = '<div style="display:grid;grid-template-columns:1fr 55px 55px 55px;gap:8px;padding:0 0 6px;border-bottom:0.5px solid #e0e0d8;font-size:10px;color:#888;letter-spacing:0.06em;text-transform:uppercase;"><span>Asset</span><span style="text-align:right;">Goal</span><span style="text-align:right;">Tilt</span><span style="text-align:right;">Active</span></div>';
-  var total = 0;
-  Object.keys(goalAlloc).forEach(function(asset) {
-    var goal = goalAlloc[asset];
-    var active = targets[asset];
-    var tilt = parseFloat((active - goal).toFixed(1));
-    var tiltStr = tilt > 0 ? '<span style="color:#3B6D11;">+' + tilt + '%</span>' : tilt < 0 ? '<span style="color:#A32D2D;">' + tilt + '%</span>' : '<span style="color:#888;">—</span>';
-    total += active;
-    var barPct = Math.round(active / 0.5);
-    html += '<div style="display:grid;grid-template-columns:1fr 55px 55px 55px;gap:8px;align-items:center;padding:7px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;">';
-    html += '<span style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + (colors[asset] || '#888') + ';flex-shrink:0;"></span><span style="flex:1;">' + asset + '</span><div style="width:50px;"><div style="height:5px;background:#f1efe8;border-radius:2px;overflow:hidden;"><div style="height:100%;border-radius:2px;background:' + (colors[asset] || '#888') + ';width:' + Math.min(100, barPct) + '%;"></div></div></div></span>';
-    html += '<span style="text-align:right;color:#888;">' + goal.toFixed(1) + '%</span>';
-    html += '<span style="text-align:right;">' + tiltStr + '</span>';
-    html += '<span style="text-align:right;font-weight:700;">' + active.toFixed(1) + '%</span>';
-    html += '</div>';
-  });
-  var totalRound = parseFloat(total.toFixed(1));
-  document.getElementById('market-table').innerHTML = html;
-  document.getElementById('market-total').innerHTML = '<span>Total</span><span style="color:' + (totalRound === 100 ? '#3B6D11' : '#A32D2D') + ';">' + totalRound + '% ' + (totalRound === 100 ? '✓' : '⚠') + '</span>';
+ var targets = computeTargets();
+ var html = '<div style="display:grid;grid-template-columns:1fr 55px 55px 55px;gap:8px;padding:0 0 6px;border-bottom:0.5px solid #e0e0d8;font-size:10px;color:#888;letter-spacing:0.06em;text-transform:uppercase;"><span>Asset</span><span style="text-align:right;">Goal</span><span style="text-align:right;">Tilt</span><span style="text-align:right;">Active</span></div>';
+ var total = 0;
+ Object.keys(goalAlloc).forEach(function(asset) {
+ var goal = goalAlloc[asset];
+ var active = targets[asset];
+ var tilt = parseFloat((active - goal).toFixed(1));
+ var tiltStr = tilt > 0 ? '<span style="color:#3B6D11;">+' + tilt + '%</span>' : tilt < 0 ? '<span style="color:#A32D2D;">' + tilt + '%</span>' : '<span style="color:#888;">—</span>';
+ total += active;
+ var barPct = Math.round(active / 0.5);
+ html += '<div style="display:grid;grid-template-columns:1fr 55px 55px 55px;gap:8px;align-items:center;padding:7px 0;border-bottom:0.5px solid #e0e0d8;font-size:12px;">';
+ html += '<span style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + (colors[asset] || '#888') + ';flex-shrink:0;"></span><span style="flex:1;">' + asset + '</span><div style="width:50px;"><div style="height:5px;background:#f1efe8;border-radius:2px;overflow:hidden;"><div style="height:100%;border-radius:2px;background:' + (colors[asset] || '#888') + ';width:' + Math.min(100, barPct) + '%;"></div></div></div></span>';
+ html += '<span style="text-align:right;color:#888;">' + goal.toFixed(1) + '%</span>';
+ html += '<span style="text-align:right;">' + tiltStr + '</span>';
+ html += '<span style="text-align:right;font-weight:700;">' + active.toFixed(1) + '%</span>';
+ html += '</div>';
+ });
+ var totalRound = parseFloat(total.toFixed(1));
+ document.getElementById('market-table').innerHTML = html;
+ document.getElementById('market-total').innerHTML = '<span>Total</span><span style="color:' + (totalRound === 100 ? '#3B6D11' : '#A32D2D') + ';">' + totalRound + '% ' + (totalRound === 100 ? '✓' : '⚠') + '</span>';
 }
 
 function setMarket(type, val, el) {
-  var prefix = type + '-';
-  document.querySelectorAll('[id^="' + prefix + '"]').forEach(function(e){ e.classList.remove('selected'); });
-  el.classList.add('selected');
-  marketState[type] = val;
-  renderOverview();
-  renderMarket();
+ var prefix = type + '-';
+ document.querySelectorAll('[id^="' + prefix + '"]').forEach(function(e){ e.classList.remove('selected'); });
+ el.classList.add('selected');
+ marketState[type] = val;
+ renderOverview();
+ renderMarket();
 }
 
 function showTab(name) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  event.target.classList.add('active');
-  if (name === 'market') renderMarket();
+ document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+ document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+ document.getElementById('tab-' + name).classList.add('active');
+ event.target.classList.add('active');
+ if (name === 'market') renderMarket();
 }
 
 renderOverview();
@@ -360,69 +360,69 @@ function parseNum(s){ return parseFloat(String(s||0).replace(/,/g,''))||0; }
 function fmtShort(n){ if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'M'; if(n>=1000) return '$'+Math.round(n/1000)+'K'; return '$'+Math.round(n); }
 function splitLine(line){var r=[],cur='',inQ=false;for(var i=0;i<line.length;i++){var c=line[i];if(c==='"'){inQ=!inQ;}else if(c===','&&!inQ){r.push(cur);cur='';}else{cur+=c;}}r.push(cur);return r;}
 function parseCSVTab(text){
-  var lines=text.trim().replace(/\r/g,'').split('\n');
-  var headers=splitLine(lines[0]).map(function(h){return h.trim();});
-  return lines.slice(1).filter(function(l){return l.trim();}).map(function(line){
-    var vals=splitLine(line);var obj={};
-    headers.forEach(function(h,i){obj[h]=(vals[i]||'').trim();});
-    return obj;
-  });
+ var lines=text.trim().replace(/\r/g,'').split('\n');
+ var headers=splitLine(lines[0]).map(function(h){return h.trim();});
+ return lines.slice(1).filter(function(l){return l.trim();}).map(function(line){
+ var vals=splitLine(line);var obj={};
+ headers.forEach(function(h,i){obj[h]=(vals[i]||'').trim();});
+ return obj;
+ });
 }
 
 Promise.all([
-  fetch(sheetUrl('270306645')).then(function(r){return r.text();}),
-  fetch(sheetUrl('0')).then(function(r){return r.text();}),
-  fetch(sheetUrl('2068010017')).then(function(r){return r.text();})
+ fetch(sheetUrl('270306645')).then(function(r){return r.text();}),
+ fetch(sheetUrl('0')).then(function(r){return r.text();}),
+ fetch(sheetUrl('2068010017')).then(function(r){return r.text();})
 ]).then(function(texts){
-  // Parse Snapshot
-  var snapRows=parseCSVTab(texts[0]);
-  var snap={};
-  snapRows.forEach(function(r){snap[r.key]=r.value;});
+ // Parse Snapshot
+ var snapRows=parseCSVTab(texts[0]);
+ var snap={};
+ snapRows.forEach(function(r){snap[r.key]=r.value;});
 
-  // Parse Accounts
-  var accounts=parseCSVTab(texts[1]);
+ // Parse Accounts
+ var accounts=parseCSVTab(texts[1]);
 
-  // Parse Allocations
-  var allocRows=parseCSVTab(texts[2]);
+ // Parse Allocations
+ var allocRows=parseCSVTab(texts[2]);
 
-  // Update metric cards from Accounts
-  var retirementTotal=accounts.filter(function(a){return a.type==='401k'||a.type==='roth';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
-  var rothIRATotal=accounts.filter(function(a){return a.type==='roth';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
-  var taxableTotal=accounts.filter(function(a){return a.type==='taxable'||a.type==='stock';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
-  var invested=parseNum(snap.invested)||retirementTotal+taxableTotal;
-  var retirePct=Math.round(retirementTotal/invested*100);
-  var taxablePct=Math.round(taxableTotal/invested*100);
-  var driftAmt=Math.round(invested*0.03/1000);
-  var updated=snap.updated||'Jul 2026';
+ // Update metric cards from Accounts
+ var retirementTotal=accounts.filter(function(a){return a.type==='401k'||a.type==='roth';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
+ var rothIRATotal=accounts.filter(function(a){return a.type==='roth';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
+ var taxableTotal=accounts.filter(function(a){return a.type==='taxable'||a.type==='stock';}).reduce(function(s,a){return s+parseNum(a.balance);},0);
+ var invested=parseNum(snap.invested)||retirementTotal+taxableTotal;
+ var retirePct=Math.round(retirementTotal/invested*100);
+ var taxablePct=Math.round(taxableTotal/invested*100);
+ var driftAmt=Math.round(invested*0.03/1000);
+ var updated=snap.updated||'Jul 2026';
 
-  if(document.getElementById('ao-updated-date')) document.getElementById('ao-updated-date').textContent=updated;
-  if(document.getElementById('ao-updated-badge')) document.getElementById('ao-updated-badge').textContent=updated;
-  if(document.getElementById('ao-defaults-date')) document.getElementById('ao-defaults-date').textContent=updated;
+ if(document.getElementById('ao-updated-date')) document.getElementById('ao-updated-date').textContent=updated;
+ if(document.getElementById('ao-updated-badge')) document.getElementById('ao-updated-badge').textContent=updated;
+ if(document.getElementById('ao-defaults-date')) document.getElementById('ao-defaults-date').textContent=updated;
 
-  if(document.getElementById('ao-total')) document.getElementById('ao-total').textContent=fmtShort(invested);
-  if(document.getElementById('ao-total-sub')) document.getElementById('ao-total-sub').textContent='Per Empower '+updated;
-  if(document.getElementById('ao-retirement')) document.getElementById('ao-retirement').textContent=fmtShort(retirementTotal);
-  if(document.getElementById('ao-retire-sub')) document.getElementById('ao-retire-sub').textContent=retirePct+'% of portfolio';
-  if(document.getElementById('ao-roth')) document.getElementById('ao-roth').textContent=fmtShort(rothIRATotal);
-  if(document.getElementById('ao-taxable')) document.getElementById('ao-taxable').textContent=fmtShort(taxableTotal);
-  if(document.getElementById('ao-taxable-sub')) document.getElementById('ao-taxable-sub').textContent=taxablePct+'% of portfolio';
-  if(document.getElementById('ao-drift-sub')) document.getElementById('ao-drift-sub').textContent='~$'+driftAmt+'K at current size';
+ if(document.getElementById('ao-total')) document.getElementById('ao-total').textContent=fmtShort(invested);
+ if(document.getElementById('ao-total-sub')) document.getElementById('ao-total-sub').textContent='Per Empower '+updated;
+ if(document.getElementById('ao-retirement')) document.getElementById('ao-retirement').textContent=fmtShort(retirementTotal);
+ if(document.getElementById('ao-retire-sub')) document.getElementById('ao-retire-sub').textContent=retirePct+'% of portfolio';
+ if(document.getElementById('ao-roth')) document.getElementById('ao-roth').textContent=fmtShort(rothIRATotal);
+ if(document.getElementById('ao-taxable')) document.getElementById('ao-taxable').textContent=fmtShort(taxableTotal);
+ if(document.getElementById('ao-taxable-sub')) document.getElementById('ao-taxable-sub').textContent=taxablePct+'% of portfolio';
+ if(document.getElementById('ao-drift-sub')) document.getElementById('ao-drift-sub').textContent='~$'+driftAmt+'K at current size';
 
-  // Update current allocations
-  var newCurrent={};
-  var total=0;
-  allocRows.forEach(function(r){
-    var pct=parseFloat(r.current_pct);
-    if(!isNaN(pct)){
-      newCurrent[r.asset]=pct<1?parseFloat((pct*100).toFixed(1)):pct;
-      total+=parseNum(r.current_dollars);
-    }
-  });
-  if(Object.keys(newCurrent).length>0){
-    Object.keys(newCurrent).forEach(function(k){ current[k]=newCurrent[k]; });
-    if(total>0) PORTFOLIO=total;
-    renderOverview();
-  }
+ // Update current allocations
+ var newCurrent={};
+ var total=0;
+ allocRows.forEach(function(r){
+ var pct=parseFloat(r.current_pct);
+ if(!isNaN(pct)){
+ newCurrent[r.asset]=pct<1?parseFloat((pct*100).toFixed(1)):pct;
+ total+=parseNum(r.current_dollars);
+ }
+ });
+ if(Object.keys(newCurrent).length>0){
+ Object.keys(newCurrent).forEach(function(k){ current[k]=newCurrent[k]; });
+ if(total>0) PORTFOLIO=total;
+ renderOverview();
+ }
 }).catch(function(e){console.log('Alloc fetch error:',e);});
 </script>
 </body>

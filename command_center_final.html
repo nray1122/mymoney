@@ -52,16 +52,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <a href="index.html" class="back-btn">← Back to MyMoney</a>
 <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
 <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-  <div><div style="font-size:20px;font-weight:700;">Financial command center</div><div style="font-size:13px;color:#666;margin-top:2px;" id="subtitle">Loading...</div></div>
-  <span class="badge bg-green" id="updated-badge">Loading...</span>
+ <div><div style="font-size:20px;font-weight:700;">Financial command center</div><div style="font-size:13px;color:#666;margin-top:2px;" id="subtitle">Loading...</div></div>
+ <span class="badge bg-green" id="updated-badge">Loading...</span>
 </div>
 
 <div class="tab-bar">
-  <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
-  <button class="tab-btn" onclick="showTab('accounts')">Accounts</button>
-  <button class="tab-btn" onclick="showTab('savings')">Savings Goals</button>
-  <button class="tab-btn" onclick="showTab('income')">Income & tax</button>
-  <button class="tab-btn" onclick="showTab('actions')">Open items</button>
+ <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+ <button class="tab-btn" onclick="showTab('accounts')">Accounts</button>
+ <button class="tab-btn" onclick="showTab('savings')">Savings Goals</button>
+ <button class="tab-btn" onclick="showTab('income')">Income & tax</button>
+ <button class="tab-btn" onclick="showTab('actions')">Open items</button>
 </div>
 
 <div id="tab-overview" class="panel active"><div class="loading">Loading data...</div></div>
@@ -75,360 +75,360 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <script>
 var BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub';
 var GIDS = {
-  snapshot:      '270306645',
-  accounts:      '0',
-  savingsGoals:  '1378910221',
-  kids:          '607695056',
-  income:        '2084993096',
-  allocations:   '2068010017',
-  holdings:      '866457208',
-  retirementSplit: '1611246416',
-  actions:       '1747244375'
+ snapshot: '270306645',
+ accounts: '0',
+ savingsGoals: '1378910221',
+ kids: '607695056',
+ income: '2084993096',
+ allocations: '2068010017',
+ holdings: '866457208',
+ retirementSplit: '1611246416',
+ actions: '1747244375'
 };
 
 function url(gid) { return BASE + '?gid=' + gid + '&single=true&output=csv'; }
 
 function parseCSV(text) {
-  var lines = text.trim().replace(/\r/g, '').split('\n');
-  var headers = splitCSVLine(lines[0]).map(function(h){ return h.trim(); });
-  return lines.slice(1).filter(function(l){ return l.trim(); }).map(function(line) {
-    var vals = splitCSVLine(line);
-    var obj = {};
-    headers.forEach(function(h, i) { obj[h] = (vals[i] || '').trim(); });
-    return obj;
-  });
+ var lines = text.trim().replace(/\r/g, '').split('\n');
+ var headers = splitCSVLine(lines[0]).map(function(h){ return h.trim(); });
+ return lines.slice(1).filter(function(l){ return l.trim(); }).map(function(line) {
+ var vals = splitCSVLine(line);
+ var obj = {};
+ headers.forEach(function(h, i) { obj[h] = (vals[i] || '').trim(); });
+ return obj;
+ });
 }
 
 function splitCSVLine(line) {
-  var result = [];
-  var current = '';
-  var inQuotes = false;
-  for (var i = 0; i < line.length; i++) {
-    var ch = line[i];
-    if (ch === '"') { inQuotes = !inQuotes; }
-    else if (ch === ',' && !inQuotes) { result.push(current); current = ''; }
-    else { current += ch; }
-  }
-  result.push(current);
-  return result;
+ var result = [];
+ var current = '';
+ var inQuotes = false;
+ for (var i = 0; i < line.length; i++) {
+ var ch = line[i];
+ if (ch === '"') { inQuotes = !inQuotes; }
+ else if (ch === ',' && !inQuotes) { result.push(current); current = ''; }
+ else { current += ch; }
+ }
+ result.push(current);
+ return result;
 }
 
 function parseKV(rows) {
-  var obj = {};
-  rows.forEach(function(r) { obj[r.key] = r.value; });
-  return obj;
+ var obj = {};
+ rows.forEach(function(r) { obj[r.key] = r.value; });
+ return obj;
 }
 
 function fmt(n) {
-  n = parseFloat(n);
-  if (isNaN(n)) return '—';
-  if (Math.abs(n) >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
-  if (Math.abs(n) >= 1000) return '$' + Math.round(n/1000) + 'K';
-  return '$' + n.toLocaleString();
+ n = parseFloat(n);
+ if (isNaN(n)) return '—';
+ if (Math.abs(n) >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+ if (Math.abs(n) >= 1000) return '$' + Math.round(n/1000) + 'K';
+ return '$' + n.toLocaleString();
 }
 
 function fmtFull(n) {
-  n = parseFloat(n);
-  if (isNaN(n)) return '—';
-  return '$' + Math.round(n).toLocaleString();
+ n = parseFloat(n);
+ if (isNaN(n)) return '—';
+ return '$' + Math.round(n).toLocaleString();
 }
 
 function parseNum(s) {
-  if (!s) return 0;
-  return parseFloat(String(s).replace(/,/g, '')) || 0;
+ if (!s) return 0;
+ return parseFloat(String(s).replace(/,/g, '')) || 0;
 }
 
 function acctColor(type) {
-  if (type === '401k') return {bg:'#EAF3DE', fg:'#3B6D11', letter:'F', badgeClass:'bg-blue', badgeText:'401k'};
-  if (type === 'roth') return {bg:'#EEEDFE', fg:'#534AB7', letter:'V', badgeClass:'bg-purple', badgeText:'Roth'};
-  if (type === 'taxable') return {bg:'#E6F1FB', fg:'#185FA5', letter:'V', badgeClass:'bg-green', badgeText:'Taxable'};
-  if (type === 'stock') return {bg:'#EAF3DE', fg:'#3B6D11', letter:'F', badgeClass:'bg-amber', badgeText:'Stock'};
-  if (type === 'goal') return {bg:'#E6F1FB', fg:'#185FA5', letter:'V', badgeClass:'bg-amber', badgeText:'Goal'};
-  return {bg:'#FAEEDA', fg:'#854F0B', letter:'E', badgeClass:'bg-amber', badgeText:'Other'};
+ if (type === '401k') return {bg:'#EAF3DE', fg:'#3B6D11', letter:'F', badgeClass:'bg-blue', badgeText:'401k'};
+ if (type === 'roth') return {bg:'#EEEDFE', fg:'#534AB7', letter:'V', badgeClass:'bg-purple', badgeText:'Roth'};
+ if (type === 'taxable') return {bg:'#E6F1FB', fg:'#185FA5', letter:'V', badgeClass:'bg-green', badgeText:'Taxable'};
+ if (type === 'stock') return {bg:'#EAF3DE', fg:'#3B6D11', letter:'F', badgeClass:'bg-amber', badgeText:'Stock'};
+ if (type === 'goal') return {bg:'#E6F1FB', fg:'#185FA5', letter:'V', badgeClass:'bg-amber', badgeText:'Goal'};
+ return {bg:'#FAEEDA', fg:'#854F0B', letter:'E', badgeClass:'bg-amber', badgeText:'Other'};
 }
 
 function fetchTab(gid) {
-  return fetch(url(gid)).then(function(r){ return r.text(); }).then(parseCSV);
+ return fetch(url(gid)).then(function(r){ return r.text(); }).then(parseCSV);
 }
 
 Promise.all([
-  fetchTab(GIDS.snapshot),
-  fetchTab(GIDS.accounts),
-  fetchTab(GIDS.savingsGoals),
-  fetchTab(GIDS.kids),
-  fetchTab(GIDS.income),
-  fetchTab(GIDS.retirementSplit),
-  fetchTab(GIDS.actions)
+ fetchTab(GIDS.snapshot),
+ fetchTab(GIDS.accounts),
+ fetchTab(GIDS.savingsGoals),
+ fetchTab(GIDS.kids),
+ fetchTab(GIDS.income),
+ fetchTab(GIDS.retirementSplit),
+ fetchTab(GIDS.actions)
 ]).then(function(results) {
-  var snapRows = results[0];
-  var accounts = results[1];
-  var savingsGoals = results[2];
-  var kids = results[3];
-  var incomeRows = results[4];
-  var retirementSplit = results[5];
-  var actionItems = results[6];
+ var snapRows = results[0];
+ var accounts = results[1];
+ var savingsGoals = results[2];
+ var kids = results[3];
+ var incomeRows = results[4];
+ var retirementSplit = results[5];
+ var actionItems = results[6];
 
-  var snap = parseKV(snapRows);
-  var inc = parseKV(incomeRows);
+ var snap = parseKV(snapRows);
+ var inc = parseKV(incomeRows);
 
-  // Render actions tab — two states only: open (red dot) or done (gray faded)
-  var openItems = actionItems.filter(function(i){ return i.status === 'open'; });
-  var doneItems = actionItems.filter(function(i){ return i.status === 'done'; });
-  var actHTML = '<div class="section-label">Open items (' + openItems.length + ')</div>';
-  actHTML += '<div class="card">';
-  openItems.forEach(function(item){
-    actHTML += '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:13px;">' +
-      '<div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;background:#E24B4A;"></div>' +
-      '<div style="flex:1;"><strong>'+item.title+'</strong>'+(item.description?' — '+item.description:'')+'</div>' +
-      '<span style="margin-left:8px;flex-shrink:0;font-size:11px;padding:2px 8px;border-radius:6px;background:#f1efe8;color:#666;font-weight:600;">'+item.badge+'</span>' +
-      '</div>';
-  });
-  if (doneItems.length > 0) {
-    actHTML += '<div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aaa;margin:12px 0 6px;">Completed</div>';
-    doneItems.forEach(function(item){
-      actHTML += '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:13px;opacity:0.4;">' +
-        '<div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;background:#ccc;"></div>' +
-        '<div style="flex:1;"><strong>✓ '+item.title+'</strong></div>' +
-        '<span style="margin-left:8px;flex-shrink:0;font-size:11px;color:#aaa;">Done</span>' +
-        '</div>';
-    });
-  }
-  actHTML += '</div>';
-  document.getElementById('tab-actions').innerHTML = actHTML;
+ // Render actions tab — two states only: open (red dot) or done (gray faded)
+ var openItems = actionItems.filter(function(i){ return i.status === 'open'; });
+ var doneItems = actionItems.filter(function(i){ return i.status === 'done'; });
+ var actHTML = '<div class="section-label">Open items (' + openItems.length + ')</div>';
+ actHTML += '<div class="card">';
+ openItems.forEach(function(item){
+ actHTML += '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:13px;">' +
+ '<div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;background:#E24B4A;"></div>' +
+ '<div style="flex:1;"><strong>'+item.title+'</strong>'+(item.description?' — '+item.description:'')+'</div>' +
+ '<span style="margin-left:8px;flex-shrink:0;font-size:11px;padding:2px 8px;border-radius:6px;background:#f1efe8;color:#666;font-weight:600;">'+item.badge+'</span>' +
+ '</div>';
+ });
+ if (doneItems.length > 0) {
+ actHTML += '<div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aaa;margin:12px 0 6px;">Completed</div>';
+ doneItems.forEach(function(item){
+ actHTML += '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid #e0e0d8;font-size:13px;opacity:0.4;">' +
+ '<div style="width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;background:#ccc;"></div>' +
+ '<div style="flex:1;"><strong>✓ '+item.title+'</strong></div>' +
+ '<span style="margin-left:8px;flex-shrink:0;font-size:11px;color:#aaa;">Done</span>' +
+ '</div>';
+ });
+ }
+ actHTML += '</div>';
+ document.getElementById('tab-actions').innerHTML = actHTML;
 
-  // Update header
-  document.getElementById('subtitle').textContent = 'Ray family · ' + snap.nw_date + ' · Nick ' + snap.nick_age + ' · Emily ' + snap.emily_age;
-  document.getElementById('updated-badge').textContent = snap.updated + ' ✓';
+ // Update header
+ document.getElementById('subtitle').textContent = 'Ray Family · ' + snap.nw_date + ' · Nick ' + snap.nick_age + ' · Emily ' + snap.emily_age;
+ document.getElementById('updated-badge').textContent = snap.updated + ' ✓';
 
-  // NW calculations
-  var nw = parseNum(snap.nw);
-  var invested = parseNum(snap.invested);
-  var prevDec = parseNum(snap.nw_prev_dec);
-  var dec2025 = parseNum(snap.nw_dec_2025);
-  var gain15mo = nw - prevDec;
-  var gainPct15mo = ((gain15mo / prevDec) * 100).toFixed(1);
-  var gain2025 = dec2025 - prevDec;
-  var gainPct2025 = ((gain2025 / prevDec) * 100).toFixed(1);
-  var gainYTD = nw - dec2025;
-  var gainPctYTD = ((gainYTD / dec2025) * 100).toFixed(1);
+ // NW calculations
+ var nw = parseNum(snap.nw);
+ var invested = parseNum(snap.invested);
+ var prevDec = parseNum(snap.nw_prev_dec);
+ var dec2025 = parseNum(snap.nw_dec_2025);
+ var gain15mo = nw - prevDec;
+ var gainPct15mo = ((gain15mo / prevDec) * 100).toFixed(1);
+ var gain2025 = dec2025 - prevDec;
+ var gainPct2025 = ((gain2025 / prevDec) * 100).toFixed(1);
+ var gainYTD = nw - dec2025;
+ var gainPctYTD = ((gainYTD / dec2025) * 100).toFixed(1);
 
-  // OVERVIEW TAB
-  var totalAccounts = accounts.reduce(function(s,a){ return s + parseNum(a.balance); }, 0);
-  // 401k only — Roth IRAs tracked separately via Retirement Split tab
-  var retirementTotal = accounts.filter(function(a){ return a.type==='401k'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
-  var taxableTotal = accounts.filter(function(a){ return a.type==='taxable'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
-  // True Roth total — calculated in Snapshot tab from Retirement Split
-  var rothTotal = parseNum(snap.roth_total);
-  var rothIRATotal = accounts.filter(function(a){ return a.type==='roth'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
-  var goalTotal = accounts.filter(function(a){ return a.type==='goal'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
-  // Use totalAccounts as base for split percentages
-  var splitBase = totalAccounts || parseNum(snap.invested);
-  var retirePct = Math.round(retirementTotal/splitBase*100);
-  var taxablePct = Math.round(taxableTotal/splitBase*100);
-  var rothPct = Math.round(rothTotal/splitBase*100);
-  var progressPct = Math.round(parseNum(snap.invested)/9000000*100);
+ // OVERVIEW TAB
+ var totalAccounts = accounts.reduce(function(s,a){ return s + parseNum(a.balance); }, 0);
+ // 401k only — Roth IRAs tracked separately via Retirement Split tab
+ var retirementTotal = accounts.filter(function(a){ return a.type==='401k'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
+ var taxableTotal = accounts.filter(function(a){ return a.type==='taxable'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
+ // True Roth total — calculated in Snapshot tab from Retirement Split
+ var rothTotal = parseNum(snap.roth_total);
+ var rothIRATotal = accounts.filter(function(a){ return a.type==='roth'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
+ var goalTotal = accounts.filter(function(a){ return a.type==='goal'; }).reduce(function(s,a){ return s+parseNum(a.balance);},0);
+ // Use totalAccounts as base for split percentages
+ var splitBase = totalAccounts || parseNum(snap.invested);
+ var retirePct = Math.round(retirementTotal/splitBase*100);
+ var taxablePct = Math.round(taxableTotal/splitBase*100);
+ var rothPct = Math.round(rothTotal/splitBase*100);
+ var progressPct = Math.round(parseNum(snap.invested)/9000000*100);
 
-  // Savings goals totals
-  var capOne = savingsGoals.filter(function(g){ return g.institution==='Capital One'; }).reduce(function(s,g){ return s+parseNum(g.balance);},0);
-  var vangGoals = savingsGoals.filter(function(g){ return g.institution==='Vanguard'; }).reduce(function(s,g){ return s+parseNum(g.balance);},0);
-  var totalGoals = capOne + vangGoals;
-  var kids529 = kids.filter(function(k){ return k.type==='529'; }).reduce(function(s,k){ return s+parseNum(k.balance);},0);
-  var kidsUtma = kids.filter(function(k){ return k.type==='utma'; }).reduce(function(s,k){ return s+parseNum(k.balance);},0);
-  var kidsTotal = kids529 + kidsUtma;
-  var totalPretax = retirementSplit.reduce(function(s,r){ return s + parseNum(r.pretax_balance); }, 0);
-  var totalRoth401k = retirementSplit.reduce(function(s,r){ return s + parseNum(r.roth_balance); }, 0);
+ // Savings goals totals
+ var capOne = savingsGoals.filter(function(g){ return g.institution==='Capital One'; }).reduce(function(s,g){ return s+parseNum(g.balance);},0);
+ var vangGoals = savingsGoals.filter(function(g){ return g.institution==='Vanguard'; }).reduce(function(s,g){ return s+parseNum(g.balance);},0);
+ var totalGoals = capOne + vangGoals;
+ var kids529 = kids.filter(function(k){ return k.type==='529'; }).reduce(function(s,k){ return s+parseNum(k.balance);},0);
+ var kidsUtma = kids.filter(function(k){ return k.type==='utma'; }).reduce(function(s,k){ return s+parseNum(k.balance);},0);
+ var kidsTotal = kids529 + kidsUtma;
+ var totalPretax = retirementSplit.reduce(function(s,r){ return s + parseNum(r.pretax_balance); }, 0);
+ var totalRoth401k = retirementSplit.reduce(function(s,r){ return s + parseNum(r.roth_balance); }, 0);
 
 
-  var overviewHTML = '<div class="grid-4">' +
-    '<div class="metric"><div class="metric-label">Personal net worth</div><div class="metric-value">' + fmt(nw) + '</div><div class="metric-sub" style="color:#3B6D11;">↑ ' + fmt(gain15mo) + ' since Dec \'24</div></div>' +
-    '<div class="metric"><div class="metric-label">Total invested</div><div class="metric-value">' + fmt(invested) + '</div><div class="metric-sub">Retirement + brokerage</div></div>' +
-    '<div class="metric"><div class="metric-label">Annual savings</div><div class="metric-value">' + fmt(inc.contrib_total) + '</div><div class="metric-sub" style="color:#3B6D11;">All vehicles maxed</div></div>' +
-    '<div class="metric"><div class="metric-label">Projected at 55</div><div class="metric-value">On track ✓</div><div class="metric-sub" style="color:#3B6D11;">Expected scenario on track</div></div>' +
-    '</div>' +
-    '<div class="grid-2">' +
-    '<div class="card"><div class="section-label">Investment progress to $9.0M what you need to retire in 2037</div>' +
-    '<div style="margin-bottom:6px;"><div style="font-size:11px;color:#888;margin-bottom:4px;">' + fmt(invested) + ' invested of $9.0M what you need to retire in 2037 · ' + progressPct + '%</div>' +
-    '<div class="bar-wrap" style="height:12px;"><div class="bar" style="width:' + progressPct + '%;background:#378ADD;"></div></div>' +
-    '<div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px;"><span style="color:#3B6D11;">' + fmt(invested) + ' today</span><span style="color:#888;">$9.0M target</span></div></div>' +
-    '<div class="divider"></div>';
+ var overviewHTML = '<div class="grid-4">' +
+ '<div class="metric"><div class="metric-label">Personal net worth</div><div class="metric-value">' + fmt(nw) + '</div><div class="metric-sub" style="color:#3B6D11;">↑ ' + fmt(gain15mo) + ' since Dec \'24</div></div>' +
+ '<div class="metric"><div class="metric-label">Total invested</div><div class="metric-value">' + fmt(invested) + '</div><div class="metric-sub">Retirement + brokerage</div></div>' +
+ '<div class="metric"><div class="metric-label">Annual savings</div><div class="metric-value">' + fmt(inc.contrib_total) + '</div><div class="metric-sub" style="color:#3B6D11;">All vehicles maxed</div></div>' +
+ '<div class="metric"><div class="metric-label">Projected at 55</div><div class="metric-value">On track ✓</div><div class="metric-sub" style="color:#3B6D11;">Expected scenario on track</div></div>' +
+ '</div>' +
+ '<div class="grid-2">' +
+ '<div class="card"><div class="section-label">Investment progress to $9.0M what you need to retire in 2037</div>' +
+ '<div style="margin-bottom:6px;"><div style="font-size:11px;color:#888;margin-bottom:4px;">' + fmt(invested) + ' invested of $9.0M what you need to retire in 2037 · ' + progressPct + '%</div>' +
+ '<div class="bar-wrap" style="height:12px;"><div class="bar" style="width:' + progressPct + '%;background:#378ADD;"></div></div>' +
+ '<div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px;"><span style="color:#3B6D11;">' + fmt(invested) + ' today</span><span style="color:#888;">$9.0M target</span></div></div>' +
+ '<div class="divider"></div>';
 
-  accounts.forEach(function(a) {
-    var c = acctColor(a.type);
-    overviewHTML += '<div class="row"><span style="color:#666;">' + a.name + '</span><span style="font-weight:700;">' + fmtFull(a.balance) + '</span></div>';
-  });
+ accounts.forEach(function(a) {
+ var c = acctColor(a.type);
+ overviewHTML += '<div class="row"><span style="color:#666;">' + a.name + '</span><span style="font-weight:700;">' + fmtFull(a.balance) + '</span></div>';
+ });
 
-  overviewHTML += '<div class="divider"></div>' +
-    '<div class="row"><span style="font-weight:700;">Total invested</span><span style="font-weight:700;color:#3B6D11;font-size:14px;">' + fmtFull(totalAccounts) + '</span></div>' +
-    '<div style="font-size:11px;color:#888;margin-top:6px;">Personal NW ' + fmt(nw) + ' includes home + car equity, savings goals, emergency fund, and credit balances.</div>' +
-    '</div>' +
-    '<div class="card"><div class="section-label">Portfolio split</div>' +
-    '<div class="alloc-row"><div style="width:120px;color:#666;">401k (pretax + Roth)</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + retirePct + '%;background:#378ADD;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(retirementTotal) + ' · ' + retirePct + '%</div></div>' +
-    '<div class="alloc-row"><div style="width:120px;color:#666;">Taxable brokerage</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + taxablePct + '%;background:#1D9E75;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(taxableTotal) + ' · ' + taxablePct + '%</div></div>' +
-    '<div class="alloc-row" style="margin-bottom:0;"><div style="width:120px;color:#666;">Roth IRAs</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + Math.round(rothIRATotal/splitBase*100) + '%;background:#7F77DD;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(rothIRATotal) + ' · ' + Math.round(rothIRATotal/splitBase*100) + '%</div></div>' +
-    '<div style="font-size:11px;color:#888;margin-top:8px;">401k Roth portion: ' + fmt(rothTotal - rothIRATotal) + ' · shown within 401k total above. True total Roth across all accounts: ' + fmt(rothTotal) + '</div>' +
-    '<div class="divider"></div>' +
-    '<div class="section-label" style="margin-bottom:8px;">Outside investment total</div>' +
-    '<div class="row"><span style="color:#666;">Emergency fund</span><span style="font-weight:700;">' + fmt(parseNum(snap.emergency_total)) + '</span></div>' +
-    '<div class="row"><span style="color:#666;">Savings goals</span><span style="font-weight:700;">' + fmt(totalGoals) + '</span></div>' +
-    '<div class="row"><span style="color:#666;">Kids (529s + UTMAs)</span><span style="font-weight:700;">' + fmt(kidsTotal) + '</span></div>' +
-    '</div></div>' +
-    '<div class="card"><div class="section-label">Net worth trend</div>' +
-    '<div style="display:flex;align-items:flex-start;gap:0;margin:12px 0;">' +
-    '<div style="flex:1;text-align:center;"><div style="font-size:10px;color:#888;margin-bottom:4px;">Dec 31, 2024</div><div style="font-size:15px;font-weight:700;">' + fmt(prevDec) + '</div><div style="font-size:11px;color:#888;margin-top:2px;">Baseline</div></div>' +
-    '<div style="flex:1;position:relative;margin-top:18px;"><div style="height:2px;background:#378ADD;width:100%;"></div><div style="position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:10px;color:#3B6D11;white-space:nowrap;">+' + fmt(gain2025) + ' · +' + gainPct2025 + '%</div></div>' +
-    '<div style="flex:1;text-align:center;"><div style="font-size:10px;color:#888;margin-bottom:4px;">Dec 31, 2025</div><div style="font-size:15px;font-weight:700;">' + fmt(dec2025) + '</div><div style="font-size:11px;color:#3B6D11;margin-top:2px;">↑ +' + gainPct2025 + '%</div></div>' +
-    '<div style="flex:1;position:relative;margin-top:18px;"><div style="height:2px;background:#1D9E75;width:100%;"></div><div style="position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:10px;color:#3B6D11;white-space:nowrap;">+' + fmt(gainYTD) + ' · +' + gainPctYTD + '%</div></div>' +
-    '<div style="flex:1;text-align:center;"><div style="font-size:10px;color:#888;margin-bottom:4px;">' + snap.nw_date + '</div><div style="font-size:15px;font-weight:700;">' + fmt(nw) + '</div><div style="font-size:11px;color:#3B6D11;margin-top:2px;">↑ +' + gainPctYTD + '% YTD</div></div>' +
-    '</div>' +
-    '<div style="font-size:11px;color:#888;text-align:center;margin-top:4px;">15-month total: +' + fmt(gain15mo) + ' · +' + gainPct15mo + '% · ~16% annualized</div>' +
-    '</div>';
+ overviewHTML += '<div class="divider"></div>' +
+ '<div class="row"><span style="font-weight:700;">Total invested</span><span style="font-weight:700;color:#3B6D11;font-size:14px;">' + fmtFull(totalAccounts) + '</span></div>' +
+ '<div style="font-size:11px;color:#888;margin-top:6px;">Personal NW ' + fmt(nw) + ' includes home + car equity, savings goals, emergency fund, and credit balances.</div>' +
+ '</div>' +
+ '<div class="card"><div class="section-label">Portfolio split</div>' +
+ '<div class="alloc-row"><div style="width:120px;color:#666;">401k (pretax + Roth)</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + retirePct + '%;background:#378ADD;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(retirementTotal) + ' · ' + retirePct + '%</div></div>' +
+ '<div class="alloc-row"><div style="width:120px;color:#666;">Taxable brokerage</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + taxablePct + '%;background:#1D9E75;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(taxableTotal) + ' · ' + taxablePct + '%</div></div>' +
+ '<div class="alloc-row" style="margin-bottom:0;"><div style="width:120px;color:#666;">Roth IRAs</div><div style="flex:1;"><div class="bar-wrap"><div class="bar" style="width:' + Math.round(rothIRATotal/splitBase*100) + '%;background:#7F77DD;"></div></div></div><div style="width:90px;text-align:right;font-weight:700;">' + fmt(rothIRATotal) + ' · ' + Math.round(rothIRATotal/splitBase*100) + '%</div></div>' +
+ '<div style="font-size:11px;color:#888;margin-top:8px;">401k Roth portion: ' + fmt(rothTotal - rothIRATotal) + ' · shown within 401k total above. True total Roth across all accounts: ' + fmt(rothTotal) + '</div>' +
+ '<div class="divider"></div>' +
+ '<div class="section-label" style="margin-bottom:8px;">Outside investment total</div>' +
+ '<div class="row"><span style="color:#666;">Emergency fund</span><span style="font-weight:700;">' + fmt(parseNum(snap.emergency_total)) + '</span></div>' +
+ '<div class="row"><span style="color:#666;">Savings goals</span><span style="font-weight:700;">' + fmt(totalGoals) + '</span></div>' +
+ '<div class="row"><span style="color:#666;">Kids (529s + UTMAs)</span><span style="font-weight:700;">' + fmt(kidsTotal) + '</span></div>' +
+ '</div></div>' +
+ '<div class="card"><div class="section-label">Net worth trend</div>' +
+ '<div style="display:flex;align-items:flex-start;gap:0;margin:12px 0;">' +
+ '<div style="flex:1;text-align:center;"><div style="font-size:10px;color:#888;margin-bottom:4px;">Dec 31, 2024</div><div style="font-size:15px;font-weight:700;">' + fmt(prevDec) + '</div><div style="font-size:11px;color:#888;margin-top:2px;">Baseline</div></div>' +
+ '<div style="flex:1;position:relative;margin-top:18px;"><div style="height:2px;background:#378ADD;width:100%;"></div><div style="position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:10px;color:#3B6D11;white-space:nowrap;">+' + fmt(gain2025) + ' · +' + gainPct2025 + '%</div></div>' +
+ '<div style="flex:1;text-align:center;"><div style="font-size:10px;color:#888;margin-bottom:4px;">Dec 31, 2025</div><div style="font-size:15px;font-weight:700;">' + fmt(dec2025) + '</div><div style="font-size:11px;color:#3B6D11;margin-top:2px;">↑ +' + gainPct2025 + '%</div></div>' +
+ '<div style="flex:1;position:relative;margin-top:18px;"><div style="height:2px;background:#1D9E75;width:100%;"></div><div style="position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:10px;color:#3B6D11;white-space:nowrap;">+' + fmt(gainYTD) + ' · +' + gainPctYTD + '%</div></div>' +
+ '<div style="flex:1;text-align:center;"><div style="font-size:10px;color:#888;margin-bottom:4px;">' + snap.nw_date + '</div><div style="font-size:15px;font-weight:700;">' + fmt(nw) + '</div><div style="font-size:11px;color:#3B6D11;margin-top:2px;">↑ +' + gainPctYTD + '% YTD</div></div>' +
+ '</div>' +
+ '<div style="font-size:11px;color:#888;text-align:center;margin-top:4px;">15-month total: +' + fmt(gain15mo) + ' · +' + gainPct15mo + '% · ~16% annualized</div>' +
+ '</div>';
 
-  document.getElementById('tab-overview').innerHTML = overviewHTML;
+ document.getElementById('tab-overview').innerHTML = overviewHTML;
 
-  // ACCOUNTS TAB
-  var accountsHTML = '<div class="card"><div class="section-label">All investment accounts — ' + snap.nw_date + '</div>';
-  accounts.forEach(function(a) {
-    var c = acctColor(a.type);
-    var instLetter = a.institution === 'Fidelity' ? 'F' : a.institution === 'Vanguard' ? 'V' : 'E';
-    accountsHTML += '<div class="acct-row">' +
-      '<div class="acct-icon" style="background:' + c.bg + ';color:' + c.fg + ';">' + instLetter + '</div>' +
-      '<div class="acct-name"><div>' + a.name + (a.last4 ? ' <span style="font-size:11px;color:#888;">···' + a.last4 + '</span>' : '') + '</div>' +
-      '<div class="acct-sub">' + (a.note || '') + '</div></div>' +
-      '<div style="text-align:right;"><div style="font-weight:700;">' + fmtFull(a.balance) + '</div><span class="badge ' + c.badgeClass + '">' + c.badgeText + '</span></div>' +
-      '</div>';
-  });
-  accountsHTML += '<div class="divider"></div><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;"><span>Total invested</span><span style="color:#3B6D11;font-size:16px;">' + fmtFull(totalAccounts) + '</span></div>' +
-    '<div style="font-size:11px;color:#888;text-align:right;margin-top:3px;">Excl. emergency fund · savings goals · kids accounts</div></div>';
+ // ACCOUNTS TAB
+ var accountsHTML = '<div class="card"><div class="section-label">All investment accounts — ' + snap.nw_date + '</div>';
+ accounts.forEach(function(a) {
+ var c = acctColor(a.type);
+ var instLetter = a.institution === 'Fidelity' ? 'F' : a.institution === 'Vanguard' ? 'V' : 'E';
+ accountsHTML += '<div class="acct-row">' +
+ '<div class="acct-icon" style="background:' + c.bg + ';color:' + c.fg + ';">' + instLetter + '</div>' +
+ '<div class="acct-name"><div>' + a.name + (a.last4 ? ' <span style="font-size:11px;color:#888;">···' + a.last4 + '</span>' : '') + '</div>' +
+ '<div class="acct-sub">' + (a.note || '') + '</div></div>' +
+ '<div style="text-align:right;"><div style="font-weight:700;">' + fmtFull(a.balance) + '</div><span class="badge ' + c.badgeClass + '">' + c.badgeText + '</span></div>' +
+ '</div>';
+ });
+ accountsHTML += '<div class="divider"></div><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;"><span>Total invested</span><span style="color:#3B6D11;font-size:16px;">' + fmtFull(totalAccounts) + '</span></div>' +
+ '<div style="font-size:11px;color:#888;text-align:right;margin-top:3px;">Excl. emergency fund · savings goals · kids accounts</div></div>';
 
-  // Kids section
-  accountsHTML += '<div class="card"><div class="section-label">Kids accounts</div>';
-  
-  // Sammie
-  var sammie529 = kids.filter(k => k.type === '529' && k.name.toLowerCase().indexOf('sammie') >= 0);
-  var sammieUtma = kids.filter(k => k.type === 'utma' && k.name.toLowerCase().indexOf('sammie') >= 0);
-  accountsHTML += '<div class="row"><span style="color:#666;font-weight:600;">Sammie — college Fall 2030</span><span></span></div>';
-  sammie529.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">529</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
-  sammieUtma.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">UTMA</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
+ // Kids section
+ accountsHTML += '<div class="card"><div class="section-label">Kids accounts</div>';
+ 
+ // Sammie
+ var sammie529 = kids.filter(k => k.type === '529' && k.name.toLowerCase().indexOf('sammie') >= 0);
+ var sammieUtma = kids.filter(k => k.type === 'utma' && k.name.toLowerCase().indexOf('sammie') >= 0);
+ accountsHTML += '<div class="row"><span style="color:#666;font-weight:600;">Sammie — college Fall 2030</span><span></span></div>';
+ sammie529.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">529</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
+ sammieUtma.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">UTMA</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
 
-  // Evan
-  var evan529 = kids.filter(k => k.type === '529' && k.name.toLowerCase().indexOf('evan') >= 0);
-  var evanUtma = kids.filter(k => k.type === 'utma' && k.name.toLowerCase().indexOf('evan') >= 0);
-  accountsHTML += '<div class="divider"></div>';
-  accountsHTML += '<div class="row"><span style="color:#666;font-weight:600;">Evan — college Fall 2033</span><span></span></div>';
-  evan529.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">529</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
-  evanUtma.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">UTMA</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
-  
-  accountsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div></div>';
+ // Evan
+ var evan529 = kids.filter(k => k.type === '529' && k.name.toLowerCase().indexOf('evan') >= 0);
+ var evanUtma = kids.filter(k => k.type === 'utma' && k.name.toLowerCase().indexOf('evan') >= 0);
+ accountsHTML += '<div class="divider"></div>';
+ accountsHTML += '<div class="row"><span style="color:#666;font-weight:600;">Evan — college Fall 2033</span><span></span></div>';
+ evan529.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">529</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
+ evanUtma.forEach(k => accountsHTML += '<div class="row"><span style="color:#666;padding-left:12px;">UTMA</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>');
+ 
+ accountsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div></div>';
 
-  // Retirement split section
-  var totalSplit = totalPretax + totalRoth401k;
-  var pretaxPct = Math.round(totalPretax / totalSplit * 100);
-  var rothPct401k = Math.round(totalRoth401k / totalSplit * 100);
+ // Retirement split section
+ var totalSplit = totalPretax + totalRoth401k;
+ var pretaxPct = Math.round(totalPretax / totalSplit * 100);
+ var rothPct401k = Math.round(totalRoth401k / totalSplit * 100);
 
-  accountsHTML += '<div class="card"><div class="section-label">401k pretax vs Roth split — verified ' + snap.nw_date + '</div>';
-  accountsHTML += '<div style="font-size:11px;color:#888;margin-bottom:12px;">Fidelity shows pretax and Roth as separate balances within the same account. Funds are shared — the split is for tax planning and Roth conversion modeling only.</div>';
+ accountsHTML += '<div class="card"><div class="section-label">401k pretax vs Roth split — verified ' + snap.nw_date + '</div>';
+ accountsHTML += '<div style="font-size:11px;color:#888;margin-bottom:12px;">Fidelity shows pretax and Roth as separate balances within the same account. Funds are shared — the split is for tax planning and Roth conversion modeling only.</div>';
 
-  retirementSplit.forEach(function(r) {
-    var pre = parseNum(r.pretax_balance);
-    var rth = parseNum(r.roth_balance);
-    var tot = pre + rth;
-    var prePct = Math.round(pre/tot*100);
-    var rthPct = Math.round(rth/tot*100);
-    accountsHTML += '<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:0.5px solid #e0e0d8;">' +
-      '<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px;">' +
-      '<span>' + r.account + ' <span style="font-size:11px;color:#888;">···' + r.last4 + '</span></span>' +
-      '<span>' + fmt(tot) + '</span></div>' +
-      '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:4px;">' +
-      '<div style="width:' + prePct + '%;background:#378ADD;"></div>' +
-      '<div style="width:' + rthPct + '%;background:#7F77DD;"></div>' +
-      '</div>' +
-      '<div style="display:flex;justify-content:space-between;font-size:11px;">' +
-      '<span style="color:#378ADD;">Pretax ' + fmt(pre) + ' · ' + prePct + '%</span>' +
-      '<span style="color:#7F77DD;">Roth ' + fmt(rth) + ' · ' + rthPct + '%</span>' +
-      '</div></div>';
-  });
+ retirementSplit.forEach(function(r) {
+ var pre = parseNum(r.pretax_balance);
+ var rth = parseNum(r.roth_balance);
+ var tot = pre + rth;
+ var prePct = Math.round(pre/tot*100);
+ var rthPct = Math.round(rth/tot*100);
+ accountsHTML += '<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:0.5px solid #e0e0d8;">' +
+ '<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px;">' +
+ '<span>' + r.account + ' <span style="font-size:11px;color:#888;">···' + r.last4 + '</span></span>' +
+ '<span>' + fmt(tot) + '</span></div>' +
+ '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:4px;">' +
+ '<div style="width:' + prePct + '%;background:#378ADD;"></div>' +
+ '<div style="width:' + rthPct + '%;background:#7F77DD;"></div>' +
+ '</div>' +
+ '<div style="display:flex;justify-content:space-between;font-size:11px;">' +
+ '<span style="color:#378ADD;">Pretax ' + fmt(pre) + ' · ' + prePct + '%</span>' +
+ '<span style="color:#7F77DD;">Roth ' + fmt(rth) + ' · ' + rthPct + '%</span>' +
+ '</div></div>';
+ });
 
-  accountsHTML += '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:6px;">' +
-    '<div style="width:' + pretaxPct + '%;background:#378ADD;"></div>' +
-    '<div style="width:' + rothPct401k + '%;background:#7F77DD;"></div>' +
-    '</div>' +
-    '<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;">' +
-    '<span style="color:#378ADD;">Total pretax ' + fmt(totalPretax) + ' · ' + pretaxPct + '%</span>' +
-    '<span style="color:#7F77DD;">Total Roth ' + fmt(totalRoth401k) + ' · ' + rothPct401k + '%</span>' +
-    '</div></div>';
+ accountsHTML += '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:6px;">' +
+ '<div style="width:' + pretaxPct + '%;background:#378ADD;"></div>' +
+ '<div style="width:' + rothPct401k + '%;background:#7F77DD;"></div>' +
+ '</div>' +
+ '<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;">' +
+ '<span style="color:#378ADD;">Total pretax ' + fmt(totalPretax) + ' · ' + pretaxPct + '%</span>' +
+ '<span style="color:#7F77DD;">Total Roth ' + fmt(totalRoth401k) + ' · ' + rothPct401k + '%</span>' +
+ '</div></div>';
 
-  document.getElementById('tab-accounts').innerHTML = accountsHTML;
+ document.getElementById('tab-accounts').innerHTML = accountsHTML;
 
-  // SAVINGS GOALS TAB
-  var savingsHTML = '<div class="grid-3">' +
-    '<div class="metric"><div class="metric-label">Total savings goals</div><div class="metric-value">' + fmt(totalGoals) + '</div><div class="metric-sub">Capital One ' + fmt(capOne) + ' + Weddings ' + fmt(vangGoals) + '</div></div>' +
-    '<div class="metric"><div class="metric-label">Emergency fund</div><div class="metric-value">' + fmt(parseNum(snap.emergency_total)) + '</div><div class="metric-sub">MM ' + fmt(parseNum(snap.emergency_mm)) + ' + IBonds ' + fmt(parseNum(snap.emergency_ibonds)) + '</div></div>' +
-    '<div class="metric"><div class="metric-label">Kids 529s + UTMAs</div><div class="metric-value">' + fmt(kidsTotal) + '</div><div class="metric-sub">529s ' + fmt(kids529) + ' · UTMAs ' + fmt(kidsUtma) + '</div></div>' +
-    '</div>';
+ // SAVINGS GOALS TAB
+ var savingsHTML = '<div class="grid-3">' +
+ '<div class="metric"><div class="metric-label">Total savings goals</div><div class="metric-value">' + fmt(totalGoals) + '</div><div class="metric-sub">Capital One ' + fmt(capOne) + ' + Weddings ' + fmt(vangGoals) + '</div></div>' +
+ '<div class="metric"><div class="metric-label">Emergency fund</div><div class="metric-value">' + fmt(parseNum(snap.emergency_total)) + '</div><div class="metric-sub">MM ' + fmt(parseNum(snap.emergency_mm)) + ' + IBonds ' + fmt(parseNum(snap.emergency_ibonds)) + '</div></div>' +
+ '<div class="metric"><div class="metric-label">Kids 529s + UTMAs</div><div class="metric-value">' + fmt(kidsTotal) + '</div><div class="metric-sub">529s ' + fmt(kids529) + ' · UTMAs ' + fmt(kidsUtma) + '</div></div>' +
+ '</div>';
 
-  // Capital One goals
-  var capOneGoals = savingsGoals.filter(function(g){ return g.institution === 'Capital One'; });
-  savingsHTML += '<div class="card"><div class="section-label">Capital One — savings goals · ' + fmt(capOne) + '</div>';
-  capOneGoals.forEach(function(g) {
-    savingsHTML += '<div class="row"><span style="color:#666;">' + g.name + (g.note ? ' <span style="font-size:10px;color:#888;">(' + g.note + ')</span>' : '') + '</span><span style="font-weight:700;">' + fmtFull(g.balance) + '</span></div>';
-  });
-  savingsHTML += '</div>';
+ // Capital One goals
+ var capOneGoals = savingsGoals.filter(function(g){ return g.institution === 'Capital One'; });
+ savingsHTML += '<div class="card"><div class="section-label">Capital One — savings goals · ' + fmt(capOne) + '</div>';
+ capOneGoals.forEach(function(g) {
+ savingsHTML += '<div class="row"><span style="color:#666;">' + g.name + (g.note ? ' <span style="font-size:10px;color:#888;">(' + g.note + ')</span>' : '') + '</span><span style="font-weight:700;">' + fmtFull(g.balance) + '</span></div>';
+ });
+ savingsHTML += '</div>';
 
-  // Vanguard goals
-  var vangGoalsList = savingsGoals.filter(function(g){ return g.institution === 'Vanguard'; });
-  savingsHTML += '<div class="card"><div class="section-label">Vanguard — savings goals · ' + fmt(vangGoals) + '</div>';
-  vangGoalsList.forEach(function(g) {
-    savingsHTML += '<div class="row"><span style="color:#666;">' + g.name + (g.note ? ' <span style="font-size:10px;color:#888;">(' + g.note + ')</span>' : '') + '</span><span style="font-weight:700;">' + fmtFull(g.balance) + '</span></div>';
-  });
-  savingsHTML += '</div>';
+ // Vanguard goals
+ var vangGoalsList = savingsGoals.filter(function(g){ return g.institution === 'Vanguard'; });
+ savingsHTML += '<div class="card"><div class="section-label">Vanguard — savings goals · ' + fmt(vangGoals) + '</div>';
+ vangGoalsList.forEach(function(g) {
+ savingsHTML += '<div class="row"><span style="color:#666;">' + g.name + (g.note ? ' <span style="font-size:10px;color:#888;">(' + g.note + ')</span>' : '') + '</span><span style="font-weight:700;">' + fmtFull(g.balance) + '</span></div>';
+ });
+ savingsHTML += '</div>';
 
-  // Kids
-  var kids529List = kids.filter(function(k){ return k.type==='529'; });
-  var kidsUtmaList = kids.filter(function(k){ return k.type==='utma'; });
-  savingsHTML += '<div class="card"><div class="section-label">Kids — 529s + UTMAs · ' + fmt(kidsTotal) + '</div>';
-  kids529List.forEach(function(k) {
-    var yrs = k.start_year ? (parseInt(k.start_year) - 2026) : null;
-    savingsHTML += '<div class="row"><span style="color:#666;">' + k.name + ' — starts ' + k.note + '</span><span><span class="badge ' + (yrs && yrs<=5?'bg-amber':'bg-blue') + '" style="margin-right:6px;">' + (yrs?yrs+' yrs':'') + '</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></span></div>';
-  });
-  kidsUtmaList.forEach(function(k) {
-    savingsHTML += '<div class="row"><span style="color:#666;">' + k.name + '</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>';
-  });
-  savingsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div></div>';
-  document.getElementById('tab-savings').innerHTML = savingsHTML;
+ // Kids
+ var kids529List = kids.filter(function(k){ return k.type==='529'; });
+ var kidsUtmaList = kids.filter(function(k){ return k.type==='utma'; });
+ savingsHTML += '<div class="card"><div class="section-label">Kids — 529s + UTMAs · ' + fmt(kidsTotal) + '</div>';
+ kids529List.forEach(function(k) {
+ var yrs = k.start_year ? (parseInt(k.start_year) - 2026) : null;
+ savingsHTML += '<div class="row"><span style="color:#666;">' + k.name + ' — starts ' + k.note + '</span><span><span class="badge ' + (yrs && yrs<=5?'bg-amber':'bg-blue') + '" style="margin-right:6px;">' + (yrs?yrs+' yrs':'') + '</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></span></div>';
+ });
+ kidsUtmaList.forEach(function(k) {
+ savingsHTML += '<div class="row"><span style="color:#666;">' + k.name + '</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>';
+ });
+ savingsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div></div>';
+ document.getElementById('tab-savings').innerHTML = savingsHTML;
 
-  // INCOME & TAX TAB
-  var incomeHTML = '<div class="grid-4">' +
-    '<div class="metric"><div class="metric-label">Nick 2026E comp</div><div class="metric-value">' + fmt(inc.nick_comp) + '</div><div class="metric-sub">Salary + RSU + bonus</div></div>' +
-    '<div class="metric"><div class="metric-label">Emily 2026E comp</div><div class="metric-value">' + fmt(inc.emily_comp) + '</div><div class="metric-sub">Salary + MEP + bonus</div></div>' +
-    '<div class="metric"><div class="metric-label">Total household</div><div class="metric-value">' + fmt(inc.total_comp) + '</div><div class="metric-sub">2026 estimate</div></div>' +
-    '<div class="metric"><div class="metric-label">Tax refund est.</div><div class="metric-value" style="color:#3B6D11;">+$' + parseInt(inc.tax_refund).toLocaleString() + '</div><div class="metric-sub">Withholding dialed in</div></div>' +
-    '</div>' +
-    '<div class="card"><div class="section-label">2026 retirement investing — all maxed</div>' +
-    '<div class="row"><span style="color:#666;">401k contributions (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Maxed</span>' + fmt(inc.contrib_401k) + '</span></div>' +
-    '<div class="row"><span style="color:#666;">Employer match (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Auto</span>' + fmt(inc.contrib_match) + '</span></div>' +
-    '<div class="row"><span style="color:#666;">Mega backdoor Roth (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Maxed</span>' + fmt(inc.contrib_mega) + '</span></div>' +
-    '<div class="row"><span style="color:#666;">Backdoor Roth (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Done</span>' + fmt(inc.contrib_backdoor) + '</span></div>' +
-    '<div class="row"><span style="font-weight:700;">Total annual retirement investing</span><span style="font-weight:700;color:#3B6D11;font-size:14px;">' + fmt(inc.contrib_total) + '</span></div>' +
-    '</div>' +
-    '<div class="card"><div class="section-label">2026 tax estimate</div>' +
-    '<div class="row"><span style="color:#666;">Taxable income</span><span style="font-weight:700;">' + fmt(inc.taxable_income) + '</span></div>' +
-    '<div class="row"><span style="color:#666;">Federal tax owed</span><span style="font-weight:700;">' + fmt(inc.federal_tax) + '</span></div>' +
-    '<div class="row"><span style="color:#666;">Paycheck taxes paid</span><span style="font-weight:700;">' + fmt(inc.paycheck_tax) + '</span></div>' +
-    '<div class="row"><span style="color:#666;">Effective rate</span><span style="font-weight:700;">' + inc.effective_rate + '%</span></div>' +
-    '<div class="row"><span style="font-weight:700;">Estimated refund</span><span style="font-weight:700;color:#3B6D11;">+$' + parseInt(inc.tax_refund).toLocaleString() + '</span></div>' +
-    '</div>';
-  document.getElementById('tab-income').innerHTML = incomeHTML;
+ // INCOME & TAX TAB
+ var incomeHTML = '<div class="grid-4">' +
+ '<div class="metric"><div class="metric-label">Nick 2026E comp</div><div class="metric-value">' + fmt(inc.nick_comp) + '</div><div class="metric-sub">Salary + RSU + bonus</div></div>' +
+ '<div class="metric"><div class="metric-label">Emily 2026E comp</div><div class="metric-value">' + fmt(inc.emily_comp) + '</div><div class="metric-sub">Salary + MEP + bonus</div></div>' +
+ '<div class="metric"><div class="metric-label">Total household</div><div class="metric-value">' + fmt(inc.total_comp) + '</div><div class="metric-sub">2026 estimate</div></div>' +
+ '<div class="metric"><div class="metric-label">Tax refund est.</div><div class="metric-value" style="color:#3B6D11;">+$' + parseInt(inc.tax_refund).toLocaleString() + '</div><div class="metric-sub">Withholding dialed in</div></div>' +
+ '</div>' +
+ '<div class="card"><div class="section-label">2026 retirement investing — all maxed</div>' +
+ '<div class="row"><span style="color:#666;">401k contributions (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Maxed</span>' + fmt(inc.contrib_401k) + '</span></div>' +
+ '<div class="row"><span style="color:#666;">Employer match (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Auto</span>' + fmt(inc.contrib_match) + '</span></div>' +
+ '<div class="row"><span style="color:#666;">Mega backdoor Roth (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Maxed</span>' + fmt(inc.contrib_mega) + '</span></div>' +
+ '<div class="row"><span style="color:#666;">Backdoor Roth (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Done</span>' + fmt(inc.contrib_backdoor) + '</span></div>' +
+ '<div class="row"><span style="font-weight:700;">Total annual retirement investing</span><span style="font-weight:700;color:#3B6D11;font-size:14px;">' + fmt(inc.contrib_total) + '</span></div>' +
+ '</div>' +
+ '<div class="card"><div class="section-label">2026 tax estimate</div>' +
+ '<div class="row"><span style="color:#666;">Taxable income</span><span style="font-weight:700;">' + fmt(inc.taxable_income) + '</span></div>' +
+ '<div class="row"><span style="color:#666;">Federal tax owed</span><span style="font-weight:700;">' + fmt(inc.federal_tax) + '</span></div>' +
+ '<div class="row"><span style="color:#666;">Paycheck taxes paid</span><span style="font-weight:700;">' + fmt(inc.paycheck_tax) + '</span></div>' +
+ '<div class="row"><span style="color:#666;">Effective rate</span><span style="font-weight:700;">' + inc.effective_rate + '%</span></div>' +
+ '<div class="row"><span style="font-weight:700;">Estimated refund</span><span style="font-weight:700;color:#3B6D11;">+$' + parseInt(inc.tax_refund).toLocaleString() + '</span></div>' +
+ '</div>';
+ document.getElementById('tab-income').innerHTML = incomeHTML;
 
 }).catch(function(err) {
-  console.error(err);
-  document.querySelectorAll('.panel').forEach(function(p){ p.innerHTML = '<div class="loading">Error loading data. Check sheet is published.</div>'; });
+ console.error(err);
+ document.querySelectorAll('.panel').forEach(function(p){ p.innerHTML = '<div class="loading">Error loading data. Check sheet is published.</div>'; });
 });
 
 function showTab(name){
-  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
-  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-  document.getElementById('tab-'+name).classList.add('active');
-  event.target.classList.add('active');
+ document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+ document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+ document.getElementById('tab-'+name).classList.add('active');
+ event.target.classList.add('active');
 }
 </script>
 </body>

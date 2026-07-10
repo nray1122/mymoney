@@ -54,66 +54,66 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <a href="index.html" class="back-btn">← Back to MyMoney</a>
 <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
 <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-  <div><div style="font-size:20px;font-weight:700;">Retirement tracker</div><div style="font-size:13px;color:#666;margin-top:2px;">Nick 43 · Target: Nick 55 · Nov 2037</div></div>
-  <span class="badge bg-green">Invested balance · 3 data points</span>
+ <div><div style="font-size:20px;font-weight:700;">Retirement Tracker</div><div style="font-size:13px;color:#666;margin-top:2px;">Nick 43 · Target: Nick 55 · Nov 2037</div></div>
+ <span class="badge bg-green">Invested balance · 3 data points</span>
 </div>
 
 <div class="grid-4">
-  <div class="metric"><div class="metric-label">Dec 31, 2024</div><div class="metric-value" id="m-2024">$2.1M</div><div class="metric-sub">Nick 42 · invested baseline</div></div>
-  <div class="metric"><div class="metric-label">Dec 31, 2025</div><div class="metric-value" id="m-2025">$3.0M</div><div class="metric-sub" style="color:#3B6D11;" id="m-2025-sub">↑ $0.4M · +15%</div></div>
-  <div class="metric"><div class="metric-label" id="m-now-label">Jul 2026</div><div class="metric-value" id="m-now">$3.4M</div><div class="metric-sub" style="color:#3B6D11;" id="m-now-sub">↑ $0.4M YTD</div></div>
-  <div class="metric"><div class="metric-label">Years to retirement</div><div class="metric-value">11 yrs</div><div class="metric-sub">Nov 2037 · $9.0M goal</div></div>
+ <div class="metric"><div class="metric-label">Dec 31, 2024</div><div class="metric-value" id="m-2024">$2.1M</div><div class="metric-sub">Nick 42 · invested baseline</div></div>
+ <div class="metric"><div class="metric-label">Dec 31, 2025</div><div class="metric-value" id="m-2025">$3.0M</div><div class="metric-sub" style="color:#3B6D11;" id="m-2025-sub">↑ $0.4M · +15%</div></div>
+ <div class="metric"><div class="metric-label" id="m-now-label">Jul 2026</div><div class="metric-value" id="m-now">$3.4M</div><div class="metric-sub" style="color:#3B6D11;" id="m-now-sub">↑ $0.4M YTD</div></div>
+ <div class="metric"><div class="metric-label">Years to retirement</div><div class="metric-value">11 yrs</div><div class="metric-sub">Nov 2037 · $9.0M goal</div></div>
 </div>
 
 <div class="card">
-  <div class="section-label">Family timeline</div>
-  <div class="tl">
-    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#378ADD;"></div><div class="tl-year">2026</div><div class="tl-label">Today<br>Nick 43</div></div>
-    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2030</div><div class="tl-label">Sammie<br>college</div></div>
-    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2033</div><div class="tl-label">Evan<br>college</div></div>
-    <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2034</div><div class="tl-label">Sammie<br>done</div></div>
-    <div class="tl-item"><div class="tl-dot" style="background:#E24B4A;"></div><div class="tl-year">2037</div><div class="tl-label">Nick 55<br>🎯 Retire<br>Evan done</div></div>
-  </div>
+ <div class="section-label">Family timeline</div>
+ <div class="tl">
+ <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#378ADD;"></div><div class="tl-year">2026</div><div class="tl-label">Today<br>Nick 43</div></div>
+ <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2030</div><div class="tl-label">Sammie<br>college</div></div>
+ <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2033</div><div class="tl-label">Evan<br>college</div></div>
+ <div class="tl-item"><div class="tl-line"></div><div class="tl-dot" style="background:#1D9E75;"></div><div class="tl-year">2034</div><div class="tl-label">Sammie<br>done</div></div>
+ <div class="tl-item"><div class="tl-dot" style="background:#E24B4A;"></div><div class="tl-year">2037</div><div class="tl-label">Nick 55<br>🎯 Retire<br>Evan done</div></div>
+ </div>
 </div>
 
 <div class="card">
-  <div class="section-label">Assumptions</div>
-  <div class="slider-row"><label>Annual return — conservative</label><input type="range" min="0" max="6" value="4" step="0.5" id="s-worst" oninput="updateAll()"><span class="slider-val" id="v-worst">4.0%</span></div>
-  <div class="slider-row"><label>Annual return — expected</label><input type="range" min="0" max="10" value="7" step="0.5" id="s-base" oninput="updateAll()"><span class="slider-val" id="v-base">7.0%</span></div>
-  <div class="slider-row"><label>Annual return — optimistic</label><input type="range" min="0" max="14" value="10" step="0.5" id="s-best" oninput="updateAll()"><span class="slider-val" id="v-best">10.0%</span></div>
-  <div class="slider-row"><label>Annual savings contribution</label><input type="range" min="0" max="350000" value="159000" step="5000" id="s-contrib" oninput="updateAll()"><span class="slider-val" id="v-contrib">$159K</span></div>
-  <div class="divider"></div>
-  <div class="slider-row">
-    <label>Annual retirement spend (today's $)</label>
-    <input type="range" min="0" max="400000" value="225000" step="5000" id="s-expenses" oninput="updateAll()">
-    <span class="slider-val" id="v-expenses">$225K</span>
-  </div>
-  <div style="font-size:11px;color:#888;margin-top:2px;padding-left:170px;">
-    In 2037 dollars (3%/yr inflation): <strong id="spend-2037-label">$314K/yr</strong> → retirement number: <strong id="threshold-label">$9.0M</strong>
-  </div>
+ <div class="section-label">Assumptions</div>
+ <div class="slider-row"><label>Annual return — conservative</label><input type="range" min="0" max="6" value="4" step="0.5" id="s-worst" oninput="updateAll()"><span class="slider-val" id="v-worst">4.0%</span></div>
+ <div class="slider-row"><label>Annual return — expected</label><input type="range" min="0" max="10" value="7" step="0.5" id="s-base" oninput="updateAll()"><span class="slider-val" id="v-base">7.0%</span></div>
+ <div class="slider-row"><label>Annual return — optimistic</label><input type="range" min="0" max="14" value="10" step="0.5" id="s-best" oninput="updateAll()"><span class="slider-val" id="v-best">10.0%</span></div>
+ <div class="slider-row"><label>Annual savings contribution</label><input type="range" min="0" max="350000" value="159000" step="5000" id="s-contrib" oninput="updateAll()"><span class="slider-val" id="v-contrib">$159K</span></div>
+ <div class="divider"></div>
+ <div class="slider-row">
+ <label>Annual retirement spend (today's $)</label>
+ <input type="range" min="0" max="400000" value="225000" step="5000" id="s-expenses" oninput="updateAll()">
+ <span class="slider-val" id="v-expenses">$225K</span>
+ </div>
+ <div style="font-size:11px;color:#888;margin-top:2px;padding-left:170px;">
+ In 2037 dollars (3%/yr inflation): <strong id="spend-2037-label">$314K/yr</strong> → retirement number: <strong id="threshold-label">$9.0M</strong>
+ </div>
 </div>
 
 <div id="scenario-cards" style="margin-bottom:12px;"></div>
 
 <div class="card">
-  <div class="section-label">Projection to Nick 55</div>
-  <div style="font-size:11px;color:#888;margin-bottom:12px;">
-    <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#2C2C2A;margin-right:4px;vertical-align:middle;"></span>Actual &nbsp;
-    <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#E24B4A;margin-right:4px;vertical-align:middle;"></span>Worst &nbsp;
-    <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px;vertical-align:middle;"></span>Expected &nbsp;
-    <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#639922;margin-right:4px;vertical-align:middle;"></span>Optimistic &nbsp;
-    <span style="display:inline-block;width:20px;height:3px;background:#EF9F27;margin-right:4px;vertical-align:middle;"></span>$9.0M what you need to retire in 2037
-  </div>
-  <div style="position:relative;width:100%;height:300px;"><canvas id="projChart"></canvas></div>
+ <div class="section-label">Projection to Nick 55</div>
+ <div style="font-size:11px;color:#888;margin-bottom:12px;">
+ <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#2C2C2A;margin-right:4px;vertical-align:middle;"></span>Actual &nbsp;
+ <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#E24B4A;margin-right:4px;vertical-align:middle;"></span>Worst &nbsp;
+ <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px;vertical-align:middle;"></span>Expected &nbsp;
+ <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#639922;margin-right:4px;vertical-align:middle;"></span>Optimistic &nbsp;
+ <span style="display:inline-block;width:20px;height:3px;background:#EF9F27;margin-right:4px;vertical-align:middle;"></span>$9.0M what you need to retire in 2037
+ </div>
+ <div style="position:relative;width:100%;height:300px;"><canvas id="projChart"></canvas></div>
 </div>
 
 <div class="card">
-  <div class="row"><span style="color:#666;">2025 full year</span><span id="hist-2025" style="font-weight:700;color:#3B6D11;">+$391K · +15.0%</span></div>
-  <div class="row"><span style="color:#666;">2026 YTD</span><span id="hist-ytd" style="font-weight:700;color:#3B6D11;">+$383K · +12.7%</span></div>
-  <div class="row"><span style="color:#666;">Expected scenario (7%)</span><span style="font-weight:700;">Conservative — reality running ahead</span></div>
+ <div class="row"><span style="color:#666;">2025 full year</span><span id="hist-2025" style="font-weight:700;color:#3B6D11;">+$391K · +15.0%</span></div>
+ <div class="row"><span style="color:#666;">2026 YTD</span><span id="hist-ytd" style="font-weight:700;color:#3B6D11;">+$383K · +12.7%</span></div>
+ <div class="row"><span style="color:#666;">Expected scenario (7%)</span><span style="font-weight:700;">Conservative — reality running ahead</span></div>
 </div>
 
-<div style="text-align:center;margin-top:16px;font-size:11px;color:#aaa;">MyMoney · Ray family · nray1122.github.io/mymoney</div>
+<div style="text-align:center;margin-top:16px;font-size:11px;color:#aaa;">MyMoney · Ray Family · nray1122.github.io/mymoney</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -133,170 +133,170 @@ var historicalLabels = ['Dec 2024\n(Nick 42)', 'Dec 2025\n(Nick 43)', 'Jul 2026\
 var historicalValues = [2100000, 2600000, 3000000];
 
 function fmt(n) {
-  if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
-  if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
-  return '$0';
+ if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+ if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
+ return '$0';
 }
 
 function project(rate, contrib, years) {
-  var vals = [START];
-  var c = contrib;
-  for (var i = 1; i <= years; i++) {
-    c *= 1.02; // contributions grow ~2%/year with salary
-    vals.push(Math.round(vals[i-1] * (1+rate) + c));
-  }
-  return vals;
+ var vals = [START];
+ var c = contrib;
+ for (var i = 1; i <= years; i++) {
+ c *= 1.02; // contributions grow ~2%/year with salary
+ vals.push(Math.round(vals[i-1] * (1+rate) + c));
+ }
+ return vals;
 }
 
 function updateAll() {
-  var worst = parseFloat(document.getElementById('s-worst').value)/100;
-  var base  = parseFloat(document.getElementById('s-base').value)/100;
-  var best  = parseFloat(document.getElementById('s-best').value)/100;
-  var contrib  = parseFloat(document.getElementById('s-contrib').value);
-  var expenses = parseFloat(document.getElementById('s-expenses').value);
+ var worst = parseFloat(document.getElementById('s-worst').value)/100;
+ var base = parseFloat(document.getElementById('s-base').value)/100;
+ var best = parseFloat(document.getElementById('s-best').value)/100;
+ var contrib = parseFloat(document.getElementById('s-contrib').value);
+ var expenses = parseFloat(document.getElementById('s-expenses').value);
 
-  document.getElementById('v-worst').textContent   = (worst*100).toFixed(1)+'%';
-  document.getElementById('v-base').textContent    = (base*100).toFixed(1)+'%';
-  document.getElementById('v-best').textContent    = (best*100).toFixed(1)+'%';
-  document.getElementById('v-contrib').textContent = '$'+Math.round(contrib/1000)+'K';
-  document.getElementById('v-expenses').textContent= '$'+Math.round(expenses/1000)+'K';
+ document.getElementById('v-worst').textContent = (worst*100).toFixed(1)+'%';
+ document.getElementById('v-base').textContent = (base*100).toFixed(1)+'%';
+ document.getElementById('v-best').textContent = (best*100).toFixed(1)+'%';
+ document.getElementById('v-contrib').textContent = '$'+Math.round(contrib/1000)+'K';
+ document.getElementById('v-expenses').textContent= '$'+Math.round(expenses/1000)+'K';
 
-  var threshold = (expenses * INFLATION_FACTOR) / WR;
-  var spend2037 = Math.round(expenses * INFLATION_FACTOR / 1000);
-  document.getElementById('threshold-label').textContent = fmt(threshold);
-  document.getElementById('spend-2037-label').textContent = '$'+spend2037+'K/yr';
+ var threshold = (expenses * INFLATION_FACTOR) / WR;
+ var spend2037 = Math.round(expenses * INFLATION_FACTOR / 1000);
+ document.getElementById('threshold-label').textContent = fmt(threshold);
+ document.getElementById('spend-2037-label').textContent = '$'+spend2037+'K/yr';
 
-  var worstData = project(worst, contrib, YEARS_INT);
-  var baseData  = project(base,  contrib, YEARS_INT);
-  var bestData  = project(best,  contrib, YEARS_INT);
+ var worstData = project(worst, contrib, YEARS_INT);
+ var baseData = project(base, contrib, YEARS_INT);
+ var bestData = project(best, contrib, YEARS_INT);
 
-  // Scenario cards
-  var scenarios = [
-    {label:'Conservative', rate:worst, data:worstData, color:'#E24B4A', bg:'#FFF5F5', border:'#FCEBEB'},
-    {label:'Expected',  rate:base,  data:baseData,  color:'#378ADD', bg:'#F0F7FF', border:'#E6F1FB'},
-    {label:'Optimistic',  rate:best,  data:bestData,  color:'#639922', bg:'#F4FAEC', border:'#EAF3DE'}
-  ];
+ // Scenario cards
+ var scenarios = [
+ {label:'Conservative', rate:worst, data:worstData, color:'#E24B4A', bg:'#FFF5F5', border:'#FCEBEB'},
+ {label:'Expected', rate:base, data:baseData, color:'#378ADD', bg:'#F0F7FF', border:'#E6F1FB'},
+ {label:'Optimistic', rate:best, data:bestData, color:'#639922', bg:'#F4FAEC', border:'#EAF3DE'}
+ ];
 
-  var cardsHTML = '';
-  scenarios.forEach(function(s) {
-    var val55 = s.data[YEARS_INT];
-    var funded = val55 >= threshold;
-    var gap = val55 - threshold;
-    var pct = Math.min(Math.round(val55/threshold*100), 100);
-    var annualIncome = Math.round(val55 * WR / 1000);
-    var gapText = funded ? '✓ '+fmt(Math.abs(gap))+' above target' : '⚠ '+fmt(Math.abs(gap))+' short of target';
-    var gapColor = funded ? '#3B6D11' : '#A32D2D';
+ var cardsHTML = '';
+ scenarios.forEach(function(s) {
+ var val55 = s.data[YEARS_INT];
+ var funded = val55 >= threshold;
+ var gap = val55 - threshold;
+ var pct = Math.min(Math.round(val55/threshold*100), 100);
+ var annualIncome = Math.round(val55 * WR / 1000);
+ var gapText = funded ? '✓ '+fmt(Math.abs(gap))+' above target' : '⚠ '+fmt(Math.abs(gap))+' short of target';
+ var gapColor = funded ? '#3B6D11' : '#A32D2D';
 
-    cardsHTML += '<div class="scenario-card" style="background:'+s.bg+';border:1px solid '+s.border+';">';
-    cardsHTML += '<div class="sc-header"><span class="sc-label" style="color:'+s.color+';">'+s.label+' ('+(s.rate*100).toFixed(1)+'%)</span><span class="sc-value">'+fmt(val55)+'</span></div>';
-    cardsHTML += '<div class="sc-grid">';
-    cardsHTML += '<div><div class="sc-item-label">vs what you need to retire in 2037 ('+fmt(threshold)+')</div><div class="sc-item-value" style="color:'+gapColor+';">'+gapText+'</div></div>';
-    cardsHTML += '<div><div class="sc-item-label">Annual income this generates</div><div class="sc-item-value">$'+annualIncome+'K/year at 3.5% withdrawal</div></div>';
-    cardsHTML += '</div>';
-    cardsHTML += '<div class="progress-wrap" style="border-top:0.5px solid '+s.border+';">';
-    cardsHTML += '<div class="progress-label"><span>$0</span><span style="color:'+s.color+';font-weight:600;">'+pct+'% to '+fmt(threshold)+' target</span><span>'+fmt(threshold)+'</span></div>';
-    cardsHTML += '<div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%;background:'+s.color+';"></div></div>';
-    cardsHTML += '</div>';
-    cardsHTML += '</div>';
-  });
-  document.getElementById('scenario-cards').innerHTML = cardsHTML;
+ cardsHTML += '<div class="scenario-card" style="background:'+s.bg+';border:1px solid '+s.border+';">';
+ cardsHTML += '<div class="sc-header"><span class="sc-label" style="color:'+s.color+';">'+s.label+' ('+(s.rate*100).toFixed(1)+'%)</span><span class="sc-value">'+fmt(val55)+'</span></div>';
+ cardsHTML += '<div class="sc-grid">';
+ cardsHTML += '<div><div class="sc-item-label">vs what you need to retire in 2037 ('+fmt(threshold)+')</div><div class="sc-item-value" style="color:'+gapColor+';">'+gapText+'</div></div>';
+ cardsHTML += '<div><div class="sc-item-label">Annual income this generates</div><div class="sc-item-value">$'+annualIncome+'K/year at 3.5% withdrawal</div></div>';
+ cardsHTML += '</div>';
+ cardsHTML += '<div class="progress-wrap" style="border-top:0.5px solid '+s.border+';">';
+ cardsHTML += '<div class="progress-label"><span>$0</span><span style="color:'+s.color+';font-weight:600;">'+pct+'% to '+fmt(threshold)+' target</span><span>'+fmt(threshold)+'</span></div>';
+ cardsHTML += '<div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%;background:'+s.color+';"></div></div>';
+ cardsHTML += '</div>';
+ cardsHTML += '</div>';
+ });
+ document.getElementById('scenario-cards').innerHTML = cardsHTML;
 
-  // Chart — historical + forward to Nick 55 only
-  var fwdLabels = [];
-  for (var i=1; i<=YEARS_INT; i++) {
-    var age = NICK_AGE + i;
-    var year = i === YEARS_INT ? 2037 : RETIRE_YEAR + i;
-    fwdLabels.push('Nick '+age+'\n('+year+')');
-  }
-  var allLabels = historicalLabels.concat(fwdLabels);
-  var HIST_LEN = historicalValues.length;
-  var RETIRE_IDX = HIST_LEN - 1 + YEARS_INT;
+ // Chart — historical + forward to Nick 55 only
+ var fwdLabels = [];
+ for (var i=1; i<=YEARS_INT; i++) {
+ var age = NICK_AGE + i;
+ var year = i === YEARS_INT ? 2037 : RETIRE_YEAR + i;
+ fwdLabels.push('Nick '+age+'\n('+year+')');
+ }
+ var allLabels = historicalLabels.concat(fwdLabels);
+ var HIST_LEN = historicalValues.length;
+ var RETIRE_IDX = HIST_LEN - 1 + YEARS_INT;
 
-  var actualLine = historicalValues.concat(new Array(YEARS_INT).fill(null));
-  var worstLine = new Array(HIST_LEN-1).fill(null).concat(worstData);
-  var baseLine  = new Array(HIST_LEN-1).fill(null).concat(baseData);
-  var bestLine  = new Array(HIST_LEN-1).fill(null).concat(bestData);
-  var threshLine = allLabels.map(function(){ return threshold; });
+ var actualLine = historicalValues.concat(new Array(YEARS_INT).fill(null));
+ var worstLine = new Array(HIST_LEN-1).fill(null).concat(worstData);
+ var baseLine = new Array(HIST_LEN-1).fill(null).concat(baseData);
+ var bestLine = new Array(HIST_LEN-1).fill(null).concat(bestData);
+ var threshLine = allLabels.map(function(){ return threshold; });
 
-  function radii(line) {
-    return line.map(function(v,i){ return (i===RETIRE_IDX && v!==null) ? 8 : (v!==null && i<HIST_LEN ? 5 : 0); });
-  }
+ function radii(line) {
+ return line.map(function(v,i){ return (i===RETIRE_IDX && v!==null) ? 8 : (v!==null && i<HIST_LEN ? 5 : 0); });
+ }
 
-  if (chart) chart.destroy();
-  chart = new Chart(document.getElementById('projChart'), {
-    type:'line',
-    data:{
-      labels: allLabels,
-      datasets:[
-        {label:'Actual', data:actualLine, borderColor:'#2C2C2A', fill:false,
-         pointRadius:actualLine.map(function(v){ return v!==null?5:0; }),
-         pointBackgroundColor:'#2C2C2A', borderWidth:2.5, tension:0.3, spanGaps:false},
-        {label:'Conservative', data:worstLine, borderColor:'#E24B4A', fill:false,
-         pointRadius:radii(worstLine), pointBackgroundColor:'#E24B4A',
-         borderWidth:2, tension:0.4, spanGaps:false},
-        {label:'Expected', data:baseLine, borderColor:'#378ADD', fill:false,
-         pointRadius:radii(baseLine), pointBackgroundColor:'#378ADD',
-         borderWidth:2, tension:0.4, spanGaps:false},
-        {label:'Optimistic', data:bestLine, borderColor:'#639922', fill:false,
-         pointRadius:radii(bestLine), pointBackgroundColor:'#639922',
-         borderWidth:2, tension:0.4, spanGaps:false},
-        {label:'Retirement number', data:threshLine, borderColor:'#EF9F27',
-         borderDash:[6,4], fill:false, pointRadius:0, borderWidth:1.5, spanGaps:true}
-      ]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
-      scales:{
-        x:{ticks:{maxTicksLimit:8, font:{size:10}, color:'#888'}, grid:{display:false}},
-        y:{ticks:{font:{size:11}, color:'#888',
-             callback:function(v){ return v>=1000000?'$'+(v/1000000).toFixed(1)+'M':'$'+Math.round(v/1000)+'K'; }},
-           grid:{color:'rgba(0,0,0,0.05)'}}
-      }
-    }
-  });
+ if (chart) chart.destroy();
+ chart = new Chart(document.getElementById('projChart'), {
+ type:'line',
+ data:{
+ labels: allLabels,
+ datasets:[
+ {label:'Actual', data:actualLine, borderColor:'#2C2C2A', fill:false,
+ pointRadius:actualLine.map(function(v){ return v!==null?5:0; }),
+ pointBackgroundColor:'#2C2C2A', borderWidth:2.5, tension:0.3, spanGaps:false},
+ {label:'Conservative', data:worstLine, borderColor:'#E24B4A', fill:false,
+ pointRadius:radii(worstLine), pointBackgroundColor:'#E24B4A',
+ borderWidth:2, tension:0.4, spanGaps:false},
+ {label:'Expected', data:baseLine, borderColor:'#378ADD', fill:false,
+ pointRadius:radii(baseLine), pointBackgroundColor:'#378ADD',
+ borderWidth:2, tension:0.4, spanGaps:false},
+ {label:'Optimistic', data:bestLine, borderColor:'#639922', fill:false,
+ pointRadius:radii(bestLine), pointBackgroundColor:'#639922',
+ borderWidth:2, tension:0.4, spanGaps:false},
+ {label:'Retirement number', data:threshLine, borderColor:'#EF9F27',
+ borderDash:[6,4], fill:false, pointRadius:0, borderWidth:1.5, spanGaps:true}
+ ]
+ },
+ options:{
+ responsive:true, maintainAspectRatio:false,
+ plugins:{legend:{display:false}},
+ scales:{
+ x:{ticks:{maxTicksLimit:8, font:{size:10}, color:'#888'}, grid:{display:false}},
+ y:{ticks:{font:{size:11}, color:'#888',
+ callback:function(v){ return v>=1000000?'$'+(v/1000000).toFixed(1)+'M':'$'+Math.round(v/1000)+'K'; }},
+ grid:{color:'rgba(0,0,0,0.05)'}}
+ }
+ }
+ });
 }
 
 updateAll();
 
 // Fetch live data from Google Sheet
 fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQPv7R_VonKc-zi9YTV_WiEkB1hmjW6bBskPSqAhQFtZUbLfPR9WeD6LDJYhCIThuziE0uhRWoPPh9w/pub?gid=270306645&single=true&output=csv')
-  .then(function(r){return r.text();})
-  .then(function(text){
-    var lines=text.trim().replace(/\r/g,'').split('\n');
-    var snap={};
-    lines.slice(1).forEach(function(line){
-      var parts=line.split(',');
-      snap[parts[0].trim()]=parts.slice(1).join(',').trim().replace(/^"|"$/g,'');
-    });
-    var nw=parseFloat(snap.nw);
-    var nwDate=snap.nw_date||'Jul 2026';
-    var invested=parseFloat(snap.invested)||nw;
-    var inv2024=parseFloat(snap.invested_dec_2024)||2100000;
-    var inv2025=parseFloat(snap.invested_dec_2025)||2600000;
+ .then(function(r){return r.text();})
+ .then(function(text){
+ var lines=text.trim().replace(/\r/g,'').split('\n');
+ var snap={};
+ lines.slice(1).forEach(function(line){
+ var parts=line.split(',');
+ snap[parts[0].trim()]=parts.slice(1).join(',').trim().replace(/^"|"$/g,'');
+ });
+ var nw=parseFloat(snap.nw);
+ var nwDate=snap.nw_date||'Jul 2026';
+ var invested=parseFloat(snap.invested)||nw;
+ var inv2024=parseFloat(snap.invested_dec_2024)||2100000;
+ var inv2025=parseFloat(snap.invested_dec_2025)||2600000;
 
-    if(invested){
-      START=invested;
-      historicalValues=[inv2024, inv2025, invested];
-      historicalLabels=['Dec 2024\n(Nick 42)','Dec 2025\n(Nick 43)',nwDate+'\n(Nick 43)'];
+ if(invested){
+ START=invested;
+ historicalValues=[inv2024, inv2025, invested];
+ historicalLabels=['Dec 2024\n(Nick 42)','Dec 2025\n(Nick 43)',nwDate+'\n(Nick 43)'];
 
-      // Update metric cards
-      document.getElementById('m-2024').textContent='$'+(inv2024/1000000).toFixed(1)+'M';
-      document.getElementById('m-2025').textContent='$'+(inv2025/1000000).toFixed(1)+'M';
-      var gain2025=inv2025-inv2024;
-      document.getElementById('m-2025-sub').textContent='↑ $'+(gain2025/1000000).toFixed(1)+'M · +'+(gain2025/inv2024*100).toFixed(0)+'%';
-      document.getElementById('m-now').textContent='$'+(invested/1000000).toFixed(1)+'M';
-      document.getElementById('m-now-label').textContent=nwDate;
-      var gainYTD=invested-inv2025;
-      document.getElementById('m-now-sub').textContent='↑ $'+(gainYTD/1000000).toFixed(1)+'M YTD';
+ // Update metric cards
+ document.getElementById('m-2024').textContent='$'+(inv2024/1000000).toFixed(1)+'M';
+ document.getElementById('m-2025').textContent='$'+(inv2025/1000000).toFixed(1)+'M';
+ var gain2025=inv2025-inv2024;
+ document.getElementById('m-2025-sub').textContent='↑ $'+(gain2025/1000000).toFixed(1)+'M · +'+(gain2025/inv2024*100).toFixed(0)+'%';
+ document.getElementById('m-now').textContent='$'+(invested/1000000).toFixed(1)+'M';
+ document.getElementById('m-now-label').textContent=nwDate;
+ var gainYTD=invested-inv2025;
+ document.getElementById('m-now-sub').textContent='↑ $'+(gainYTD/1000000).toFixed(1)+'M YTD';
 
-      // Update performance card
-      document.getElementById('hist-2025').textContent='+$'+(gain2025/1000).toFixed(0)+'K · +'+(gain2025/inv2024*100).toFixed(1)+'%';
-      document.getElementById('hist-ytd').textContent='+$'+(gainYTD/1000).toFixed(0)+'K · +'+(gainYTD/inv2025*100).toFixed(1)+'%';
+ // Update performance card
+ document.getElementById('hist-2025').textContent='+$'+(gain2025/1000).toFixed(0)+'K · +'+(gain2025/inv2024*100).toFixed(1)+'%';
+ document.getElementById('hist-ytd').textContent='+$'+(gainYTD/1000).toFixed(0)+'K · +'+(gainYTD/inv2025*100).toFixed(1)+'%';
 
-      updateAll();
-    }
-  }).catch(function(){});
+ updateAll();
+ }
+ }).catch(function(){});
 </script>
 </body>
 </html>
