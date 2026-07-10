@@ -243,7 +243,7 @@ Promise.all([
     '<div class="metric"><div class="metric-label">Personal net worth</div><div class="metric-value">' + fmt(nw) + '</div><div class="metric-sub" style="color:#3B6D11;">↑ ' + fmt(gain15mo) + ' since Dec \'24</div></div>' +
     '<div class="metric"><div class="metric-label">Total invested</div><div class="metric-value">' + fmt(invested) + '</div><div class="metric-sub">Retirement + brokerage</div></div>' +
     '<div class="metric"><div class="metric-label">Annual savings</div><div class="metric-value">' + fmt(inc.contrib_total) + '</div><div class="metric-sub" style="color:#3B6D11;">All vehicles maxed</div></div>' +
-    '<div class="metric"><div class="metric-label">Projected at 55</div><div class="metric-value">On track ✓</div><div class="metric-sub" style="color:#3B6D11;">Base case at the line — average case comfortable</div></div>' +
+    '<div class="metric"><div class="metric-label">Projected at 55</div><div class="metric-value">On track ✓</div><div class="metric-sub" style="color:#3B6D11;">Expected scenario on track</div></div>' +
     '</div>' +
     '<div class="grid-2">' +
     '<div class="card"><div class="section-label">Investment progress to $9.0M what you need to retire in 2037</div>' +
@@ -393,8 +393,7 @@ Promise.all([
   kidsUtmaList.forEach(function(k) {
     savingsHTML += '<div class="row"><span style="color:#666;">' + k.name + '</span><span style="font-weight:700;">' + fmtFull(k.balance) + '</span></div>';
   });
-  savingsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div>' +
-    '<div style="font-size:12px;color:#666;margin-top:10px;padding-top:10px;border-top:0.5px solid #e0e0d8;">Sammie 529 glide path — reduce stock 10% each July. Both kids overlap in college 2033–2037. Both done before retirement in 2037.</div></div>';
+  savingsHTML += '<div class="divider"></div><div class="row"><span style="font-weight:700;">Kids total</span><span style="font-weight:700;color:#185FA5;">' + fmtFull(kidsTotal) + '</span></div></div>';
   document.getElementById('tab-savings').innerHTML = savingsHTML;
 
   // INCOME & TAX TAB
@@ -404,12 +403,12 @@ Promise.all([
     '<div class="metric"><div class="metric-label">Total household</div><div class="metric-value">' + fmt(inc.total_comp) + '</div><div class="metric-sub">2026 estimate</div></div>' +
     '<div class="metric"><div class="metric-label">Tax refund est.</div><div class="metric-value" style="color:#3B6D11;">+$' + parseInt(inc.tax_refund).toLocaleString() + '</div><div class="metric-sub">Withholding dialed in</div></div>' +
     '</div>' +
-    '<div class="card"><div class="section-label">2026 savings — all maxed</div>' +
+    '<div class="card"><div class="section-label">2026 retirement investing — all maxed</div>' +
     '<div class="row"><span style="color:#666;">401k contributions (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Maxed</span>' + fmt(inc.contrib_401k) + '</span></div>' +
     '<div class="row"><span style="color:#666;">Employer match (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Auto</span>' + fmt(inc.contrib_match) + '</span></div>' +
     '<div class="row"><span style="color:#666;">Mega backdoor Roth (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Maxed</span>' + fmt(inc.contrib_mega) + '</span></div>' +
     '<div class="row"><span style="color:#666;">Backdoor Roth (both)</span><span><span class="badge bg-green" style="margin-right:6px;">Done</span>' + fmt(inc.contrib_backdoor) + '</span></div>' +
-    '<div class="row"><span style="font-weight:700;">Total annual retirement savings</span><span style="font-weight:700;color:#3B6D11;font-size:14px;">' + fmt(inc.contrib_total) + '</span></div>' +
+    '<div class="row"><span style="font-weight:700;">Total annual retirement investing</span><span style="font-weight:700;color:#3B6D11;font-size:14px;">' + fmt(inc.contrib_total) + '</span></div>' +
     '</div>' +
     '<div class="card"><div class="section-label">2026 tax estimate</div>' +
     '<div class="row"><span style="color:#666;">Taxable income</span><span style="font-weight:700;">' + fmt(inc.taxable_income) + '</span></div>' +

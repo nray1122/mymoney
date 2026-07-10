@@ -52,7 +52,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;padding-bottom:16px;border-bottom:0.5px solid #e0e0d8;">
   <div>
     <div style="font-size:22px;font-weight:700;">Ray family finances</div>
-    <div style="font-size:13px;color:#666;margin-top:3px;">July 2026 · Quarterly summary for Emily</div>
+    <div style="font-size:13px;color:#666;margin-top:3px;">July 2026 · Biannual summary for Emily</div>
   </div>
 </div>
 
@@ -243,8 +243,8 @@ function runUpdates(){
   // Date
   if(snap.updated){
     document.getElementById('ep-date').textContent=snap.updated;
-    var sub=document.querySelector('[style*="Quarterly summary"]');
-    if(sub) sub.textContent=snap.updated+' · Quarterly summary for Emily';
+    var sub=document.querySelector('[style*="Biannual summary"]');
+    if(sub) sub.textContent=snap.updated+' · Biannual summary for Emily';
   }
 
   // Strong year note
