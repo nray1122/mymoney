@@ -55,9 +55,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 </div>
 
 <div class="tab-bar">
- <button class="tab-btn active" onclick="showTab('overview')">Portfolio overview</button>
- <button class="tab-btn" onclick="showTab('market')">Market conditions</button>
- <button class="tab-btn" onclick="showTab('retvsbrok')">Tax location</button>
+ <button class="tab-btn active" onclick="showTab('overview')">Portfolio Overview</button>
+ <button class="tab-btn" onclick="showTab('market')">Market Conditions</button>
+ <button class="tab-btn" onclick="showTab('retvsbrok')">Tax Location</button>
 
 </div>
 
@@ -81,11 +81,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <!-- TAB 2: MARKET CONDITIONS -->
 <div id="tab-market" class="panel">
  <div class="card" style="margin-bottom:14px;">
- <div class="section-label">Current market environment — update quarterly</div>
+ <div class="section-label">Current Market Environment — Update Biannually</div>
  <div style="font-size:12px;color:#666;margin-bottom:14px;">Selections apply tactical tilts to your goal allocation. Defaults reflect <span id="ao-defaults-date">Jul 2026</span> view.</div>
 
  <div style="margin-bottom:16px;">
- <div class="section-label" style="margin-bottom:8px;">Interest rate environment</div>
+ <div class="section-label" style="margin-bottom:8px;">Interest Rate Environment</div>
  <div class="market-grid">
  <div class="market-card" id="rate-high" onclick="setMarket('rate','high',this)"><div class="market-card-title">High & rising</div><div class="market-card-sub">Favors bonds, value, cash</div></div>
  <div class="market-card selected" id="rate-high-falling" onclick="setMarket('rate','high-falling',this)"><div class="market-card-title">High & falling</div><div class="market-card-sub">Favors bonds, mid/small, REIT</div></div>
@@ -94,7 +94,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
  </div>
 
  <div style="margin-bottom:16px;">
- <div class="section-label" style="margin-bottom:8px;">Growth outlook</div>
+ <div class="section-label" style="margin-bottom:8px;">Growth Outlook</div>
  <div class="market-grid">
  <div class="market-card" id="growth-strong" onclick="setMarket('growth','strong',this)"><div class="market-card-title">Strong growth</div><div class="market-card-sub">Favor equities, reduce bonds</div></div>
  <div class="market-card selected" id="growth-moderate" onclick="setMarket('growth','moderate',this)"><div class="market-card-title">Moderate growth</div><div class="market-card-sub">Balanced approach</div></div>
@@ -103,7 +103,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
  </div>
 
  <div>
- <div class="section-label" style="margin-bottom:8px;">USD / international outlook</div>
+ <div class="section-label" style="margin-bottom:8px;">USD / International Outlook</div>
  <div class="market-grid">
  <div class="market-card selected" id="fx-strong-usd" onclick="setMarket('fx','strong-usd',this)"><div class="market-card-title">Strong USD</div><div class="market-card-sub">Reduce int'l allocation</div></div>
  <div class="market-card" id="fx-neutral" onclick="setMarket('fx','neutral',this)"><div class="market-card-title">Neutral</div><div class="market-card-sub">Hold int'l at target</div></div>

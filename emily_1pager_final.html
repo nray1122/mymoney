@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MyMoney — Emily's Jul 2026 Summary</title>
+<title>MyMoney — Emily's 1-Pager</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f9f9f7; color: #1a1a18; padding: 16px; }
@@ -51,8 +51,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 
 <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;padding-bottom:16px;border-bottom:0.5px solid #e0e0d8;">
  <div>
- <div style="font-size:22px;font-weight:700;">Ray Family Finances</div>
- <div style="font-size:13px;color:#666;margin-top:3px;">Jul 2026 · Biannual summary for Emily</div>
+ <div style="font-size:22px;font-weight:700;">Emily's 1-Pager</div>
+ <div style="font-size:13px;color:#666;margin-top:3px;" id="ep-subtitle">Jul 2026 · Ray Family Finances</div>
  </div>
 </div>
 
@@ -243,8 +243,8 @@ function runUpdates(){
  // Date
  if(snap.updated){
  document.getElementById('ep-date').textContent=snap.updated;
- var sub=document.querySelector('[style*="Biannual summary"]');
- if(sub) sub.textContent=snap.updated+' · Biannual summary for Emily';
+ var sub=document.getElementById('ep-subtitle');
+ if(sub) sub.textContent=snap.updated+' · Ray Family Finances';
  }
 
  // Strong year note
