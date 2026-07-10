@@ -50,8 +50,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <a href="index.html" class="back-btn">← Back to MyMoney</a>
 <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:4px;">MyMoney</div>
 <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px;">
-  <div><div style="font-size:20px;font-weight:700;">Allocation optimizer</div><div style="font-size:13px;color:#666;margin-top:2px;">Quarterly review · Investment accounts only · Mar 2026</div></div>
-  <span class="badge bg-amber">Q2 2026</span>
+  <div><div style="font-size:20px;font-weight:700;">Allocation optimizer</div><div style="font-size:13px;color:#666;margin-top:2px;">Biannual review · Investment accounts only · <span id="ao-updated-date">Jul 2026</span></div></div>
+  <span class="badge bg-amber" id="ao-updated-badge">Jul 2026</span>
 </div>
 
 <div class="tab-bar">
@@ -82,7 +82,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #
 <div id="tab-market" class="panel">
   <div class="card" style="margin-bottom:14px;">
     <div class="section-label">Current market environment — update quarterly</div>
-    <div style="font-size:12px;color:#666;margin-bottom:14px;">Selections apply tactical tilts to your goal allocation. Defaults reflect Q2 2026 view.</div>
+    <div style="font-size:12px;color:#666;margin-bottom:14px;">Selections apply tactical tilts to your goal allocation. Defaults reflect <span id="ao-defaults-date">Jul 2026</span> view.</div>
 
     <div style="margin-bottom:16px;">
       <div class="section-label" style="margin-bottom:8px;">Interest rate environment</div>
@@ -426,7 +426,11 @@ Promise.all([
   var retirePct=Math.round(retirementTotal/invested*100);
   var taxablePct=Math.round(taxableTotal/invested*100);
   var driftAmt=Math.round(invested*0.03/1000);
-  var updated=snap.updated||'Apr 2026';
+  var updated=snap.updated||'Jul 2026';
+
+  if(document.getElementById('ao-updated-date')) document.getElementById('ao-updated-date').textContent=updated;
+  if(document.getElementById('ao-updated-badge')) document.getElementById('ao-updated-badge').textContent=updated;
+  if(document.getElementById('ao-defaults-date')) document.getElementById('ao-defaults-date').textContent=updated;
 
   if(document.getElementById('ao-total')) document.getElementById('ao-total').textContent=fmtShort(invested);
   if(document.getElementById('ao-total-sub')) document.getElementById('ao-total-sub').textContent='Per Empower '+updated;
